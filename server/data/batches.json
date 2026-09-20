@@ -1,0 +1,84 @@
+[
+  {
+    "_id": "660000000000000000000020",
+    "name": "Class 10th SSC Board Champions (Batch A)",
+    "standard": "10th",
+    "division": "A",
+    "wing": "SCHOOL",
+    "room": "Hall 1 (Main Floor)",
+    "timing": "04:30 PM - 07:30 PM (Mon-Sat)",
+    "totalStudents": 32,
+    "subjects": [
+      "Maths 1",
+      "Maths 2",
+      "Science 1",
+      "Science 2",
+      "History & Civics",
+      "Geography",
+      "English",
+      "Hindi",
+      "Marathi"
+    ],
+    "createdAt": "2026-09-13T11:03:52.706Z",
+    "updatedAt": "2026-09-13T11:03:52.706Z"
+  },
+  {
+    "_id": "660000000000000000000021",
+    "name": "Class 12th HSC Science - NEET & CET Target",
+    "standard": "12th",
+    "division": "Science",
+    "wing": "COLLEGE",
+    "room": "Lab 2 (Audio-Visual Hall)",
+    "timing": "07:30 AM - 11:30 AM (Mon-Sat)",
+    "totalStudents": 28,
+    "subjects": [
+      "Physics",
+      "Chemistry",
+      "Mathematics",
+      "Biology",
+      "English"
+    ],
+    "createdAt": "2026-09-13T11:03:52.706Z",
+    "updatedAt": "2026-09-13T11:03:52.706Z"
+  },
+  {
+    "_id": "660000000000000000000022",
+    "name": "Class 12th HSC Commerce Excellence",
+    "standard": "12th",
+    "division": "Commerce",
+    "wing": "COMMERCE",
+    "room": "Room 3 (First Floor)",
+    "timing": "03:00 PM - 06:00 PM (Mon-Sat)",
+    "totalStudents": 30,
+    "subjects": [
+      "Book Keeping - Accountancy",
+      "Organization of Commerce (OCM)",
+      "Economics",
+      "Secretarial Practice (SP)",
+      "English"
+    ],
+    "createdAt": "2026-09-13T11:03:52.706Z",
+    "updatedAt": "2026-09-13T11:03:52.706Z"
+  },
+  {
+    "_id": "660000000000000000000023",
+    "name": "Class 6th to 8th Foundation Junior Wing",
+    "standard": "8th",
+    "division": "Foundation",
+    "wing": "SCHOOL",
+    "room": "Room 4",
+    "timing": "05:00 PM - 07:00 PM (Mon-Fri)",
+    "totalStudents": 24,
+    "subjects": [
+      "Mathematics",
+      "Science",
+      "History",
+      "Geography",
+      "English",
+      "Hindi",
+      "Marathi"
+    ],
+    "createdAt": "2026-09-13T11:03:52.706Z",
+    "updatedAt": "2026-09-13T11:03:52.706Z"
+  }
+]

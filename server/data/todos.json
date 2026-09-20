@@ -1,0 +1,91 @@
+[
+  {
+    "_id": "dd60c41980dce311c259e099",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "title": "Complete Physics Practice Paper 2",
+    "task": "Complete Physics Practice Paper 2",
+    "subject": "General",
+    "dueDate": "This week",
+    "priority": "MEDIUM",
+    "completed": false,
+    "isCompleted": false,
+    "createdAt": "2026-09-20T11:09:08.245Z",
+    "updatedAt": "2026-09-20T11:09:08.245Z"
+  },
+  {
+    "_id": "6e3e9642fe54e894eb6a12c8",
+    "teacherId": "b592103ce1a03f4471f0804b",
+    "title": "Schedule Parent Teacher Meeting for 10th Standard",
+    "task": "Schedule Parent Teacher Meeting for 10th Standard",
+    "isCompleted": false,
+    "completed": false,
+    "createdAt": "2026-09-20T11:09:08.199Z",
+    "updatedAt": "2026-09-20T11:09:08.199Z"
+  },
+  {
+    "_id": "c1277ea4a9d8888fde62902a",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "title": "Complete Physics Practice Paper 2",
+    "task": "Complete Physics Practice Paper 2",
+    "subject": "General",
+    "dueDate": "This week",
+    "priority": "MEDIUM",
+    "completed": false,
+    "isCompleted": false,
+    "createdAt": "2026-09-20T11:08:55.440Z",
+    "updatedAt": "2026-09-20T11:08:55.440Z"
+  },
+  {
+    "_id": "2cef96f58dc34a610df64f6d",
+    "teacherId": "b592103ce1a03f4471f0804b",
+    "title": "Schedule Parent Teacher Meeting for 10th Standard",
+    "task": "Schedule Parent Teacher Meeting for 10th Standard",
+    "isCompleted": false,
+    "completed": false,
+    "createdAt": "2026-09-20T11:08:55.408Z",
+    "updatedAt": "2026-09-20T11:08:55.408Z"
+  },
+  {
+    "_id": "e4fdbc466e2319427695d186",
+    "teacherId": "b592103ce1a03f4471f0804b",
+    "title": "Schedule Parent Teacher Meeting for 10th Standard",
+    "task": "Schedule Parent Teacher Meeting for 10th Standard",
+    "isCompleted": false,
+    "completed": false,
+    "createdAt": "2026-09-20T11:08:29.202Z",
+    "updatedAt": "2026-09-20T11:08:29.202Z"
+  },
+  {
+    "_id": "660000000000000000000060",
+    "studentId": "660000000000000000000003",
+    "task": "Complete Maths 1 Linear Equations Exercise 1.3",
+    "subject": "Mathematics 1",
+    "dueDate": "Tomorrow, 05:00 PM",
+    "completed": false,
+    "priority": "HIGH",
+    "createdAt": "2026-09-13T11:03:52.708Z",
+    "updatedAt": "2026-09-13T11:03:52.708Z"
+  },
+  {
+    "_id": "660000000000000000000061",
+    "studentId": "660000000000000000000003",
+    "task": "Review Science 1 Periodic Classification Notes",
+    "subject": "Science 1",
+    "dueDate": "Friday",
+    "completed": true,
+    "priority": "MEDIUM",
+    "createdAt": "2026-09-13T11:03:52.708Z",
+    "updatedAt": "2026-09-13T11:03:52.708Z"
+  },
+  {
+    "_id": "660000000000000000000062",
+    "studentId": "660000000000000000000003",
+    "task": "Practice Geometry Theorems proof writing",
+    "subject": "Mathematics 2",
+    "dueDate": "Sunday Mock Test",
+    "completed": false,
+    "priority": "HIGH",
+    "createdAt": "2026-09-13T11:03:52.708Z",
+    "updatedAt": "2026-09-13T11:03:52.708Z"
+  }
+]

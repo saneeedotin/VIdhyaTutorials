@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "0009cf94b4d49f113f3001d8",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "batchId": "10th-A",
+    "subjectId": "DEFAULT",
+    "date": "2026-09-20",
+    "percentage": 95,
+    "status": "PRESENT",
+    "markedBy": "b592103ce1a03f4471f0804b",
+    "createdAt": "2026-09-20T11:08:29.169Z",
+    "updatedAt": "2026-09-20T11:08:29.169Z"
+  },
+  {
+    "_id": "47604124330ae938a8072f71",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "batchId": "10th-A",
+    "subjectId": "DEFAULT",
+    "date": "2026-09-20",
+    "percentage": 95,
+    "status": "PRESENT",
+    "markedBy": "b592103ce1a03f4471f0804b",
+    "createdAt": "2026-09-20T11:08:55.385Z",
+    "updatedAt": "2026-09-20T11:08:55.385Z"
+  },
+  {
+    "_id": "b59c4fbefc765d5bac4013c5",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "batchId": "10th-A",
+    "subjectId": "DEFAULT",
+    "date": "2026-09-20",
+    "percentage": 95,
+    "status": "PRESENT",
+    "markedBy": "b592103ce1a03f4471f0804b",
+    "createdAt": "2026-09-20T11:09:08.168Z",
+    "updatedAt": "2026-09-20T11:09:08.168Z"
+  },
+  {
+    "_id": "ee2b8e3afa17b8cfa4a4350a",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "batchId": "10th-A",
+    "subjectId": "Mathematics-1",
+    "date": "2026-09-20",
+    "percentage": 95,
+    "status": "PRESENT",
+    "markedBy": "b592103ce1a03f4471f0804b",
+    "createdAt": "2026-09-20T11:12:29.287Z",
+    "updatedAt": "2026-09-20T11:12:29.287Z"
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "_id": "660000000000000000000050",
+    "studentId": "660000000000000000000003",
+    "studentName": "Arjun Rathod",
+    "standard": "10th",
+    "academicYear": "2025-2026",
+    "totalAmount": 35000,
+    "paidAmount": 25000,
+    "dueAmount": 10000,
+    "status": "PARTIAL",
+    "dueDate": "2026-03-31",
+    "installments": [
+      {
+        "installmentNo": 1,
+        "amount": 15000,
+        "paidDate": "2025-06-15",
+        "status": "PAID",
+        "receiptNo": "VT-REC-2025-0102"
+      },
+      {
+        "installmentNo": 2,
+        "amount": 10000,
+        "paidDate": "2025-10-10",
+        "status": "PAID",
+        "receiptNo": "VT-REC-2025-0481"
+      },
+      {
+        "installmentNo": 3,
+        "amount": 10000,
+        "paidDate": null,
+        "status": "PENDING",
+        "receiptNo": null
+      }
+    ],
+    "createdAt": "2026-09-13T11:03:52.707Z",
+    "updatedAt": "2026-09-13T11:03:52.707Z"
+  },
+  {
+    "_id": "660000000000000000000051",
+    "studentId": "660000000000000000000006",
+    "studentName": "Sneha Deshmukh",
+    "standard": "12th",
+    "academicYear": "2025-2026",
+    "totalAmount": 48000,
+    "paidAmount": 48000,
+    "dueAmount": 0,
+    "status": "PAID",
+    "dueDate": "2026-01-15",
+    "installments": [
+      {
+        "installmentNo": 1,
+        "amount": 24000,
+        "paidDate": "2025-06-20",
+        "status": "PAID",
+        "receiptNo": "VT-REC-2025-0144"
+      },
+      {
+        "installmentNo": 2,
+        "amount": 24000,
+        "paidDate": "2025-11-05",
+        "status": "PAID",
+        "receiptNo": "VT-REC-2025-0612"
+      }
+    ],
+    "createdAt": "2026-09-13T11:03:52.707Z",
+    "updatedAt": "2026-09-13T11:03:52.707Z"
+  }
+]

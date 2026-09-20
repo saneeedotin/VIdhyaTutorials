@@ -1,0 +1,20 @@
+# Robots.txt for Vidhya Tutorials
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /courses
+Allow: /admissions
+Allow: /achievers
+Allow: /gallery
+Allow: /locations
+
+# Disallow indexing of private portals
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /teacher
+Disallow: /teacher/*
+Disallow: /student
+Disallow: /student/*
+Disallow: /login
+
+Sitemap: https://vidhyatutorials.in/sitemap.xml

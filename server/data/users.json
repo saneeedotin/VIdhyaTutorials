@@ -1,0 +1,95 @@
+[
+  {
+    "_id": "842d9383e9c626dc4e143d20",
+    "userId": "STU-1001",
+    "email": "student@vidhya.com",
+    "name": "Aditya Sharma",
+    "role": "STUDENT",
+    "standard": "10th",
+    "division": "A",
+    "passwordHash": "$2b$10$LQsndhv6LEl8DkUYqv1qdOpHW9rm5aaeFXZD3dBWOeE8Fysz.pZUa",
+    "schoolCode": "VIDHYA",
+    "isActive": true,
+    "xp": 320,
+    "level": 3,
+    "currentStreak": 7,
+    "longestStreak": 14,
+    "badges": [
+      "Consistent Learner",
+      "Problem Solver"
+    ],
+    "phone": "+91 98765 43210",
+    "createdAt": "2026-09-20T11:08:29.104Z",
+    "updatedAt": "2026-09-20T11:08:29.104Z"
+  },
+  {
+    "_id": "b592103ce1a03f4471f0804b",
+    "userId": "TCH-1001",
+    "email": "teacher@vidhya.com",
+    "name": "Prof. Rajesh Sharma (Senior Faculty)",
+    "role": "TEACHER",
+    "standard": "10th",
+    "division": "A",
+    "passwordHash": "$2b$10$J9h2/tdr6xtI.Ya97Irs6OY1CSk1oTaOilVC6GdSpE4m16seh40ES",
+    "schoolCode": "VIDHYA",
+    "isActive": true,
+    "xp": 600,
+    "level": 6,
+    "currentStreak": 15,
+    "longestStreak": 30,
+    "badges": [
+      "Master Teacher",
+      "Top Mentor"
+    ],
+    "phone": "+91 98200 12345",
+    "createdAt": "2026-09-20T11:08:29.015Z",
+    "updatedAt": "2026-09-20T11:08:29.015Z"
+  },
+  {
+    "_id": "6ed64414a723b1bdf2d644ec",
+    "name": "Random",
+    "email": "randomperson@gmail.com",
+    "userId": "STU-7748",
+    "role": "STUDENT",
+    "schoolCode": "VIDHYA",
+    "isActive": true,
+    "xp": 150,
+    "level": 1,
+    "currentStreak": 1,
+    "longestStreak": 1,
+    "badges": [
+      "Google Verified"
+    ],
+    "createdAt": "2026-09-20T10:42:22.977Z",
+    "updatedAt": "2026-09-20T10:42:22.977Z"
+  },
+  {
+    "_id": "660000000000000000000001",
+    "userId": "ADM-1234",
+    "email": "vidhyatutorials22@gmail.com",
+    "name": "Vikas Tank Sir (Director & Founder)",
+    "role": "ADMIN",
+    "passwordHash": "$2b$10$Uq8cOc0iN7ytEiEoNvhA4.uuiFFhf/U/slukXtSrURM4yGi9pkIFS",
+    "schoolCode": "VIDHYA",
+    "isActive": true,
+    "xp": 850,
+    "level": 8,
+    "currentStreak": 24,
+    "longestStreak": 45,
+    "badges": [
+      "Director",
+      "Master Mentor",
+      "Administrator"
+    ],
+    "phone": "+91 88981 17343",
+    "createdAt": "2026-09-13T11:03:52.702Z",
+    "updatedAt": "2026-09-20T10:51:48.442Z",
+    "firstName": "Vikas",
+    "lastName": "Tank",
+    "age": "",
+    "standard": "Faculty",
+    "division": "A",
+    "courses": "",
+    "profilePic": "/admin-avatar.jpg"
+  }
+]

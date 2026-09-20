@@ -1,0 +1,591 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&family=Work+Sans:wght@400;600&family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap');
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Outfit", sans-serif;
+  --font-sans: "Work Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-h3: "Poppins", sans-serif;
+  --font-h1: "Poppins", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-h2: "Poppins", sans-serif;
+  --font-h1-mobile: "Poppins", sans-serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-stat-display: "Manrope", sans-serif;
+  --font-data-label: "Manrope", sans-serif;
+  
+  --color-primary-blue: #0f8ff7;
+  --color-secondary-blue: #3B5BDB;
+  --color-accent-lime: #D9F89A;
+  --color-accent-turquoise: #67E5DF;
+  --color-accent-orange: #FFB761;
+  --color-accent-magenta: #EC0048;
+  --color-neutral-dark: #2E3035;
+  --color-neutral-light: #FFFFFF;
+  --color-bg-gray: #DCDCDC;
+  --color-bg-gray-light: #D4D4D4;
+
+  /* New auth-specific tokens (used only on /login page) */
+  --color-brilliant: #e2edff;
+  --color-primary: #1f406d;
+  --color-accent: #d9f89a;
+  --color-dark: #0d1117;
+  --color-surface: #edf5ff;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-muted: rgba(255, 255, 255, 0.45);
+  --color-danger: #ff4d6d;
+  --color-success: #4ade80;
+
+  /* Stitch design colors */
+  --color-on-surface: #0f172a;
+  --color-on-tertiary-fixed: #261900;
+  --color-on-error-container: #93000a;
+  --color-on-tertiary-fixed-variant: #5d4200;
+  --color-tertiary-fixed-dim: #eac170;
+  --color-on-secondary-container: #174c85;
+  --color-secondary: #1d4ed8;
+  --color-tertiary-fixed: #ffdea3;
+  --color-secondary-fixed-dim: #a5c8ff;
+  --color-on-primary-container: #ffffff;
+  --color-error: #dc2626;
+  --color-secondary-fixed: #d4e3ff;
+  --color-primary-fixed: #d5e3ff;
+  --color-on-error: #ffffff;
+  --color-surface-container: #f8fafc;
+  --color-on-secondary: #ffffff;
+  --color-error-container: #fee2e2;
+  --color-outline-variant: #e2e8f0;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-primary-fixed-variant: #274774;
+  --color-surface-bright: #ffffff;
+  --color-secondary-container: #92befe;
+  --color-on-background: #0f172a;
+  --color-surface-dim: #f1f5f9;
+  --color-inverse-on-surface: #f8fafc;
+  --color-on-surface-variant: #475569;
+  --color-on-primary-fixed: #001b3c;
+  --color-outline: #94a3b8;
+  --color-on-primary: #ffffff;
+  --color-on-secondary-fixed: #001c3a;
+  --color-on-secondary-fixed-variant: #0f4780;
+  --color-tertiary: #b45309;
+  --color-surface-container-highest: #e2e8f0;
+  --color-primary-fixed-dim: #a9c8fc;
+  --color-tertiary-container: #fef3c7;
+  --color-surface-variant: #f1f5f9;
+  --color-surface-tint: #1d4ed8;
+  --color-surface-container-low: #f8fafc;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-container: #78350f;
+  --color-surface-container-high: #f1f5f9;
+  --color-inverse-primary: #93c5fd;
+  --color-inverse-surface: #1e293b;
+  --color-primary-container: #1e40af;
+  --color-background: #ffffff;
+
+  --spacing-gutter: 24px;
+  --spacing-section-gap: 120px;
+  --spacing-container-max: 1280px;
+  --spacing-margin-desktop: 64px;
+
+  --text-h3: 25px;
+  --text-h3--line-height: 1.25;
+  --text-h1: 48px;
+  --text-h1--line-height: 1.1;
+  --text-h1--letter-spacing: -0.02em;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-h2: 31px;
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-body-lg: 20px;
+  --text-body-lg--line-height: 1.6;
+  --text-stat-display: 48px;
+  --text-stat-display--line-height: 1;
+  --text-stat-display--letter-spacing: -0.03em;
+  --text-data-label: 12.8px;
+  --text-data-label--line-height: 1.4;
+}
+
+/* Dark Mode Overrides */
+:root.dark {
+  --color-on-surface: #ffffff;
+  --color-on-background: #f8fafc;
+  --color-background: #030712;
+  --color-surface: #0a1222;
+  --color-surface-bright: #0f1a30;
+  --color-surface-dim: #030712;
+  --color-surface-container-lowest: #02050b;
+  --color-surface-container-low: #050b16;
+  --color-surface-container: #0c182f;
+  --color-surface-container-high: #10203e;
+  --color-surface-container-highest: #162a50;
+  --color-on-surface-variant: #cbd5e1;
+  --color-outline-variant: #1e355b;
+  --color-outline: #334155;
+  --color-inverse-surface: #f8fafc;
+  --color-inverse-on-surface: #02050b;
+  
+  /* Retain primary colors but adjust if needed */
+  --color-primary: #38bdf8;
+  --color-on-primary: #001b3c;
+  --color-primary-container: #0284c7;
+  --color-on-primary-container: #e0f2fe;
+}
+
+html, body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Ensure select dropdown options always have high contrast text in all themes and OSes */
+select {
+  color-scheme: light dark;
+}
+
+select option, select optgroup {
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+:root.dark select {
+  color-scheme: dark;
+}
+
+:root.dark select option, :root.dark select optgroup {
+  background-color: #0f1a30;
+  color: #f8fafc;
+}
+
+/* Premium utility animation setups */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface-container-low);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-outline-variant);
+  border-radius: 9999px;
+  border: 2px solid var(--color-surface-container-low);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-outline);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(57, 88, 134, 0.08);
+}
+.glass-header {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@media (min-width: 768px) {
+  body.hide-cursor, 
+  body.hide-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* Alternating Dark Blue Theme Cards */
+.theme-dark-card {
+  background-color: #1f406d !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.theme-dark-card h1, 
+.theme-dark-card h2, 
+.theme-dark-card h3, 
+.theme-dark-card h4, 
+.theme-dark-card h5, 
+.theme-dark-card h6,
+.theme-dark-card .text-primary {
+  color: #ffffff !important;
+}
+
+.theme-dark-card .text-on-surface-variant,
+.theme-dark-card .text-on-surface {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.theme-dark-card .text-secondary {
+  color: var(--color-secondary-fixed-dim) !important;
+}
+
+.theme-dark-card .bg-surface-container,
+.theme-dark-card .bg-surface-bright,
+.theme-dark-card .bg-surface {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ═══════════════════════════════════════════════════════ */
+/*  PREMIUM ANIMATION SYSTEM — Vidhya Tutorials          */
+/* ═══════════════════════════════════════════════════════ */
+
+/* ── Shimmer / Shine Effect ── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    currentColor 0%,
+    var(--color-primary) 25%,
+    currentColor 50%,
+    var(--color-primary) 75%,
+    currentColor 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Float / Levitate ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-6px) rotate(0.5deg); }
+  66% { transform: translateY(-3px) rotate(-0.5deg); }
+}
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-float-slow { animation: floatSlow 6s ease-in-out infinite; }
+.animate-float-delay-1 { animation: float 3s ease-in-out 0.5s infinite; }
+.animate-float-delay-2 { animation: float 3s ease-in-out 1s infinite; }
+
+/* ── Glow Pulse ── */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(31, 64, 109, 0.1), 0 0 20px rgba(31, 64, 109, 0.05); }
+  50% { box-shadow: 0 0 20px rgba(31, 64, 109, 0.2), 0 0 40px rgba(31, 64, 109, 0.1); }
+}
+
+.animate-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* ── Gradient Shift ── */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* ── Button Magnetic Hover ── */
+.btn-magnetic {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+  will-change: transform;
+}
+.btn-magnetic:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(31, 64, 109, 0.15);
+}
+.btn-magnetic:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ── Underline Reveal on Hover ── */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-primary);
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 2px;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ── Image Scale + Parallax ── */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom img {
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+.img-zoom:hover img {
+  transform: scale(1.08);
+}
+
+/* ── Stagger Delay Utilities ── */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+
+/* ── Count-Up Number Ticker ── */
+@keyframes countPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.stat-number {
+  animation: countPulse 2s ease-in-out infinite;
+  display: inline-block;
+}
+
+/* ── Ripple Click Effect ── */
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: scale(0);
+  pointer-events: none;
+}
+.btn-ripple:active::after {
+  animation: ripple 0.6s linear;
+  left: var(--x, 50%);
+  top: var(--y, 50%);
+  transform-origin: center;
+}
+
+/* ── Slide-in from sides ── */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scale Pop ── */
+@keyframes scalePop {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { transform: scale(1.05); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* ── Blur In ── */
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(10px); transform: translateY(10px); }
+  to { opacity: 1; filter: blur(0); transform: translateY(0); }
+}
+
+/* ── Typewriter cursor ── */
+@keyframes blink {
+  0%, 50% { border-color: transparent; }
+  51%, 100% { border-color: var(--color-primary); }
+}
+
+.typewriter-cursor {
+  border-right: 2px solid var(--color-primary);
+  animation: blink 1s step-end infinite;
+  padding-right: 2px;
+}
+
+/* ── Rotate subtle ── */
+@keyframes rotateSlight {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
+}
+.animate-rotate-slight {
+  animation: rotateSlight 5s ease-in-out infinite;
+}
+
+/* ── Card tilt on hover ── */
+.card-3d {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.card-3d:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(31, 64, 109, 0.05);
+}
+
+/* ── Marquee infinite scroll (for tickers) ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ── Border draw animation ── */
+@keyframes borderDraw {
+  0% { clip-path: inset(0 100% 100% 0); }
+  25% { clip-path: inset(0 0 100% 0); }
+  50% { clip-path: inset(0 0 0 0); }
+  75% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+/* ── Smooth entrance utilities ── */
+.enter-fade { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.enter-slide-up { animation: slideInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.enter-slide-left { animation: slideInLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.enter-slide-right { animation: slideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.enter-scale { animation: scalePop 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.enter-blur { animation: blurIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Respect reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Print Media Optimization for Official Admission Form ── */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  html, body, #root {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Force all labels, headings, spans to be black text even in dark mode */
+  body *:not(.text-error):not(.text-red-500):not(.text-red-600) {
+    color: #0f172a !important;
+    text-shadow: none !important;
+  }
+
+  .text-error, .text-red-500, .text-red-600 {
+    color: #dc2626 !important;
+  }
+
+  /* Hide all non-printable UI elements */
+  header, 
+  footer, 
+  nav, 
+  [data-custom-cursor], 
+  .print-hidden,
+  .print\:hidden,
+  .fixed,
+  button:not(.print-include) {
+    display: none !important;
+  }
+
+  /* Reset all container backgrounds to white/clean */
+  .bg-surface,
+  .bg-surface-container,
+  .bg-surface-container-low,
+  .bg-surface-container-high,
+  .bg-surface-container-highest,
+  .bg-surface-container-lowest,
+  .theme-dark-card {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    box-shadow: none !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Form inputs should look like a printed document with clean borders */
+  input[type="text"],
+  input[type="date"],
+  input[type="tel"],
+  input[type="email"],
+  select,
+  textarea {
+    border: 1px solid #64748b !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    padding: 6px 8px !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    min-height: auto !important;
+    border-radius: 4px !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+
+  /* Compact sections for seamless 1-2 page print layout */
+  .break-inside-avoid {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Clean up borders */
+  .border-outline-variant\/20,
+  .border-outline-variant\/30,
+  .border-outline-variant\/40 {
+    border-color: #e2e8f0 !important;
+  }
+}
+

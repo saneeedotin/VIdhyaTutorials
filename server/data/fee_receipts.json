@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "c8211168aa2f2f8251ccf970",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "transactionId": "UPI-HDFC-9821873612",
+    "receiptNo": "VT-SUB-749326",
+    "amount": 15000,
+    "paymentDate": "2026-09-20",
+    "receiptUrl": "https://storage.vidhya.com/receipts/upi-slip-aarav.jpg",
+    "status": "VERIFIED",
+    "createdAt": "2026-09-20T11:12:29.326Z",
+    "updatedAt": "2026-09-20T11:12:29.341Z",
+    "remarks": "Confirmed with HDFC bank statement. Ledger credited.",
+    "reviewedAt": "2026-09-20T11:12:29.341Z"
+  },
+  {
+    "_id": "856d8c8fbe906090d45ca8be",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "transactionId": "TXN-UPI-AUTO-TEST-001",
+    "receiptNo": "VT-SUB-548254",
+    "amount": 15000,
+    "paymentDate": "2026-09-20",
+    "receiptUrl": "",
+    "status": "VERIFIED",
+    "createdAt": "2026-09-20T11:09:08.254Z",
+    "updatedAt": "2026-09-20T11:09:08.262Z",
+    "remarks": "Payment verified via bank statement",
+    "reviewedAt": "2026-09-20T11:09:08.262Z"
+  },
+  {
+    "_id": "adb3824ea17a899eea15fd0c",
+    "studentId": "842d9383e9c626dc4e143d20",
+    "transactionId": "TXN-UPI-AUTO-TEST-001",
+    "receiptNo": "VT-SUB-535464",
+    "amount": 15000,
+    "paymentDate": "2026-09-20",
+    "receiptUrl": "",
+    "status": "PENDING VERIFICATION",
+    "createdAt": "2026-09-20T11:08:55.464Z",
+    "updatedAt": "2026-09-20T11:08:55.464Z"
+  }
+]

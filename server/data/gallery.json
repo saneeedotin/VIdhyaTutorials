@@ -1,0 +1,37 @@
+[
+  {
+    "id": "photo-e1",
+    "src": "/gallery/gallery-16.jpg",
+    "title": "Faculty & Student Annual Resort Outing",
+    "category": "Events",
+    "description": "Teachers and students celebrating together during the annual recreation trip."
+  },
+  {
+    "id": "photo-e2",
+    "src": "/gallery/gallery-17.jpg",
+    "title": "Girls Batch Annual Excursion Day",
+    "category": "Events",
+    "description": "Memorable team bonding day and refreshing outdoor retreat with batchmates."
+  },
+  {
+    "id": "photo-m1",
+    "src": "/gallery/gallery-13.jpg",
+    "title": "Vikas Tank Sir Mentoring Top Rankers",
+    "category": "Mentorship",
+    "description": "1-on-1 strategic board exam doubt resolution and academic guidance."
+  },
+  {
+    "id": "photo-c1",
+    "src": "/gallery/gallery-14.jpg",
+    "title": "Focused Smart Classroom Session",
+    "category": "Classroom",
+    "description": "Interactive concept delivery and personalized attention in small batches."
+  },
+  {
+    "id": "photo-a1",
+    "src": "/gallery/gallery-15.jpg",
+    "title": "Board Exam Rankers Felicitation Ceremony",
+    "category": "Achievers",
+    "description": "Celebrating 98%+ achievers and scholarship holders with parents."
+  }
+]

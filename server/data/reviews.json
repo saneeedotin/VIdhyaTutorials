@@ -1,0 +1,103 @@
+[
+  {
+    "id": "rev-custom-1789902749038",
+    "name": "Rameshwar K. Sharma",
+    "role": "Parent",
+    "detail": "Parent of Class 10 SSC Student",
+    "comment": "Vikas Tank Sir personally guided my son during the board prelims. The dedication and test series at Vidhya Tutorials is truly the best in Dharavi/Matunga!",
+    "rating": 5,
+    "source": "Website Wall",
+    "likes": 0,
+    "colorKey": "bubblegum_pink",
+    "frontRotate": 1.4765760357348232,
+    "createdAt": "2026-09-20T11:12:29.038Z"
+  },
+  {
+    "id": "rev-custom-1789902548061",
+    "name": "Automated Test Parent",
+    "role": "Parent",
+    "detail": "Vidhya Tutorials Student/Parent",
+    "comment": "Outstanding guidance by Vikas Tank Sir and faculty! Truly impressive coaching.",
+    "rating": 5,
+    "source": "Website Wall",
+    "likes": 0,
+    "colorKey": "cream",
+    "frontRotate": -0.045903758790094784,
+    "createdAt": "2026-09-20T11:09:08.061Z"
+  },
+  {
+    "id": "rev-custom-1789902535222",
+    "name": "Automated Test Parent",
+    "role": "Parent",
+    "detail": "Vidhya Tutorials Student/Parent",
+    "comment": "Outstanding guidance by Vikas Tank Sir and faculty! Truly impressive coaching.",
+    "rating": 5,
+    "source": "Website Wall",
+    "likes": 0,
+    "colorKey": "cream",
+    "frontRotate": 1.3072833893179556,
+    "createdAt": "2026-09-20T11:08:55.222Z"
+  },
+  {
+    "id": "rev-custom-1789902508792",
+    "name": "Automated Test Parent",
+    "role": "Parent",
+    "detail": "Vidhya Tutorials Student/Parent",
+    "comment": "Outstanding guidance by Vikas Tank Sir and faculty! Truly impressive coaching.",
+    "rating": 5,
+    "source": "Website Wall",
+    "likes": 0,
+    "colorKey": "cream",
+    "frontRotate": 1.2132588135618478,
+    "createdAt": "2026-09-20T11:08:28.792Z"
+  },
+  {
+    "id": "rev-custom-1789902398474",
+    "name": "Automated Test Parent",
+    "role": "Parent",
+    "detail": "Vidhya Tutorials Student/Parent",
+    "comment": "Outstanding guidance by Vikas Tank Sir and faculty! Truly impressive coaching.",
+    "rating": 5,
+    "source": "Website Wall",
+    "likes": 0,
+    "colorKey": "cream",
+    "frontRotate": -1.1662530937449618,
+    "createdAt": "2026-09-20T11:06:38.474Z"
+  },
+  {
+    "id": "rev-1",
+    "name": "Mrs. Sunita Deshmukh",
+    "role": "Parent",
+    "detail": "Parent of Aryan Deshmukh (10th SSC - 96.4%)",
+    "comment": "Vikas Tank Sir and the entire faculty at Vidhya Tutorials are exceptional. Personal attention, weekly test series, and timely feedback helped my son score 96.4% in 10th boards. Truly the best coaching classes in Mumbai!",
+    "rating": 5,
+    "source": "Google Review"
+  },
+  {
+    "id": "rev-2",
+    "name": "Rajesh K. Mehta",
+    "role": "Parent",
+    "detail": "Parent of Shreya Mehta (12th Science)",
+    "comment": "The conceptual clarity provided by teachers for Physics and Mathematics is unmatched. Doubt solving sessions even late evening made all the difference.",
+    "rating": 5,
+    "source": "Google Review"
+  },
+  {
+    "id": "rev-3",
+    "name": "Tanvi Joshi",
+    "role": "Student",
+    "detail": "Alumni (MHT-CET 99.12 Percentile)",
+    "comment": "Studying at Vidhya Tutorials was the turning point in my academic career. The mock test series and Vikas Sir's motivational guidance kept me on track!",
+    "rating": 5,
+    "source": "Justdial Review"
+  },
+  {
+    "id": "rev-4",
+    "name": "Manoj Sharma",
+    "role": "Parent",
+    "detail": "Parent of Rohan Sharma (9th Standard)",
+    "comment": "Very systematic teaching methodology and regular parent-teacher meetings. Attendance and performance are tracked transparently.",
+    "rating": 5,
+    "source": "Google Review"
+  }
+]
