@@ -22,10 +22,10 @@ export function LifeAtVidhyaPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-background min-h-screen font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
+    <div className="bg-background min-h-[100dvh] font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
       
       {/* 1. Hero Section */}
-      <section className="relative w-full pt-28 sm:pt-36 md:pt-48 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden bg-primary text-white">
+      <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -36,15 +36,15 @@ export function LifeAtVidhyaPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
         </div>
         
-        <div className="relative z-10 max-w-[1280px] mx-auto">
-          <FadeInWhenVisible>
-            <span className="inline-block px-3.5 py-1.5 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-[11px] sm:text-data-label font-data-label mb-3 sm:mb-4 tracking-widest uppercase">
+        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
+          <FadeInWhenVisible className="max-w-2xl">
+            <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md">
               ✨ Student Experience
             </span>
-            <h1 className="text-3xl sm:text-[44px] md:text-[64px] font-bold leading-tight tracking-[-0.02em] mb-3 text-white">
-              Life at <span className="italic text-secondary">Vidhya</span>
+            <h1 className="text-3xl sm:text-[44px] md:text-[64px] font-bold leading-tight tracking-[-0.02em] mb-3 sm:mb-4 text-white">
+              Life at <span className="italic text-amber-300 font-serif">Vidhya</span>
             </h1>
-            <p className="text-white/80 text-sm sm:text-base md:text-[18px] max-w-2xl font-medium leading-relaxed">
+            <p className="text-white/90 text-sm sm:text-base md:text-[18px] max-w-2xl font-medium leading-relaxed">
               Where academic rigor meets vibrant community life.
             </p>
           </FadeInWhenVisible>
@@ -71,7 +71,7 @@ export function LifeAtVidhyaPage() {
             </button>
           </FadeInWhenVisible>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
             {/* Card 1: Academic Support */}
             <FadeInWhenVisible delay={0.1} className="bg-surface rounded-2xl overflow-hidden shadow-sm border border-outline-variant/30 flex flex-col hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 card-3d group cursor-pointer">
               <div className="w-full aspect-[4/3] overflow-hidden bg-surface-container-low shrink-0 relative img-zoom">

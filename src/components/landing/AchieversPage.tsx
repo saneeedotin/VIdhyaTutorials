@@ -203,18 +203,27 @@ export function AchieversPage() {
   });
 
   return (
-    <div className="bg-surface-container-low min-h-screen font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
+    <div className="bg-surface-container-low min-h-[100dvh] font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
       
-      {/* 1. Hero Banner */}
-      <section className="relative w-full pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden bg-primary text-white text-center">
-        <div className="relative z-10 max-w-[1280px] mx-auto">
-          <span className="inline-block px-3.5 py-1.5 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-[11px] sm:text-data-label font-data-label mb-3 sm:mb-4 tracking-widest uppercase">
+      <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden">
+        {/* Background Image & Overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/gallery-hero-bg.jpg" 
+            alt="Wall of Achievers" 
+            className="w-full h-full object-cover object-center" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
+        </div>
+
+        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
+          <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md">
             ✨ Academic Excellence & Toppers
           </span>
           <h1 className="text-3xl sm:text-[44px] md:text-[56px] font-bold text-white leading-tight tracking-[-0.02em] mb-3">
-            Wall of <span className="italic text-secondary font-serif">Achievers</span>
+            Wall of <span className="italic text-amber-300 font-serif">Achievers</span>
           </h1>
-          <p className="text-white/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-normal">
+          <p className="text-white/90 text-sm sm:text-base max-w-xl leading-relaxed font-medium">
             Celebrating our board rankers, subject toppers, and students who turned consistent hard work into extraordinary milestones.
           </p>
         </div>
@@ -239,7 +248,7 @@ export function AchieversPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
             {officialPosters.map(poster => (
               <motion.div
                 key={poster.title}
@@ -320,7 +329,7 @@ export function AchieversPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
             {filteredAchievers.map(achiever => (
               <motion.div
                 key={achiever.id}

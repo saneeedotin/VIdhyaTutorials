@@ -214,10 +214,10 @@ export function AboutPage() {
   };
 
   return (
-    <div className="bg-background min-h-screen font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
+    <div className="bg-background min-h-[100dvh] font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
 
       {/* 1. Hero Section */}
-      <section className="relative w-full pt-28 sm:pt-36 md:pt-48 pb-12 sm:pb-20 px-4 md:px-[64px] overflow-hidden bg-primary text-white">
+      <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -228,15 +228,15 @@ export function AboutPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
         </div>
 
-        <div className="relative z-10 max-w-[1280px] mx-auto">
-          <FadeInWhenVisible>
-            <span className="inline-block px-3.5 py-1.5 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-6 tracking-widest uppercase">
+        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
+          <FadeInWhenVisible className="max-w-4xl">
+            <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md">
               ✨ Established 2007 • 18+ Years of Academic Excellence
             </span>
-            <h1 className="font-h1 text-2xl sm:text-4xl md:text-[54px] font-bold text-white leading-tight tracking-[-0.02em] max-w-4xl mb-3 sm:mb-4">
-              Dedicated to <span className="italic text-secondary font-serif">Excellence</span> to shape future achievers.
+            <h1 className="font-h1 text-2xl sm:text-4xl md:text-[54px] font-bold text-white leading-tight tracking-[-0.02em] mb-3 sm:mb-4">
+              Dedicated to <span className="italic text-amber-300 font-serif">Excellence</span> to shape future achievers.
             </h1>
-            <p className="text-white/80 font-body-lg text-sm sm:text-base md:text-xl max-w-2xl font-medium leading-relaxed">
+            <p className="text-white/90 font-body-lg text-sm sm:text-base md:text-[18px] max-w-2xl font-medium leading-relaxed">
               Operating since 2007 at Matunga Road, Mumbai, Vidhya Tutorials delivers concept-oriented teaching, disciplined test series, and personalized individual mentorship.
             </p>
           </FadeInWhenVisible>
@@ -891,7 +891,7 @@ export function AboutPage() {
                 </p>
               </FadeInWhenVisible>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 pt-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-10 pt-3">
                 {displayedStories.map((story, idx) => {
                   const cfg = STICKY_PALETTES[story.paletteKey] || STICKY_PALETTES.cream;
                   const isLiked = storyLikes[`${story.id}_liked`] === 1;

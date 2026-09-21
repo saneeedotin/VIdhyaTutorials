@@ -51,20 +51,6 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
     }
   }, [isDark]);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
-      }
-    };
-
-    if (mobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [mobileMenuOpen]);
 
   // Real-time visitor analytics tracking
   useEffect(() => {
@@ -129,7 +115,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
 
   return (
     <SmoothScroll>
-    <div className="w-full min-h-screen bg-background text-on-surface font-body-md flex flex-col transition-colors select-none overflow-x-hidden relative">
+    <div className="w-full min-h-[100dvh] bg-background text-on-surface font-body-md flex flex-col transition-colors select-none overflow-x-hidden relative">
       
       {/* TopNavBar */}
       <header ref={menuRef} className={`${headerClass()} print:hidden`}>
@@ -157,7 +143,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
             {/* Quick action: Apply Now (hidden on tiny screens, visible on sm+) */}
             <button
               onClick={() => navigate('/apply')}
-              className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold transition-all ${
+              className={`hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold apple-active transition-colors duration-150 ${
                 isDarkHeroAtTop 
                   ? 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-md'
                   : 'bg-primary/10 hover:bg-primary/20 text-primary dark:text-blue-300'
@@ -169,7 +155,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
 
             <button 
               onClick={() => setMobileMenuOpen(true)} 
-              className={`min-w-[44px] min-h-[44px] p-2.5 rounded-2xl transition-all duration-300 flex items-center justify-center cursor-pointer ${
+              className={`min-w-[44px] min-h-[44px] p-2.5 rounded-2xl apple-active transition-colors duration-150 flex items-center justify-center cursor-pointer ${
                 isDarkHeroAtTop 
                   ? 'text-white hover:bg-white/10' 
                   : 'text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-white/10'
@@ -180,13 +166,14 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Full Mobile Drawer Navigation with Backdrop */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <>
-              {/* Backdrop Overlay */}
-              <motion.div
+      {/* Full Mobile Drawer Navigation with Backdrop */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop Overlay */}
+            <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -200,7 +187,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                 initial={{ x: '100%' }}
                 animate={{ x: 0 }}
                 exit={{ x: '100%' }}
-                transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+                transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
                 className="pointer-events-auto fixed top-0 right-0 h-full w-[min(340px,88vw)] bg-surface-bright dark:bg-surface-container-highest shadow-2xl border-l border-outline-variant/30 flex flex-col z-[100] overflow-hidden"
               >
                 {/* Drawer Top Header */}
@@ -211,7 +198,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                   </div>
                   <button
                     onClick={() => setMobileMenuOpen(false)}
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer apple-active transition-colors duration-150"
                     aria-label="Close menu"
                   >
                     <X size={20} />
@@ -233,7 +220,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                       <button 
                         key={item.route}
                         onClick={() => { onNavigate(item.route); setMobileMenuOpen(false); }} 
-                        className={`text-left text-base font-semibold py-3 px-3.5 rounded-xl transition-all duration-200 flex items-center justify-between group cursor-pointer ${
+                        className={`text-left text-base font-semibold py-3 px-3.5 rounded-xl apple-active transition-colors duration-150 flex items-center justify-between group cursor-pointer ${
                           isActive(item.route) 
                             ? 'text-primary bg-primary/10 font-bold shadow-xs' 
                             : 'text-on-surface-variant dark:text-white/80 hover:text-primary hover:bg-surface-container'
@@ -253,7 +240,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                 <div className="p-5 bg-surface-container-low dark:bg-surface-container-low/50 border-t border-outline-variant/20 flex flex-col gap-3 shrink-0">
                   <button 
                     onClick={() => setIsDark(!isDark)} 
-                    className="flex justify-between items-center w-full px-4 py-2.5 bg-surface-bright dark:bg-surface-container rounded-xl font-bold text-xs text-on-surface-variant hover:text-primary transition-all border border-outline-variant/20 cursor-pointer min-h-[44px]"
+                    className="flex justify-between items-center w-full px-4 py-2.5 bg-surface-bright dark:bg-surface-container rounded-xl font-bold text-xs text-on-surface-variant hover:text-primary apple-active transition-colors duration-150 border border-outline-variant/20 cursor-pointer min-h-[44px]"
                   >
                     <span>{isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</span>
                     {isDark ? <Sun size={17} className="text-amber-400" /> : <Moon size={17} className="text-primary" />}
@@ -261,10 +248,10 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                   
                   {isAuthenticated && user ? (
                     <div className="flex flex-col gap-2">
-                      <button onClick={() => { onOpenProfileSelector(); setMobileMenuOpen(false); }} className="bg-primary/10 text-primary border border-primary/20 px-4 py-2.5 rounded-xl font-bold hover:bg-primary/20 transition-all text-xs w-full cursor-pointer min-h-[44px]">
+                      <button onClick={() => { onOpenProfileSelector(); setMobileMenuOpen(false); }} className="bg-primary/10 text-primary border border-primary/20 px-4 py-2.5 rounded-xl font-bold hover:bg-primary/20 apple-active transition-colors duration-150 text-xs w-full cursor-pointer min-h-[44px]">
                         My Portal ({user.role})
                       </button>
-                      <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="bg-error text-white px-4 py-2.5 rounded-xl font-bold hover:bg-error/90 transition-all text-xs w-full cursor-pointer min-h-[44px]">
+                      <button onClick={() => { logout(); setMobileMenuOpen(false); }} className="bg-error text-white px-4 py-2.5 rounded-xl font-bold hover:bg-error/90 apple-active transition-colors duration-150 text-xs w-full cursor-pointer min-h-[44px]">
                         Sign Out
                       </button>
                     </div>
@@ -272,14 +259,14 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                     <div className="flex flex-col gap-2">
                       <button 
                         onClick={() => { navigate('/apply'); setMobileMenuOpen(false); }}
-                        className="bg-primary hover:bg-primary/90 text-white px-4 py-2.5 rounded-xl font-bold text-xs w-full shadow-md flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
+                        className="bg-primary hover:bg-primary/90 text-white px-4 py-2.5 rounded-xl font-bold text-xs w-full shadow-md flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px] apple-active transition-colors duration-150"
                       >
                         <span>Online Admission Form</span>
                         <ArrowUpRight size={14} />
                       </button>
                       <button 
                         onClick={() => { onOpenProfileSelector(); setMobileMenuOpen(false); }} 
-                        className="bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant/30 px-4 py-2.5 rounded-xl font-bold transition-all text-xs w-full cursor-pointer min-h-[44px]"
+                        className="bg-surface-container hover:bg-surface-container-high text-on-surface border border-outline-variant/30 px-4 py-2.5 rounded-xl font-bold apple-active transition-colors duration-150 text-xs w-full cursor-pointer min-h-[44px]"
                       >
                         Admin Portal Login
                       </button>
@@ -290,7 +277,6 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
             </>
           )}
         </AnimatePresence>
-      </header>
 
       {/* Main Core Content container */}
       <main className={`flex-1 ${heroRoutes.includes(normalizedRoute) ? '' : 'mt-20'} print:mt-0`}>{children || <Outlet />}</main>

@@ -100,10 +100,10 @@ export function GalleryPage() {
   ];
 
   return (
-    <div className="bg-surface-container-low text-on-surface font-body-md overflow-x-hidden w-full min-h-screen">
+    <div className="bg-surface-container-low text-on-surface font-body-md overflow-x-hidden w-full min-h-[100dvh]">
       
       {/* 1. Hero Header with Realistic Campus Celebration Background */}
-      <section className="relative w-full pt-32 md:pt-44 pb-16 px-4 md:px-[64px] overflow-hidden">
+      <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -111,18 +111,17 @@ export function GalleryPage() {
             alt="Vidhya Tutorials Student Life & Celebrations" 
             className="w-full h-full object-cover object-center" 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/60 to-slate-950/80 backdrop-blur-[1px]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
         </div>
 
-        <div className="relative z-10 max-w-[1280px] mx-auto text-center">
+        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-blue-200 text-xs font-bold uppercase tracking-widest mb-6 shadow-md"
+            className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md"
           >
-            <Camera size={14} />
-            <span>Gallery Section</span>
+            ✨ Gallery Section
           </motion.div>
 
           <motion.h1
@@ -138,7 +137,7 @@ export function GalleryPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-white/90 font-body-lg text-sm sm:text-base md:text-xl max-w-2xl mx-auto leading-relaxed"
+            className="text-white/90 text-sm sm:text-base md:text-[18px] max-w-2xl font-medium leading-relaxed"
           >
             A visual glimpse into our classrooms, faculty mentorship, annual celebrations, and the spirited student life at Vidhya Tutorials.
           </motion.p>
@@ -278,7 +277,7 @@ export function GalleryPage() {
 
         {/* ── View 1: Standard Grid View ── */}
         {viewMode === 'grid' && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {filteredPhotos.map((photo, index) => (
               <div
                 key={photo.id}

@@ -40,10 +40,10 @@ export function AdmissionsPage() {
   const [isCounselingOpen, setIsCounselingOpen] = useState(false);
 
   return (
-    <div className="bg-surface-container-low min-h-screen font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
+    <div className="bg-surface-container-low min-h-[100dvh] font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
       
       {/* 1. Hero Section */}
-      <section className="relative w-full pt-28 sm:pt-36 md:pt-48 pb-12 sm:pb-20 px-4 md:px-[64px] overflow-hidden bg-surface-container-low">
+      <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden bg-surface-container-low">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -51,12 +51,12 @@ export function AdmissionsPage() {
             alt="Admissions & Counseling at Vidhya Tutorials" 
             className="w-full h-full object-cover object-center" 
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/35 backdrop-blur-[0.5px]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
         </div>
         
         <div className="relative z-10 max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <FadeInWhenVisible className="z-10">
-            <span className="inline-block px-3.5 py-1.5 bg-primary/20 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-6 tracking-widest uppercase animate-float-slow shadow-lg">
+          <FadeInWhenVisible className="z-10 flex flex-col items-start text-left">
+            <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md animate-float-slow">
               ✨ Admissions Open 2026-27
             </span>
             <h1 className="font-h1 text-3xl sm:text-4xl md:text-[56px] font-bold text-white leading-tight tracking-[-0.02em] mb-4 sm:mb-6">

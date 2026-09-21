@@ -30,13 +30,13 @@ export function MVButton({
 }: MVButtonProps) {
   return (
     <motion.button
-      whileHover={{ scale: 1.03, y: -2 }}
+      whileHover={{ scale: 1.03 }}
       whileTap={{ scale: 0.97 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      transition={{ type: 'spring', bounce: 0, duration: 0.3 }}
       className={`
         inline-flex items-center justify-center gap-2
         px-7 py-3.5 rounded-full text-sm tracking-wide
-        cursor-pointer select-none transition-all duration-200
+        cursor-pointer select-none transition-colors duration-150
         font-[var(--font-sans)]
         ${variantStyles[variant]}
         ${fullWidth ? 'w-full' : ''}

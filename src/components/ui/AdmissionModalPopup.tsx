@@ -105,7 +105,7 @@ export const AdmissionModalPopup: React.FC = () => {
             whileHover={{ x: -4, scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             onClick={handleManualOpen}
-            className="flex items-center gap-3 pl-4 pr-3.5 py-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-slate-900 dark:text-white rounded-l-2xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] border-l-2 border-y border-primary/60 dark:border-blue-500/50 cursor-pointer group hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
+            className="flex items-center gap-3 pl-4 pr-3.5 py-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md text-slate-900 dark:text-white rounded-l-2xl shadow-[0_10px_30px_rgba(0,0,0,0.18)] border-l-2 border-y border-primary/60 dark:border-blue-500/50 cursor-pointer group hover:bg-slate-50 dark:hover:bg-slate-800 apple-active transition-colors duration-150"
             title="Open Academic Year 2026-27 Admission Form"
             aria-label="Admissions 2026-27 Inquiry"
           >
@@ -146,7 +146,7 @@ export const AdmissionModalPopup: React.FC = () => {
               initial={{ opacity: 0, scale: 0.92, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
-              transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+              transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
               className="relative w-full max-w-lg bg-surface dark:bg-surface-container-highest border border-outline-variant/30 rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.4)] overflow-hidden z-10 text-on-surface my-auto max-h-[90vh] flex flex-col"
             >
               {/* Header Gradient Banner */}
@@ -173,7 +173,7 @@ export const AdmissionModalPopup: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="p-2 rounded-full bg-white/15 hover:bg-white/30 text-white transition-all cursor-pointer shrink-0 border border-white/20"
+                    className="p-2 rounded-full bg-white/15 hover:bg-white/30 text-white apple-active transition-colors duration-150 cursor-pointer shrink-0 border border-white/20"
                     title="Close popup"
                   >
                     <X size={18} />
@@ -334,7 +334,7 @@ export const AdmissionModalPopup: React.FC = () => {
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-primary to-blue-700 hover:from-primary/95 hover:to-blue-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
+                        className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-primary to-blue-700 hover:from-primary/95 hover:to-blue-800 text-white font-bold text-sm shadow-md hover:shadow-lg apple-active transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-75"
                       >
                         {isSubmitting ? (
                           <>

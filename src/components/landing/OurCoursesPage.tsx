@@ -368,7 +368,7 @@ export function OurCoursesPage() {
   };
 
   return (
-    <div className="bg-surface-container-low min-h-screen font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
+    <div className="bg-surface-container-low min-h-[100dvh] font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
       
       {/* Hero Section */}
       <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden">
@@ -379,18 +379,18 @@ export function OurCoursesPage() {
             alt="Vidhya Tutorials Coaching Classroom & Batches" 
             className="w-full h-full object-cover object-center" 
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/75 via-slate-950/60 to-slate-950/80 backdrop-blur-[1px]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
         </div>
         
-        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-center text-center">
-          <FadeInWhenVisible>
+        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
+          <FadeInWhenVisible className="max-w-2xl">
             <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md">
               ✨ Comprehensive Academic Wings • 6th to 12th Standard
             </span>
             <h1 className="text-3xl sm:text-[44px] md:text-[60px] font-bold text-white leading-tight tracking-[-0.02em] mb-3 sm:mb-4">
               Our <span className="italic text-amber-300 font-serif">Courses</span>
             </h1>
-            <p className="text-white/90 text-sm sm:text-[16px] md:text-[18px] max-w-2xl font-medium tracking-tight mx-auto leading-relaxed">
+            <p className="text-white/90 text-sm sm:text-[16px] md:text-[18px] font-medium tracking-tight leading-relaxed">
               Empowering students from 6th grade through board exams and medical/engineering competitive entrances with concept-driven clarity.
             </p>
           </FadeInWhenVisible>
@@ -523,7 +523,7 @@ export function OurCoursesPage() {
             {/* Grid */}
             <motion.div 
               layout 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8"
             >
               <AnimatePresence mode="popLayout">
                 {filteredCourses.map((course, idx) => (

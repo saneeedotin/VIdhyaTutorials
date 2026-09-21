@@ -100,7 +100,7 @@ export const CounselingModal: React.FC<CounselingModalProps> = ({
             initial={{ scale: 0.94, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.94, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
             className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden z-10 my-auto text-slate-900 dark:text-white"
           >
             {/* Top Accent Line */}
@@ -123,7 +123,7 @@ export const CounselingModal: React.FC<CounselingModalProps> = ({
 
               <button
                 onClick={onClose}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 flex items-center justify-center transition-all cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white shrink-0 mt-0.5"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 flex items-center justify-center apple-active transition-colors duration-150 cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white shrink-0 mt-0.5"
                 aria-label="Close modal"
               >
                 <X size={17} />
@@ -166,7 +166,7 @@ export const CounselingModal: React.FC<CounselingModalProps> = ({
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm transition-all shadow-md cursor-pointer"
+                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm apple-active transition-colors duration-150 shadow-md cursor-pointer"
                   >
                     Done
                   </button>
@@ -369,7 +369,7 @@ export const CounselingModal: React.FC<CounselingModalProps> = ({
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer transition-all disabled:opacity-60"
+                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer apple-active transition-colors duration-150 disabled:opacity-60"
                   >
                     {isSubmitting ? (
                       <>

@@ -106,7 +106,7 @@ export const FreeDemoModal: React.FC<FreeDemoModalProps> = ({ isOpen, onClose, d
             initial={{ scale: 0.94, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.94, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
+            transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
             className="relative w-full max-w-[540px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-200/90 dark:border-slate-800 overflow-hidden z-10 my-auto text-slate-900 dark:text-white"
           >
             {/* Top Accent Strip */}
@@ -179,7 +179,7 @@ export const FreeDemoModal: React.FC<FreeDemoModalProps> = ({ isOpen, onClose, d
 
                   <button
                     onClick={handleReset}
-                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm transition-all shadow-md cursor-pointer"
+                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm apple-active transition-colors duration-150 shadow-md cursor-pointer"
                   >
                     Done
                   </button>
@@ -325,7 +325,7 @@ export const FreeDemoModal: React.FC<FreeDemoModalProps> = ({ isOpen, onClose, d
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer transition-all disabled:opacity-60"
+                    className="w-full py-3.5 rounded-xl bg-primary hover:bg-primary/90 text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:-translate-y-0.5 cursor-pointer apple-active transition-colors duration-150 disabled:opacity-60"
                   >
                     {isSubmitting ? (
                       <>

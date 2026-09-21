@@ -487,7 +487,7 @@ export const PushPin: React.FC<{ pinColor: PinColor }> = ({ pinColor }) => {
         </defs>
 
         {/* Needle piercing paper shadow */}
-        <ellipse cx="17.5" cy="36" rx="3" ry="1.2" fill="#000000" fillOpacity="0.45" />
+        <ellipse cx="17.5" cy="36" rx="3" ry="1.2" fill="#0f172a" fillOpacity="0.45" />
 
         {/* Steel needle pin */}
         <path d="M15 24 L16.5 35.5 L17 24 Z" fill={`url(#needleGrad-${uniqueId})`} />
@@ -787,7 +787,7 @@ export const GoogleReviewsWall: React.FC = () => {
           </div>
 
           {/* ── Sticky Notes Grid (Double-Layered with 3D Push Pins) ── */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-9 pt-4 pb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-9 pt-4 pb-6">
             <AnimatePresence>
               {filteredReviews.map((rev, idx) => {
                 const cfg = STICKY_PALETTES[rev.colorKey] || STICKY_PALETTES.cream;

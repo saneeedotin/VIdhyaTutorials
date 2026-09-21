@@ -31,25 +31,25 @@ const FadeInWhenVisible = ({ children, delay = 0, className = "" }: { children: 
 
 export function OurLocationsPage() {
   return (
-    <div className="bg-background min-h-screen font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
+    <div className="bg-background min-h-[100dvh] font-body-md text-on-surface overflow-x-hidden flex flex-col w-full">
       
       {/* 1. Hero Banner */}
-      <section className="relative w-full pt-28 sm:pt-36 md:pt-48 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden bg-primary text-white">
+      <section className="relative w-full pt-28 sm:pt-36 md:pt-44 pb-12 sm:pb-16 px-4 md:px-[64px] overflow-hidden">
         {/* Background Image & Overlay */}
         <div className="absolute inset-0 z-0">
-          <img src="/locations-hero-bg.png?v=2" alt="Vidhya Tutorials Center" className="w-full h-full object-cover opacity-60 mix-blend-overlay" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/80 to-transparent"></div>
+          <img src="/locations-hero-bg.png?v=2" alt="Vidhya Tutorials Center" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-slate-950/40 backdrop-blur-[0.5px]"></div>
         </div>
         
-        <div className="relative z-10 max-w-[1280px] mx-auto text-center">
-          <FadeInWhenVisible>
-            <span className="inline-block px-3.5 py-1.5 bg-secondary/20 text-secondary border border-secondary/30 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-6 tracking-widest uppercase">
+        <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
+          <FadeInWhenVisible className="max-w-2xl">
+            <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md">
               ✨ Flagship Center
             </span>
             <h1 className="text-3xl sm:text-[46px] md:text-[64px] font-bold text-white leading-tight tracking-[-0.02em] mb-3 sm:mb-4">
-              Our <span className="italic text-secondary">Location</span>
+              Our <span className="italic text-amber-300 font-serif">Location</span>
             </h1>
-            <p className="text-white/80 text-sm sm:text-[18px] max-w-2xl font-medium mx-auto leading-relaxed">
+            <p className="text-white/90 text-sm sm:text-[18px] max-w-2xl font-medium leading-relaxed">
               Dedicated educational institute at Matunga Road, Mumbai — offering structured learning experiences for school (6th to 10th) and 11th & 12th Science & Commerce.
             </p>
           </FadeInWhenVisible>

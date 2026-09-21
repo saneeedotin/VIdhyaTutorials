@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { ErrorBoundary } from './components/ui/ErrorBoundary';
 import { LoadingScreen } from './components/ui/LoadingScreen';
-import { CustomCursor } from './components/ui/CustomCursor';
 import { LandingPage } from './components/landing/LandingPage';
 import { AdmissionsPage } from './components/landing/AdmissionsPage';
 import { AboutPage } from './components/landing/AboutPage';
@@ -18,29 +17,7 @@ import { LoginRegisterPage } from './components/auth/LoginRegisterPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
-import { DashboardLayout } from './components/dashboard/DashboardLayout';
-import { StudentDashboard } from './components/dashboard/student/StudentDashboard';
-
-import { TeacherAttendance } from './components/dashboard/teacher/TeacherAttendance';
-
-
-// Shared UI imports
-import { ProfileSettings } from './components/dashboard/shared/ProfileSettings';
-
-// Phase 7A Student UI imports
-import { CourseViewer } from './components/dashboard/student/CourseViewer';
-
-// Phase 7B Teacher UI imports
-import { TeacherDashboard } from './components/dashboard/teacher/TeacherDashboard';
-import { MaterialUploader } from './components/dashboard/teacher/MaterialUploader';
-
-// Phase 8 Admin UI imports
-import { AdminOverview } from './components/dashboard/admin/AdminOverview';
-import { UserManagement } from './components/dashboard/admin/UserManagement';
-import { ManageAnnouncementsPage } from './components/dashboard/admin/ManageAnnouncementsPage';
-import { AdmissionManagement } from './components/dashboard/admin/AdmissionManagement';
-import { WebsiteContentManager } from './components/dashboard/admin/WebsiteContentManager';
-import { FormManagement } from './components/dashboard/admin/FormManagement';
+// Imports removed as part of dashboard cleanup
 
 /* ─── Placeholder dashboards (will be replaced in later phases) ─── */
 function PlaceholderDashboard({ role }: { role: string }) {
@@ -108,12 +85,11 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col select-none">
+    <div className="min-h-[100dvh] flex flex-col select-none overflow-x-hidden w-full max-w-[100vw]">
       <AnimatePresence mode="wait">
         {isLoading && <LoadingScreen key="loading" />}
       </AnimatePresence>
       <ScrollToTop />
-      <CustomCursor />
       <ErrorBoundary>
         <Routes>
           {/* Public Routes with Loyalist Design Wrapper */}
@@ -138,58 +114,7 @@ export default function App() {
           <Route path="/login" element={<LoginRegisterPage />} />
 
           {/* Dashboards (Phase 6+) */}
-          {/* Student Portal */}
-          <Route
-            path="/student"
-            element={
-              <ProtectedRoute allowedRoles={['STUDENT']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<StudentDashboard />} />
-            <Route path="courses" element={<CourseViewer />} />
-            <Route path="settings" element={<ProfileSettings />} />
-            <Route path="*" element={<PlaceholderDashboard role="Student Area" />} />
-          </Route>
-
-          {/* Teacher Portal */}
-          <Route
-            path="/teacher"
-            element={
-              <ProtectedRoute allowedRoles={['TEACHER']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<TeacherDashboard />} />
-            <Route path="attendance" element={<TeacherAttendance />} />
-            <Route path="materials/upload" element={<MaterialUploader />} />
-            <Route path="settings" element={<ProfileSettings />} />
-            <Route path="*" element={<PlaceholderDashboard role="Teacher Area" />} />
-          </Route>
-
-          {/* Admin Portal */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute allowedRoles={['ADMIN']}>
-                <DashboardLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Navigate to="dashboard" replace />} />
-            <Route path="dashboard" element={<AdminOverview />} />
-            <Route path="forms" element={<FormManagement />} />
-            <Route path="admissions" element={<AdmissionManagement />} />
-            <Route path="content" element={<WebsiteContentManager />} />
-            <Route path="users" element={<UserManagement />} />
-            <Route path="announcements" element={<ManageAnnouncementsPage />} />
-            <Route path="settings" element={<ProfileSettings />} />
-            <Route path="*" element={<PlaceholderDashboard role="Admin Area" />} />
-          </Route>
+          {/* Dashboards and portals have been removed as per user request to delete unused placeholder code */}
 
           {/* 404 Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

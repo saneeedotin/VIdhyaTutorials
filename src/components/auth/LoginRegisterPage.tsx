@@ -176,7 +176,7 @@ export function LoginRegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4 md:p-12 font-body-md relative overflow-hidden">
+    <div className="min-h-[100dvh] bg-background flex items-center justify-center p-4 md:p-12 font-body-md relative overflow-hidden">
       
       {/* Decorative Gradients */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/3" style={{ background: 'radial-gradient(circle, rgba(31,64,109,0.08) 0%, rgba(31,64,109,0) 70%)' }}></div>

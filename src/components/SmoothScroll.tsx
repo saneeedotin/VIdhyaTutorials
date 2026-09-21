@@ -37,11 +37,13 @@ export const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
 
   // Reset scroll on route change
   useEffect(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
-    }
+    setTimeout(() => {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+    }, 10);
   }, [location.pathname]);
 
   return <>{children}</>;

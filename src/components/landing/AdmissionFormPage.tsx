@@ -227,7 +227,7 @@ export function AdmissionFormPage() {
 
   if (success && submittedData) {
     return (
-      <div className="min-h-screen bg-[#070b13] py-12 px-4 sm:px-6 flex items-center justify-center">
+      <div className="min-h-[100dvh] bg-[#070b13] py-12 px-4 sm:px-6 flex items-center justify-center">
         <div className="bg-surface max-w-2xl w-full rounded-3xl p-6 sm:p-12 text-center shadow-2xl border border-outline-variant/30 print:border-none print:shadow-none print:p-0">
           <div className="w-16 h-16 sm:w-20 sm:h-20 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-5">
             <CheckCircle className="w-8 h-8 sm:w-10 sm:h-10" />
@@ -330,7 +330,7 @@ export function AdmissionFormPage() {
   }
 
   return (
-    <div className="min-h-screen bg-surface-container-lowest py-6 sm:py-10 px-3 sm:px-6 lg:px-8 print:p-0 print:m-0 print:bg-white">
+    <div className="min-h-[100dvh] bg-surface-container-lowest py-6 sm:py-10 px-3 sm:px-6 lg:px-8 print:p-0 print:m-0 print:bg-white">
       <div className="max-w-4xl mx-auto print:max-w-none print:w-full">
 
         {/* Back Link & Quick Actions */}
@@ -453,7 +453,7 @@ export function AdmissionFormPage() {
                 </h3>
 
                 {/* Desktop: Grid / Mobile: Stack */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 items-center">
                   <label className="text-xs sm:text-sm font-bold text-on-surface">
                     Student's Full Name <span className="text-error">*</span>
                   </label>
@@ -472,7 +472,7 @@ export function AdmissionFormPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 items-center">
                   <label className="text-xs sm:text-sm font-bold text-on-surface">
                     Father's Name <span className="text-error">*</span>
                   </label>
@@ -491,7 +491,7 @@ export function AdmissionFormPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 items-center">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4 items-center">
                   <label className="text-xs sm:text-sm font-bold text-on-surface">
                     Mother's Name <span className="text-error">*</span>
                   </label>
@@ -678,7 +678,7 @@ export function AdmissionFormPage() {
                 </h3>
 
                 {/* 3 columns on desktop, 2 on tablet, 1 on mobile */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-4">
                   <div>
                     <label className="text-xs font-bold uppercase tracking-wider text-on-surface block mb-1">
                       Mobile Number *
@@ -848,7 +848,7 @@ export function AdmissionFormPage() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-2">
                         {availableSubjects.map(sub => {
                           const isChecked = selectedSubjects.includes(sub);
                           return (
