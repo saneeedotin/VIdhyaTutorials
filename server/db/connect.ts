@@ -7,8 +7,11 @@ export const connectDB = async () => {
   if (firebaseSuccess && isFirebaseActive()) {
     try {
       const firestore = getFirestore();
-      // Verify connectivity by fetching collection list
-      await firestore.listCollections();
+      // Verify connectivity by fetching collection list (with a 1.5s timeout to prevent Hostinger 503 crash)
+      await Promise.race([
+        firestore.listCollections(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore connection timeout')), 1500))
+      ]);
       console.log('✅ Google Cloud Firestore connected successfully');
       await seedDatabase();
       return;
