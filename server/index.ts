@@ -22,9 +22,12 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'production';
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// ESM-compatible __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Provide __dirname safely for both ESM (dev) and CJS (prod)
+const getDirname = () => {
+  if (typeof __dirname !== 'undefined') return __dirname;
+  return path.dirname(fileURLToPath(import.meta.url));
+};
+const __dirname_safe = getDirname();
 
 app.set('trust proxy', 1); // Trust first proxy for Cloudflare/NGINX (fixes express-rate-limit)
 
@@ -70,7 +73,7 @@ app.use('/api/content', contentRoutes);
 
 // ── Production: Serve React frontend from dist/ ──
 if (process.env.NODE_ENV === 'production') {
-  const distPath = path.join(__dirname, 'dist');
+  const distPath = path.join(__dirname_safe, 'dist');
   app.use(express.static(distPath));
 
   // SPA fallback: any non-API route serves index.html for client-side routing

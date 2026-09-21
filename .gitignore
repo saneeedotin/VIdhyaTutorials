@@ -10,7 +10,7 @@ dist/
 dist-ssr/
 build/
 coverage/
-server.js
+server.cjs
 
 # Environment variables & secrets
 .env
