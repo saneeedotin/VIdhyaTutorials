@@ -16,6 +16,9 @@ import admissionRoutes from './routes/admissions';
 import analyticsRoutes from './routes/analytics';
 import contentRoutes from './routes/content';
 
+// Production defaults — ensures the app works even if Hostinger doesn't save env vars
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'production';
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
