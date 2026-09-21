@@ -1,64 +1,51 @@
-import mongoose from 'mongoose';
+import { isFirebaseActive } from './firebase';
+import { FirestoreCollection } from './firestoreAdapter';
 import { fileDb } from './fileDb';
 
-// Import Mongoose models
-import { User } from '../models/User';
-import { AdmissionApplication } from '../models/AdmissionApplication';
-import { PublicAnnouncement } from '../models/PublicAnnouncement';
-import { Appointment } from '../models/Appointment';
-import { FeeRecord } from '../models/FeeRecord';
-import { FeeReceipt } from '../models/FeeReceipt';
-import { Batch } from '../models/Batch';
-import { AttendanceRecord } from '../models/AttendanceRecord';
-import { Material } from '../models/Material';
-import { StudentTodo } from '../models/StudentTodo';
-import { SubjectProgress } from '../models/SubjectProgress';
-import { XPTransaction } from '../models/XPTransaction';
-import { AuditLog } from '../models/AuditLog';
+// Firestore collection singletons
+const firestoreCollections = {
+  users: new FirestoreCollection('users'),
+  admissions: new FirestoreCollection('admissions'),
+  announcements: new FirestoreCollection('announcements'),
+  appointments: new FirestoreCollection('appointments'),
+  fees: new FirestoreCollection('fees'),
+  feeReceipts: new FirestoreCollection('feeReceipts'),
+  batches: new FirestoreCollection('batches'),
+  materials: new FirestoreCollection('materials'),
+  auditLogs: new FirestoreCollection('auditLogs'),
+};
 
-export function isMongoActive(): boolean {
-  return mongoose.connection.readyState === 1;
+export function isDbActive(): boolean {
+  return isFirebaseActive();
 }
 
-// Proxy getter that routes to MongoDB if connected, or to fileDb seamlessly
+// Proxy getter that routes to Google Cloud Firestore if active, or fileDb seamlessly
 export const db = {
   get users() {
-    return isMongoActive() ? (User as any) : fileDb.users;
+    return isFirebaseActive() ? (firestoreCollections.users as any) : fileDb.users;
   },
   get admissions() {
-    return isMongoActive() ? (AdmissionApplication as any) : fileDb.admissions;
+    return isFirebaseActive() ? (firestoreCollections.admissions as any) : fileDb.admissions;
   },
   get announcements() {
-    return isMongoActive() ? (PublicAnnouncement as any) : fileDb.announcements;
+    return isFirebaseActive() ? (firestoreCollections.announcements as any) : fileDb.announcements;
   },
   get appointments() {
-    return isMongoActive() ? (Appointment as any) : fileDb.appointments;
+    return isFirebaseActive() ? (firestoreCollections.appointments as any) : fileDb.appointments;
   },
   get fees() {
-    return isMongoActive() ? (FeeRecord as any) : fileDb.fees;
+    return isFirebaseActive() ? (firestoreCollections.fees as any) : fileDb.fees;
   },
   get feeReceipts() {
-    return isMongoActive() ? (FeeReceipt as any) : fileDb.feeReceipts;
+    return isFirebaseActive() ? (firestoreCollections.feeReceipts as any) : fileDb.feeReceipts;
   },
   get batches() {
-    return isMongoActive() ? (Batch as any) : fileDb.batches;
-  },
-  get attendance() {
-    return isMongoActive() ? (AttendanceRecord as any) : fileDb.attendance;
+    return isFirebaseActive() ? (firestoreCollections.batches as any) : fileDb.batches;
   },
   get materials() {
-    return isMongoActive() ? (Material as any) : fileDb.materials;
-  },
-  get todos() {
-    return isMongoActive() ? (StudentTodo as any) : fileDb.todos;
-  },
-  get subjectProgress() {
-    return isMongoActive() ? (SubjectProgress as any) : fileDb.subjectProgress;
-  },
-  get xpTransactions() {
-    return isMongoActive() ? (XPTransaction as any) : fileDb.xpTransactions;
+    return isFirebaseActive() ? (firestoreCollections.materials as any) : fileDb.materials;
   },
   get auditLogs() {
-    return isMongoActive() ? (AuditLog as any) : fileDb.auditLogs;
+    return isFirebaseActive() ? (firestoreCollections.auditLogs as any) : fileDb.auditLogs;
   },
 };

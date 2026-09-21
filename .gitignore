@@ -10,6 +10,7 @@ dist/
 dist-ssr/
 build/
 coverage/
+server.js
 
 # Environment variables & secrets
 .env
@@ -17,6 +18,9 @@ coverage/
 .env.production
 .env.staging
 !.env.example
+*-firebase-adminsdk-*.json
+firebase-*.json
+service-account*.json
 
 # Large media & video files (prevents GitHub 100MB rejection)
 *.mp4

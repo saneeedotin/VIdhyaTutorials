@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "server": "tsx watch server/index.ts",
+    "start": "node server.js",
     "build": "vite build",
+    "build:server": "npx esbuild server/index.ts --bundle --platform=node --format=esm --outfile=server.js --external:bcrypt --external:mongodb-memory-server",
+    "build:all": "npm run build && npm run build:server",
     "preview": "vite preview",
     "clean": "node -e \"const fs=require('fs'); fs.rmSync('dist', {recursive:true,force:true}); fs.rmSync('server.js', {force:true})\"",
     "lint": "tsc --noEmit"
@@ -28,6 +31,7 @@
     "express": "^4.22.2",
     "express-mongo-sanitize": "^2.2.0",
     "express-rate-limit": "^8.5.2",
+    "firebase-admin": "^14.4.0",
     "gsap": "^3.15.0",
     "helmet": "^8.2.0",
     "jsonwebtoken": "^9.0.3",

@@ -840,7 +840,7 @@ export const GoogleReviewsWall: React.FC = () => {
                       <div>
                         <div className="flex items-center justify-between mb-4 pt-1.5">
                           <div className="flex items-center gap-1.5">
-                            {rev.date.toLowerCase().includes('justdial') ? (
+                            {(rev.date?.toLowerCase().includes('justdial') || rev.source?.toLowerCase().includes('justdial')) ? (
                               <JustdialLogo className="w-4 h-4 rounded-[3px]" />
                             ) : (
                               <GoogleLogo className="w-4 h-4" />

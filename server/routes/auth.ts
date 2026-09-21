@@ -6,10 +6,15 @@ import { z } from 'zod';
 import rateLimit from 'express-rate-limit';
 import { protect, AuthRequest } from '../middleware/auth';
 import { db } from '../db/adapter';
+import { isFirebaseActive, getAuth } from '../db/firebase';
 
 const router = express.Router();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'vidhya_tutorials_super_secret_jwt_2026_key';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  console.error('FATAL: JWT_SECRET environment variable is not set. Server cannot start securely.');
+  process.exit(1);
+}
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -44,15 +49,31 @@ const registerSchema = z.object({
   schoolCode: z.string().min(2).optional(),
 });
 
-const generateTokens = (user: any) => {
+const generateTokens = async (user: any) => {
+  const uid = String(user._id || user.id);
   const accessToken = jwt.sign(
-    { sub: (user._id || user.id).toString(), role: user.role, schoolCode: user.schoolCode || 'VIDHYA' },
-    JWT_SECRET,
+    { sub: uid, role: user.role, schoolCode: user.schoolCode || 'VIDHYA' },
+    JWT_SECRET!,
     { expiresIn: '7d', algorithm: 'HS256' }
   );
 
+  let firebaseCustomToken: string | undefined;
+  if (isFirebaseActive()) {
+    const auth = getAuth();
+    if (auth) {
+      try {
+        firebaseCustomToken = await auth.createCustomToken(uid, {
+          role: user.role,
+          schoolCode: user.schoolCode || 'VIDHYA',
+        });
+      } catch (err: any) {
+        console.warn('[Firebase Auth] Custom token creation skipped:', err.message);
+      }
+    }
+  }
+
   const rawRefreshToken = crypto.randomBytes(64).toString('hex');
-  return { accessToken, rawRefreshToken };
+  return { accessToken, rawRefreshToken, firebaseCustomToken };
 };
 
 // AUTHORIZED ADMIN EMAIL — only this email can access the admin portal
@@ -171,21 +192,17 @@ router.post('/login', loginLimiter, async (req, res) => {
       });
     }
 
-    // Password validation — accept password123, role123, OR bcrypt hash match
+    // Password validation — bcrypt hash comparison only (production-safe)
     let isMatch = false;
-    if (password === 'password123' || password === 'admin123' || password === 'teacher123' || password === 'student123') {
-      isMatch = true;
-    } else if (user.passwordHash) {
+    if (user.passwordHash) {
       isMatch = await bcrypt.compare(password, user.passwordHash);
-    } else if (password.length >= 4) {
-      isMatch = true;
     }
 
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid password.' });
     }
 
-    const { accessToken, rawRefreshToken } = generateTokens(user);
+    const { accessToken, rawRefreshToken, firebaseCustomToken } = await generateTokens(user);
 
     res.cookie('refreshToken', rawRefreshToken, {
       httpOnly: true,
@@ -201,6 +218,7 @@ router.post('/login', loginLimiter, async (req, res) => {
       success: true,
       token: accessToken,
       accessToken,
+      firebaseCustomToken,
       user: safeUser
     });
   } catch (error) {
@@ -253,7 +271,22 @@ router.post('/register', registerLimiter, async (req, res) => {
       createdAt: new Date().toISOString(),
     });
 
-    const { accessToken, rawRefreshToken } = generateTokens(newUser);
+    if (isFirebaseActive()) {
+      const auth = getAuth();
+      if (auth) {
+        try {
+          await auth.createUser({
+            uid: String(newUser._id || newUser.id),
+            email: cleanEmail,
+            displayName: validated.name,
+          });
+        } catch (e: any) {
+          console.warn('[Firebase Auth] createUser skipped:', e.message);
+        }
+      }
+    }
+
+    const { accessToken, rawRefreshToken, firebaseCustomToken } = await generateTokens(newUser);
 
     res.cookie('refreshToken', rawRefreshToken, {
       httpOnly: true,
@@ -265,7 +298,7 @@ router.post('/register', registerLimiter, async (req, res) => {
     const safeUser = { ...newUser };
     delete safeUser.passwordHash;
 
-    res.status(201).json({ accessToken, user: safeUser });
+    res.status(201).json({ accessToken, firebaseCustomToken, user: safeUser });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: error.issues[0]?.message || 'Invalid input' });
@@ -301,7 +334,7 @@ router.post('/refresh', async (req, res) => {
 
     const accessToken = jwt.sign(
       { sub: adminUser._id, role: adminUser.role, schoolCode: adminUser.schoolCode || 'VIDHYA' },
-      JWT_SECRET,
+      JWT_SECRET!,
       { expiresIn: '7d', algorithm: 'HS256' }
     );
 

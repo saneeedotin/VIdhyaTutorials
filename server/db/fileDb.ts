@@ -347,11 +347,6 @@ export const fileDb = {
   fees: new FileCollection('fees'),
   feeReceipts: new FileCollection('fee_receipts'),
   batches: new FileCollection('batches'),
-  sections: new FileCollection('sections'),
-  attendance: new FileCollection('attendance'),
   materials: new FileCollection('materials'),
-  todos: new FileCollection('todos'),
-  subjectProgress: new FileCollection('subject_progress'),
-  xpTransactions: new FileCollection('xp_transactions'),
   auditLogs: new FileCollection('audit_logs'),
 };

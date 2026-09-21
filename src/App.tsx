@@ -17,19 +17,10 @@ import { LoginRegisterPage } from './components/auth/LoginRegisterPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
-// Imports removed as part of dashboard cleanup
-
-/* ─── Placeholder dashboards (will be replaced in later phases) ─── */
-function PlaceholderDashboard({ role }: { role: string }) {
-  return (
-    <div className="flex items-center justify-center h-full text-white">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold mb-4">{role} Dashboard</h1>
-        <p className="text-white/60">This dashboard is under construction.</p>
-      </div>
-    </div>
-  );
-}
+import { AdminLayout } from './components/admin/AdminLayout';
+import { AdminDashboard } from './components/admin/AdminDashboard';
+import { AdminInquiries } from './components/admin/AdminInquiries';
+import { AdminGallery } from './components/admin/AdminGallery';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -113,8 +104,13 @@ export default function App() {
           {/* Authentication Route (Standalone dark theme) */}
           <Route path="/login" element={<LoginRegisterPage />} />
 
-          {/* Dashboards (Phase 6+) */}
-          {/* Dashboards and portals have been removed as per user request to delete unused placeholder code */}
+          {/* Admin Dashboard Routes */}
+          <Route path="/admin" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminLayout /></ProtectedRoute>}>
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="inquiries" element={<AdminInquiries />} />
+            <Route path="gallery" element={<AdminGallery />} />
+            <Route index element={<Navigate to="dashboard" replace />} />
+          </Route>
 
           {/* 404 Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

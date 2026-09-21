@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import { db } from './adapter';
+import { isFirebaseActive, getAuth } from './firebase';
 
 export const seedDatabase = async () => {
   try {
@@ -111,6 +112,27 @@ export const seedDatabase = async () => {
         },
       ];
       await db.users.insertMany(users);
+
+      // Sync initial users with Firebase Auth if active
+      if (isFirebaseActive()) {
+        const auth = getAuth();
+        if (auth) {
+          for (const u of users) {
+            try {
+              await auth.getUser(u._id).catch(async () => {
+                await auth.createUser({
+                  uid: u._id,
+                  email: u.email,
+                  displayName: u.name,
+                });
+              });
+            } catch (authErr: any) {
+              // Non-blocking
+            }
+          }
+        }
+      }
+
       console.log('✅ Users seeded successfully!');
     }
 
@@ -363,42 +385,6 @@ export const seedDatabase = async () => {
       ];
       await db.fees.insertMany(fees);
       console.log('✅ Fees seeded successfully!');
-    }
-
-    // 7. Seed Student Todos
-    const todosCount = await db.todos.countDocuments();
-    if (todosCount === 0) {
-      const todos = [
-        {
-          _id: '660000000000000000000060',
-          studentId: '660000000000000000000003',
-          task: 'Complete Maths 1 Linear Equations Exercise 1.3',
-          subject: 'Mathematics 1',
-          dueDate: 'Tomorrow, 05:00 PM',
-          completed: false,
-          priority: 'HIGH',
-        },
-        {
-          _id: '660000000000000000000061',
-          studentId: '660000000000000000000003',
-          task: 'Review Science 1 Periodic Classification Notes',
-          subject: 'Science 1',
-          dueDate: 'Friday',
-          completed: true,
-          priority: 'MEDIUM',
-        },
-        {
-          _id: '660000000000000000000062',
-          studentId: '660000000000000000000003',
-          task: 'Practice Geometry Theorems proof writing',
-          subject: 'Mathematics 2',
-          dueDate: 'Sunday Mock Test',
-          completed: false,
-          priority: 'HIGH',
-        },
-      ];
-      await db.todos.insertMany(todos);
-      console.log('✅ Student Todos seeded successfully!');
     }
 
     console.log('🌟 [Seed] Vidhya Tutorials database seeding completed successfully!');
