@@ -7,8 +7,28 @@ import rateLimit from 'express-rate-limit';
 import { protect, AuthRequest } from '../middleware/auth';
 import { db } from '../db/adapter';
 import { isFirebaseActive, getAuth } from '../db/firebase';
+import { sendPasswordResetEmail } from '../services/notifications';
 
 const router = express.Router();
+
+// In-memory token storage for secure password reset links (15-min expiry)
+interface ResetTokenData {
+  email: string;
+  userId?: string;
+  expiresAt: number;
+}
+const resetTokens = new Map<string, ResetTokenData>();
+
+// Periodic cleanup of expired reset tokens
+setInterval(() => {
+  const now = Date.now();
+  for (const [token, data] of resetTokens.entries()) {
+    if (now > data.expiresAt) {
+      resetTokens.delete(token);
+    }
+  }
+}, 5 * 60 * 1000);
+
 
 const JWT_SECRET = process.env.JWT_SECRET || 'QWLpXsASexuc8GL_gRujXlLE9f0nJZ-xArE27r7hLQQ3r7To2ycT8690Efp7zZ0K';
 if (!process.env.JWT_SECRET) {
@@ -471,33 +491,140 @@ router.put('/profile', protect, async (req: AuthRequest, res) => {
   }
 });
 
-// ADMIN RESET CREDENTIALS / FORGOT PASSWORD
-router.post('/reset-credentials', async (req, res) => {
+// ══════════════════════════════════════════════════════════════
+// SECURE FORGOT PASSWORD / EMAIL RESET LINK SYSTEM
+// ══════════════════════════════════════════════════════════════
+
+// 1. REQUEST RESET LINK (Sends single-use link to registered email)
+router.post('/forgot-password', async (req, res) => {
   try {
-    const { email, newPassword, newUserId } = req.body;
+    const { email } = req.body;
     const cleanEmail = String(email || '').toLowerCase().trim();
 
-    // STRICT GATE: Only the official Vidhya Tutorials email is permitted
-    if (cleanEmail !== AUTHORIZED_ADMIN_EMAIL) {
+    if (!cleanEmail || !cleanEmail.includes('@')) {
+      return res.status(400).json({
+        error: 'Please enter a valid registered email address.',
+      });
+    }
+
+    // STRICT GATE: Only the authorized Admin email can request admin reset
+    if (cleanEmail !== AUTHORIZED_ADMIN_EMAIL && cleanEmail !== ADMIN_ALIAS_EMAIL) {
       return res.status(403).json({
-        error: `Access Denied! Security Policy: Only the official email (${AUTHORIZED_ADMIN_EMAIL}) is authorized to manage Admin credentials. No other account is permitted.`,
+        error: `Access Denied! Password reset is restricted to the authorized administrative email (${AUTHORIZED_ADMIN_EMAIL}) only.`,
+      });
+    }
+
+    const user = await db.users.findOne({
+      $or: [{ email: AUTHORIZED_ADMIN_EMAIL }, { email: cleanEmail }]
+    });
+
+    // Generate cryptographically secure token
+    const token = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
+
+    resetTokens.set(token, {
+      email: AUTHORIZED_ADMIN_EMAIL,
+      userId: user?.userId || 'ADM-1234',
+      expiresAt,
+    });
+
+    // Determine client site URL
+    let origin = (req.headers.origin as string) || '';
+    if (!origin && req.headers.referer) {
+      try {
+        origin = new URL(req.headers.referer as string).origin;
+      } catch (e) {
+        origin = '';
+      }
+    }
+    const baseUrl = origin || process.env.VITE_API_URL || 'https://vidhyatutorials.in';
+    const resetUrl = `${baseUrl.replace(/\/$/, '')}/reset-password?token=${token}`;
+
+    const sendResult = await sendPasswordResetEmail(AUTHORIZED_ADMIN_EMAIL, resetUrl, user?.name);
+
+    return res.json({
+      success: true,
+      message: `Password reset link has been dispatched to ${AUTHORIZED_ADMIN_EMAIL}. Please check your email inbox (and spam folder). The link will expire in 15 minutes.`,
+      emailSent: sendResult.sent,
+    });
+  } catch (error: any) {
+    console.error('Forgot password error:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate reset link' });
+  }
+});
+
+// 2. VERIFY TOKEN (Used by frontend when opening the reset link)
+router.post('/verify-reset-token', async (req, res) => {
+  try {
+    const { token } = req.body;
+    if (!token || typeof token !== 'string') {
+      return res.status(400).json({ valid: false, error: 'Reset token is required.' });
+    }
+
+    const tokenData = resetTokens.get(token);
+    if (!tokenData) {
+      return res.status(400).json({
+        valid: false,
+        error: 'This password reset link is invalid or has already been used.',
+      });
+    }
+
+    if (Date.now() > tokenData.expiresAt) {
+      resetTokens.delete(token);
+      return res.status(400).json({
+        valid: false,
+        error: 'This password reset link has expired (15-minute limit). Please request a new link.',
+      });
+    }
+
+    return res.json({
+      valid: true,
+      email: tokenData.email,
+      userId: tokenData.userId || 'ADM-1234',
+    });
+  } catch (error: any) {
+    console.error('Verify reset token error:', error);
+    res.status(500).json({ valid: false, error: 'Verification failed' });
+  }
+});
+
+// 3. COMPLETE PASSWORD RESET (Applies new password using validated token)
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || typeof token !== 'string') {
+      return res.status(400).json({ error: 'Reset token is missing or invalid.' });
+    }
+
+    const tokenData = resetTokens.get(token);
+    if (!tokenData) {
+      return res.status(400).json({
+        error: 'This password reset link is invalid or has already been used. Please request a new one.',
+      });
+    }
+
+    if (Date.now() > tokenData.expiresAt) {
+      resetTokens.delete(token);
+      return res.status(400).json({
+        error: 'This password reset link has expired. Please request a new reset link.',
       });
     }
 
     if (!newPassword || newPassword.length < 4) {
       return res.status(400).json({
-        error: 'Password must be at least 4 characters long.',
+        error: 'New password must be at least 4 characters long.',
       });
     }
 
     const saltRounds = parseInt(process.env.BCRYPT_ROUNDS || '10', 10);
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    let user = await db.users.findOne({ email: AUTHORIZED_ADMIN_EMAIL });
+    let user = await db.users.findOne({ email: tokenData.email });
     if (!user) {
       user = await db.users.create({
-        userId: newUserId?.trim().toUpperCase() || 'ADM-1234',
-        email: AUTHORIZED_ADMIN_EMAIL,
+        userId: tokenData.userId || 'ADM-1234',
+        email: tokenData.email,
         name: 'Vikas Tank Sir (Director & Founder)',
         role: 'ADMIN',
         passwordHash,
@@ -507,21 +634,23 @@ router.post('/reset-credentials', async (req, res) => {
         createdAt: new Date().toISOString(),
       });
     } else {
-      const updatePayload: any = { passwordHash, updatedAt: new Date().toISOString() };
-      if (newUserId && newUserId.trim()) {
-        updatePayload.userId = newUserId.trim().toUpperCase();
-      }
-      user = await db.users.findByIdAndUpdate(user._id, updatePayload, { new: true });
+      user = await db.users.findByIdAndUpdate(user._id, {
+        passwordHash,
+        updatedAt: new Date().toISOString(),
+      }, { new: true });
     }
 
-    res.json({
+    // Invalidate token immediately so it can never be used twice
+    resetTokens.delete(token);
+
+    return res.json({
       success: true,
-      message: 'Admin credentials updated successfully! You can now log in.',
+      message: 'Your password has been reset successfully! You can now log in.',
       userId: user.userId,
     });
   } catch (error: any) {
-    console.error('Reset credentials error:', error);
-    res.status(500).json({ error: error.message || 'Failed to reset credentials' });
+    console.error('Reset password error:', error);
+    res.status(500).json({ error: error.message || 'Failed to reset password' });
   }
 });
 

@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Shield, Loader2, ArrowLeft, Eye, EyeOff, X, Lock, KeyRound, ShieldCheck, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { Shield, Loader2, ArrowLeft, Eye, EyeOff, X, Lock, KeyRound, ShieldCheck, CheckCircle2, AlertTriangle, Mail } from 'lucide-react';
 import { apiClient } from '../../api/apiClient';
 import { useAuth } from '../../context/AuthContext';
 
@@ -60,12 +60,9 @@ export function LoginRegisterPage() {
   const [error, setError] = useState('');
   const [taglineIdx, setTaglineIdx] = useState(0);
 
-  // Reset Credentials / Forgot Password State
+  // Forgot Password / Email Link State
   const [showResetModal, setShowResetModal] = useState(false);
   const [resetEmail, setResetEmail] = useState('vidhyatutorials22@gmail.com');
-  const [newAdminId, setNewAdminId] = useState('ADM-1234');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [resetLoading, setResetLoading] = useState(false);
   const [resetError, setResetError] = useState('');
   const [resetSuccess, setResetSuccess] = useState('');
@@ -131,45 +128,28 @@ export function LoginRegisterPage() {
     }
   };
 
-  const handleResetCredentials = async (e: React.FormEvent) => {
+  const handleRequestResetLink = async (e: React.FormEvent) => {
     e.preventDefault();
     setResetError('');
     setResetSuccess('');
 
     const emailClean = resetEmail.trim().toLowerCase();
+    if (!emailClean || !emailClean.includes('@')) {
+      setResetError('Please enter a valid registered email address.');
+      return;
+    }
+
     if (emailClean !== AUTHORIZED_ADMIN_EMAIL) {
-      setResetError(`Access Denied! Security Policy: Only the official email (${AUTHORIZED_ADMIN_EMAIL}) is authorized to manage Admin credentials. No other email is permitted.`);
-      return;
-    }
-
-    if (!newPassword || newPassword.length < 4) {
-      setResetError('New password must be at least 4 characters long.');
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      setResetError('Passwords do not match. Please re-enter carefully.');
+      setResetError(`Access Denied! Password reset is restricted to the authorized administrative email (${AUTHORIZED_ADMIN_EMAIL}) only.`);
       return;
     }
 
     setResetLoading(true);
     try {
-      const res = await apiClient.post('/api/auth/reset-credentials', {
-        email: emailClean,
-        newPassword,
-        newUserId: newAdminId.trim().toUpperCase() || 'ADM-1234',
-      });
-
-      setResetSuccess(res.data?.message || 'Admin credentials updated successfully!');
-      loginForm.setValue('userId', newAdminId.trim().toUpperCase() || 'ADM-1234');
-      loginForm.setValue('password', newPassword);
-
-      setTimeout(() => {
-        setShowResetModal(false);
-        setResetSuccess('');
-      }, 2000);
+      const res = await apiClient.post('/api/auth/forgot-password', { email: emailClean });
+      setResetSuccess(res.data?.message || 'Password reset link has been dispatched to your email! Please check your inbox.');
     } catch (err: any) {
-      setResetError(err.response?.data?.error || 'Failed to update credentials. Please check the backend server.');
+      setResetError(err.response?.data?.error || 'Failed to send password reset email. Please ensure the backend server is running.');
     } finally {
       setResetLoading(false);
     }
@@ -323,7 +303,7 @@ export function LoginRegisterPage() {
         </div>
       </div>
 
-      {/* ── Reset Credentials / Forgot Password Modal ── */}
+      {/* ── Secure Forgot Password / Email Reset Link Modal ── */}
       <AnimatePresence>
         {showResetModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
@@ -342,11 +322,11 @@ export function LoginRegisterPage() {
 
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                  <KeyRound className="w-5 h-5" />
+                  <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-extrabold text-lg leading-tight text-on-surface">Reset Admin Credentials</h3>
-                  <p className="text-xs text-on-surface-variant mt-0.5">Create new password & admin username</p>
+                  <h3 className="font-extrabold text-lg leading-tight text-on-surface">Forgot Password?</h3>
+                  <p className="text-xs text-on-surface-variant mt-0.5">Receive a secure reset link via email</p>
                 </div>
               </div>
 
@@ -358,82 +338,77 @@ export function LoginRegisterPage() {
                 </div>
               )}
 
-              {resetSuccess && (
-                <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-semibold flex items-start gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
-                  <span>{resetSuccess}</span>
-                </div>
-              )}
+              {resetSuccess ? (
+                <div className="space-y-4">
+                  <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 dark:text-emerald-200 text-xs font-medium space-y-2">
+                    <div className="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-300">
+                      <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                      <span>Email Dispatched!</span>
+                    </div>
+                    <p className="leading-relaxed">
+                      {resetSuccess}
+                    </p>
+                    <p className="text-[11px] opacity-80 pt-1">
+                      Didn't see it? Make sure to check your <strong>Spam / Junk</strong> folder as well.
+                    </p>
+                  </div>
 
-              <form onSubmit={handleResetCredentials} className="space-y-3.5 text-xs">
-                <div>
-                  <label className="block font-bold text-on-surface-variant uppercase mb-1">
-                    Registered Admin Email
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    value={resetEmail}
-                    onChange={(e) => setResetEmail(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface-container border border-outline-variant/40 focus:border-primary focus:outline-hidden text-xs font-semibold text-on-surface"
-                    placeholder="vidhyatutorials22@gmail.com"
-                  />
-                  <span className="text-[10px] text-on-surface-variant mt-1 block">
-                    🔒 Only <strong>vidhyatutorials22@gmail.com</strong> can reset Admin credentials.
-                  </span>
-                </div>
-
-                <div>
-                  <label className="block font-bold text-on-surface-variant uppercase mb-1">
-                    Admin Username / ID (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    value={newAdminId}
-                    onChange={(e) => setNewAdminId(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface-container border border-outline-variant/40 focus:border-primary focus:outline-hidden text-xs font-semibold text-on-surface"
-                    placeholder="ADM-1234 or custom ID"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-on-surface-variant uppercase mb-1">
-                    New Password
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    placeholder="Enter new password"
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface-container border border-outline-variant/40 focus:border-primary focus:outline-hidden text-xs text-on-surface"
-                  />
-                </div>
-
-                <div>
-                  <label className="block font-bold text-on-surface-variant uppercase mb-1">
-                    Confirm New Password
-                  </label>
-                  <input
-                    type="password"
-                    required
-                    placeholder="Re-enter new password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-surface-container border border-outline-variant/40 focus:border-primary focus:outline-hidden text-xs text-on-surface"
-                  />
-                </div>
-
-                <div className="pt-2">
                   <button
-                    type="submit"
-                    disabled={resetLoading}
-                    className="w-full py-3 rounded-xl bg-primary text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-primary/90 shadow-md shadow-primary/20 transition-all cursor-pointer"
+                    type="button"
+                    onClick={() => {
+                      setShowResetModal(false);
+                      setResetSuccess('');
+                    }}
+                    className="w-full py-3 rounded-xl bg-surface-container border border-outline-variant/60 font-bold text-xs text-on-surface hover:bg-surface-container-high transition-colors cursor-pointer"
                   >
-                    {resetLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Update Credentials & Log In'}
+                    Close & Return to Sign In
                   </button>
                 </div>
-              </form>
+              ) : (
+                <form onSubmit={handleRequestResetLink} className="space-y-4 text-xs">
+                  <div>
+                    <label className="block font-bold text-on-surface-variant uppercase mb-1.5">
+                      Registered Administrator Email
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        required
+                        value={resetEmail}
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        className="w-full px-4 py-3 rounded-xl bg-surface-container border border-outline-variant/40 focus:border-primary focus:outline-hidden text-xs font-semibold text-on-surface placeholder:text-outline/50"
+                        placeholder="vidhyatutorials22@gmail.com"
+                      />
+                    </div>
+                    <div className="mt-2 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/20 flex items-start gap-2 text-[11px] text-on-surface-variant leading-relaxed">
+                      <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                      <span>
+                        For account security, passwords can never be changed directly on-screen. A single-use link valid for <strong>15 minutes</strong> will be sent to this email address.
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={resetLoading}
+                      className="w-full py-3.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90 shadow-md shadow-primary/20 transition-all cursor-pointer disabled:opacity-60"
+                    >
+                      {resetLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span>Sending Reset Link...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Mail className="w-4 h-4" />
+                          <span>Send Password Reset Link</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
             </motion.div>
           </div>
         )}

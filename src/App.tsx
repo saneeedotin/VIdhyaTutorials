@@ -14,6 +14,7 @@ import { AdmissionFormPage } from './components/landing/AdmissionFormPage';
 import { AchieversPage } from './components/landing/AchieversPage';
 import { LayoutPublic } from './components/LayoutPublic';
 import { LoginRegisterPage } from './components/auth/LoginRegisterPage';
+import { ResetPasswordPage } from './components/auth/ResetPasswordPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
@@ -101,8 +102,9 @@ export default function App() {
             <Route path="/locations" element={<OurLocationsPage />} />
           </Route>
 
-          {/* Authentication Route (Standalone dark theme) */}
+          {/* Authentication Routes */}
           <Route path="/login" element={<LoginRegisterPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
 
           {/* Admin Dashboard Routes */}
           <Route path="/admin" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminLayout /></ProtectedRoute>}>
