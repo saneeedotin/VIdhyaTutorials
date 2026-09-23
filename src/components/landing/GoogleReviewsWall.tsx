@@ -19,147 +19,196 @@ export interface StickyColorConfig {
 }
 
 export const STICKY_PALETTES: Record<string, StickyColorConfig> = {
-  cream: {
-    frontBg: '#FAF6EB',
-    backBg: '#EEE7D3',
-    textColor: '#1F1B16',
-    quoteColor: '#2D261E',
-    metaColor: '#6B5E4E',
-    border: 'border-[#E5DEC7]',
-    avatarBg: '#E8DFCA',
-    avatarText: '#4A3E2A',
+  canary_yellow: {
+    frontBg: '#FFF066',
+    backBg: '#FACC15',
+    textColor: '#1C1917',
+    quoteColor: '#292524',
+    metaColor: '#78350F',
+    border: 'border-[#FACC15]',
+    avatarBg: '#FACC15',
+    avatarText: '#78350F',
     pin: 'red',
     backRotate: -4,
   },
   bubblegum_pink: {
-    frontBg: '#FFAED7',
-    backBg: '#F295C1',
-    textColor: '#260E1C',
-    quoteColor: '#3B152C',
-    metaColor: '#7A3A61',
-    border: 'border-[#F09BC7]',
-    avatarBg: '#F592C4',
-    avatarText: '#4D1035',
+    frontBg: '#FF70A6',
+    backBg: '#F43F5E',
+    textColor: '#2E0014',
+    quoteColor: '#4C0519',
+    metaColor: '#881337',
+    border: 'border-[#FB7185]',
+    avatarBg: '#FB7185',
+    avatarText: '#4C0519',
     pin: 'green',
     backRotate: 4.5,
   },
-  lavender: {
-    frontBg: '#C4A1EE',
-    backBg: '#AF88DE',
-    textColor: '#1D122F',
-    quoteColor: '#2B1A46',
-    metaColor: '#5B3E88',
-    border: 'border-[#B28BE0]',
-    avatarBg: '#AF88DE',
-    avatarText: '#371861',
+  mint_aqua: {
+    frontBg: '#6EE7B7',
+    backBg: '#10B981',
+    textColor: '#022C1A',
+    quoteColor: '#064E3B',
+    metaColor: '#065F46',
+    border: 'border-[#34D399]',
+    avatarBg: '#34D399',
+    avatarText: '#022C1A',
+    pin: 'purple',
+    backRotate: -4,
+  },
+  sky_blue: {
+    frontBg: '#70D6FF',
+    backBg: '#0284C7',
+    textColor: '#03203C',
+    quoteColor: '#082F49',
+    metaColor: '#0369A1',
+    border: 'border-[#38BDF8]',
+    avatarBg: '#38BDF8',
+    avatarText: '#03203C',
+    pin: 'yellow',
+    backRotate: 3.5,
+  },
+  warm_orange: {
+    frontBg: '#FF9F43',
+    backBg: '#EA580C',
+    textColor: '#431407',
+    quoteColor: '#451A03',
+    metaColor: '#9A3412',
+    border: 'border-[#FB923C]',
+    avatarBg: '#FB923C',
+    avatarText: '#431407',
     pin: 'pink',
+    backRotate: 4,
+  },
+  lavender: {
+    frontBg: '#C084FC',
+    backBg: '#9333EA',
+    textColor: '#240046',
+    quoteColor: '#3B0764',
+    metaColor: '#6B21A8',
+    border: 'border-[#A855F7]',
+    avatarBg: '#A855F7',
+    avatarText: '#FFFFFF',
+    pin: 'yellow',
     backRotate: -3.5,
   },
   coral_red: {
-    frontBg: '#FF5757',
-    backBg: '#E53E3E',
-    textColor: '#FFFFFF',
-    quoteColor: '#FFF5F5',
-    metaColor: '#FFE0E0',
-    border: 'border-[#E03A3A]',
-    avatarBg: '#D93838',
+    frontBg: '#FF6B6B',
+    backBg: '#DC2626',
+    textColor: '#3A000A',
+    quoteColor: '#450A0A',
+    metaColor: '#991B1B',
+    border: 'border-[#EF4444]',
+    avatarBg: '#EF4444',
     avatarText: '#FFFFFF',
     pin: 'yellow',
     backRotate: 4,
   },
-  soft_pink: {
-    frontBg: '#FFC2E5',
-    backBg: '#F2A6D3',
-    textColor: '#280E1E',
-    quoteColor: '#3A182D',
-    metaColor: '#7B4065',
-    border: 'border-[#EFA9D1]',
-    avatarBg: '#F4A9D3',
-    avatarText: '#4E1138',
+  lime_green: {
+    frontBg: '#BEF264',
+    backBg: '#65A30D',
+    textColor: '#1A2E05',
+    quoteColor: '#365314',
+    metaColor: '#4D7C0F',
+    border: 'border-[#84CC16]',
+    avatarBg: '#84CC16',
+    avatarText: '#1A2E05',
     pin: 'red',
-    backRotate: -5,
+    backRotate: -4.5,
   },
-  dusty_rose: {
-    frontBg: '#F08080',
-    backBg: '#DE6868',
-    textColor: '#FFFFFF',
-    quoteColor: '#FFF5F5',
-    metaColor: '#FFE3E3',
-    border: 'border-[#D66161]',
-    avatarBg: '#CE5B5B',
+  peach_salmon: {
+    frontBg: '#FFB088',
+    backBg: '#F97316',
+    textColor: '#431407',
+    quoteColor: '#541A06',
+    metaColor: '#9A3412',
+    border: 'border-[#FDBA74]',
+    avatarBg: '#FB923C',
+    avatarText: '#431407',
+    pin: 'red',
+    backRotate: 4.5,
+  },
+  teal_aqua: {
+    frontBg: '#5EEAD4',
+    backBg: '#0D9488',
+    textColor: '#042F2E',
+    quoteColor: '#134E4A',
+    metaColor: '#0F766E',
+    border: 'border-[#2DD4BF]',
+    avatarBg: '#2DD4BF',
+    avatarText: '#042F2E',
+    pin: 'pink',
+    backRotate: -3.5,
+  },
+  electric_violet: {
+    frontBg: '#E879F9',
+    backBg: '#C026D3',
+    textColor: '#3B0744',
+    quoteColor: '#4A044E',
+    metaColor: '#86198F',
+    border: 'border-[#D946EF]',
+    avatarBg: '#D946EF',
     avatarText: '#FFFFFF',
     pin: 'yellow',
     backRotate: 3.5,
   },
-  mint_aqua: {
-    frontBg: '#52DE97',
-    backBg: '#3DC57F',
-    textColor: '#0B281B',
-    quoteColor: '#103524',
-    metaColor: '#1D553C',
-    border: 'border-[#3DC57F]',
-    avatarBg: '#3DC57F',
-    avatarText: '#072115',
-    pin: 'pink',
+  soft_pink: {
+    frontBg: '#FFA6C9',
+    backBg: '#EC4899',
+    textColor: '#3B0720',
+    quoteColor: '#50072C',
+    metaColor: '#9D174D',
+    border: 'border-[#F472B6]',
+    avatarBg: '#F472B6',
+    avatarText: '#3B0720',
+    pin: 'green',
+    backRotate: -5,
+  },
+  // Aliases for backwards compatibility so no note ever defaults to dull cream
+  cream: {
+    frontBg: '#FFF066',
+    backBg: '#FACC15',
+    textColor: '#1C1917',
+    quoteColor: '#292524',
+    metaColor: '#78350F',
+    border: 'border-[#FACC15]',
+    avatarBg: '#FACC15',
+    avatarText: '#78350F',
+    pin: 'red',
     backRotate: -4,
   },
-  peach_salmon: {
-    frontBg: '#FFADA4',
-    backBg: '#F2968B',
-    textColor: '#2C1412',
-    quoteColor: '#3D1D1A',
-    metaColor: '#7E443F',
-    border: 'border-[#EF9B91]',
-    avatarBg: '#F49A90',
-    avatarText: '#521A15',
-    pin: 'red',
-    backRotate: 4.5,
-  },
-  pale_sage: {
-    frontBg: '#A6ECCB',
-    backBg: '#90DEB6',
-    textColor: '#0F2C1F',
-    quoteColor: '#183D2C',
-    metaColor: '#346650',
-    border: 'border-[#93DEC0]',
-    avatarBg: '#92DDB6',
-    avatarText: '#0B271A',
-    pin: 'purple',
-    backRotate: -3.5,
-  },
-  warm_orange: {
-    frontBg: '#FFA858',
-    backBg: '#EF923C',
-    textColor: '#2A1505',
-    quoteColor: '#3B1F08',
-    metaColor: '#7C4A1D',
-    border: 'border-[#EE9441]',
-    avatarBg: '#EE9441',
-    avatarText: '#4C2304',
-    pin: 'red',
-    backRotate: 4,
-  },
   mustard_yellow: {
-    frontBg: '#EED663',
-    backBg: '#DDC24B',
-    textColor: '#2A2304',
-    quoteColor: '#3B3108',
-    metaColor: '#716117',
-    border: 'border-[#DCBF42]',
-    avatarBg: '#DEC24B',
-    avatarText: '#453B05',
+    frontBg: '#FDE047',
+    backBg: '#CA8A04',
+    textColor: '#1C1917',
+    quoteColor: '#292524',
+    metaColor: '#78350F',
+    border: 'border-[#EAB308]',
+    avatarBg: '#EAB308',
+    avatarText: '#1C1917',
     pin: 'red',
     backRotate: -4.5,
   },
-  sky_blue: {
-    frontBg: '#BAE5FC',
-    backBg: '#A2D6F2',
-    textColor: '#0A2335',
-    quoteColor: '#11324B',
-    metaColor: '#2E5A7A',
-    border: 'border-[#A1D4F0]',
-    avatarBg: '#A3D5F1',
-    avatarText: '#072134',
+  pale_sage: {
+    frontBg: '#86EFAC',
+    backBg: '#22C55E',
+    textColor: '#052E16',
+    quoteColor: '#064E3B',
+    metaColor: '#166534',
+    border: 'border-[#4ADE80]',
+    avatarBg: '#4ADE80',
+    avatarText: '#052E16',
+    pin: 'purple',
+    backRotate: -3.5,
+  },
+  dusty_rose: {
+    frontBg: '#FDA4AF',
+    backBg: '#E11D48',
+    textColor: '#4C0519',
+    quoteColor: '#4C0519',
+    metaColor: '#9F1239',
+    border: 'border-[#FB7185]',
+    avatarBg: '#FB7185',
+    avatarText: '#FFFFFF',
     pin: 'yellow',
     backRotate: 3.5,
   },
@@ -198,7 +247,7 @@ export const REAL_REVIEWS: Review[] = [
     date: 'Verified Justdial Review',
     comment: 'I joined Vidhya Tutorials in 11th STD and to be honest it was one of the best decisions I ever made. The teachers over here are so supportive and very helpful. Teachers like Vinayak Sir for accounts and Vikas Sir for maths & theory are great and motivating mentors. They arranged Marathi lectures for us, took regular prelims and tests, and always kept us motivated. Highly recommend to everyone!',
     likes: 58,
-    colorKey: 'cream',
+    colorKey: 'canary_yellow',
     frontRotate: -1.6,
   },
   {
@@ -258,7 +307,7 @@ export const REAL_REVIEWS: Review[] = [
     date: 'Verified Google Review',
     comment: 'Also the weak students also gets improved here, all the doubts are cleared down by all the teachers. I have never thought that I would get classes like this which gives me so much knowledge. Highly recommend Vidhya Tutorials!',
     likes: 48,
-    colorKey: 'cream',
+    colorKey: 'canary_yellow',
     frontRotate: -1.2,
   },
   {
@@ -330,7 +379,7 @@ export const REAL_REVIEWS: Review[] = [
     date: 'Verified Google Review',
     comment: 'The shortcut tips and mock test analysis for MHT-CET were phenomenal. Teachers sit with you 1-on-1 until every formula and numerical doubt is 100% resolved. Truly the best classes in Mumbai.',
     likes: 63,
-    colorKey: 'dusty_rose',
+    colorKey: 'lime_green',
     frontRotate: 2.2,
   },
   {
@@ -366,7 +415,7 @@ export const REAL_REVIEWS: Review[] = [
     date: 'Verified Google Review',
     comment: 'Friendly and motivating atmosphere. The teachers build confidence even in students who struggle with Geometry and Algebra. My daughter loves coming to class every day.',
     likes: 26,
-    colorKey: 'pale_sage',
+    colorKey: 'teal_aqua',
     frontRotate: -1.2,
   },
   {
@@ -390,7 +439,7 @@ export const REAL_REVIEWS: Review[] = [
     date: 'Verified Google Review',
     comment: 'Joined for Book Keeping - Accountancy and Economics. The teachers are approachable and make complex balance sheets and accounts very easy to understand. Best commerce coaching!',
     likes: 39,
-    colorKey: 'mustard_yellow',
+    colorKey: 'electric_violet',
     frontRotate: -2.2,
   },
   {
@@ -520,7 +569,7 @@ const GoogleLogo = ({ className = 'w-5 h-5' }: { className?: string }) => (
 export const GoogleReviewsWall: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>(() => {
     try {
-      const saved = localStorage.getItem('vt_sticky_reviews_actual_v5');
+      const saved = localStorage.getItem('vt_sticky_reviews_actual_v8');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
@@ -541,16 +590,16 @@ export const GoogleReviewsWall: React.FC = () => {
   const [authorDetail, setAuthorDetail] = useState('');
   const [authorRating, setAuthorRating] = useState(5);
   const [authorComment, setAuthorComment] = useState('');
-  const [selectedColorKey, setSelectedColorKey] = useState<string>('cream');
+  const [selectedColorKey, setSelectedColorKey] = useState<string>('canary_yellow');
   const [showSuccessToast, setShowSuccessToast] = useState(false);
 
   useEffect(() => {
     // Fetch live reviews from backend
     apiClient.get('/api/content/reviews')
       .then(res => {
-        if (res.data?.success && Array.isArray(res.data.data)) {
+        if (res.data?.success && Array.isArray(res.data.data) && res.data.data.length > 5) {
           setReviews(res.data.data);
-          localStorage.setItem('vt_sticky_reviews_actual_v5', JSON.stringify(res.data.data));
+          localStorage.setItem('vt_sticky_reviews_actual_v8', JSON.stringify(res.data.data));
         }
       })
       .catch(err => console.warn('Using local reviews cache:', err));
@@ -558,7 +607,7 @@ export const GoogleReviewsWall: React.FC = () => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('vt_sticky_reviews_actual_v5', JSON.stringify(reviews));
+      localStorage.setItem('vt_sticky_reviews_actual_v8', JSON.stringify(reviews));
     } catch (e) {
       console.error(e);
     }
@@ -790,7 +839,24 @@ export const GoogleReviewsWall: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 sm:gap-9 pt-4 pb-6">
             <AnimatePresence>
               {filteredReviews.map((rev, idx) => {
-                const cfg = STICKY_PALETTES[rev.colorKey] || STICKY_PALETTES.cream;
+                const COLOR_CYCLE = [
+                  'canary_yellow',
+                  'bubblegum_pink',
+                  'mint_aqua',
+                  'sky_blue',
+                  'warm_orange',
+                  'lavender',
+                  'coral_red',
+                  'lime_green',
+                  'peach_salmon',
+                  'teal_aqua',
+                  'electric_violet',
+                  'soft_pink',
+                ];
+                const resolvedColorKey = (rev.colorKey && rev.colorKey !== 'cream' && STICKY_PALETTES[rev.colorKey])
+                  ? rev.colorKey
+                  : COLOR_CYCLE[idx % COLOR_CYCLE.length];
+                const cfg = STICKY_PALETTES[resolvedColorKey] || STICKY_PALETTES.canary_yellow;
                 const isLiked = likedMap[rev.id];
 
                 return (
@@ -815,19 +881,22 @@ export const GoogleReviewsWall: React.FC = () => {
                       style={{
                         backgroundColor: cfg.backBg,
                         transform: `rotate(${cfg.backRotate}deg) scale(0.99)`,
-                        boxShadow: '0 10px 20px -3px rgba(0,0,0,0.12), 0 4px 6px -2px rgba(0,0,0,0.06)',
+                        boxShadow: '0 10px 20px -3px rgba(0,0,0,0.14), 0 4px 6px -2px rgba(0,0,0,0.08)',
                       }}
                     />
 
                     {/* ── Foreground Main Sticky Note Paper ── */}
                     <div
-                      className="relative rounded-[3px] p-6 sm:p-7 flex flex-col justify-between min-h-[300px] transition-all duration-300"
+                      className="relative rounded-[3px] p-6 sm:p-7 flex flex-col justify-between min-h-[300px] transition-all duration-300 overflow-hidden"
                       style={{
                         backgroundColor: cfg.frontBg,
                         transform: `rotate(${rev.frontRotate}deg)`,
-                        boxShadow: '0 14px 28px -5px rgba(0,0,0,0.22), 0 6px 12px -3px rgba(0,0,0,0.12), inset 0 -2px 6px rgba(0,0,0,0.04)',
+                        boxShadow: '0 16px 30px -4px rgba(0,0,0,0.22), 0 8px 14px -3px rgba(0,0,0,0.12), inset 0 -2px 6px rgba(0,0,0,0.04)',
                       }}
                     >
+                      {/* Authentic Top Adhesive Strip */}
+                      <div className="absolute top-0 left-0 right-0 h-4 bg-gradient-to-b from-black/[0.05] to-transparent pointer-events-none rounded-t-[3px]" />
+
                       {/* Realistic 3D Push Pin at Top Center */}
                       <PushPin pinColor={cfg.pin} />
 
