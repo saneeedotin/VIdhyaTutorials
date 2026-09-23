@@ -168,15 +168,15 @@ function loadVisitors(): VisitorLog[] {
   try {
     if (!fs.existsSync(DATA_FILE)) {
       fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-      fs.writeFileSync(DATA_FILE, JSON.stringify(INITIAL_VISITORS, null, 2), 'utf-8');
-      return INITIAL_VISITORS;
+      fs.writeFileSync(DATA_FILE, '[]', 'utf-8');
+      return [];
     }
     const raw = fs.readFileSync(DATA_FILE, 'utf-8');
     const parsed = JSON.parse(raw || '[]');
-    return Array.isArray(parsed) && parsed.length > 0 ? parsed : INITIAL_VISITORS;
+    return Array.isArray(parsed) ? parsed : [];
   } catch (e) {
     console.error('Error loading visitors data:', e);
-    return INITIAL_VISITORS;
+    return [];
   }
 }
 
@@ -213,6 +213,14 @@ router.post('/track', (req, res) => {
     if (reqPath.includes('admission')) tag = 'Admission Inquiry';
     else if (reqPath.includes('achievers') || reqPath.includes('gallery')) tag = 'Returning Student';
 
+    const rawIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || 
+                  req.socket.remoteAddress || 
+                  '127.0.0.1';
+    const ipParts = rawIp.replace('::ffff:', '').split('.');
+    const ipMasked = ipParts.length === 4 
+      ? `${ipParts[0]}.${ipParts[1]}.**.**`
+      : '127.0.**.**';
+
     const newLog: VisitorLog = {
       id: `vis-${Date.now()}-${Math.floor(100 + Math.random() * 900)}`,
       timestamp: new Date().toISOString(),
@@ -223,9 +231,9 @@ router.post('/track', (req, res) => {
       os: 'Online Visitor',
       referrer: String(referrer).slice(0, 80),
       source,
-      location: String(location).slice(0, 40) || 'Mumbai, Maharashtra',
+      location: String(location).slice(0, 40) || 'Mumbai - 400017',
       visitorTag: tag,
-      ipMasked: `${Math.floor(100 + Math.random() * 80)}.${Math.floor(10 + Math.random() * 200)}.**.**`,
+      ipMasked,
     };
 
     visitors.unshift(newLog);
@@ -237,53 +245,101 @@ router.post('/track', (req, res) => {
   }
 });
 
-// 2. GET AGGREGATED STATS & RECENT VISITORS LOG
+// 2. GET AGGREGATED STATS & RECENT VISITORS LOG (100% REAL DATA)
 router.get('/stats', (_req, res) => {
   try {
     const visitors = loadVisitors();
 
-    const totalVisits = 14820 + visitors.length;
-    const uniqueVisitors = 6430 + Math.floor(visitors.length * 0.65);
-    const todayVisits = 418 + visitors.filter(v => {
-      const vDate = new Date(v.timestamp).toDateString();
-      return vDate === new Date().toDateString();
+    const totalVisits = visitors.length;
+    const uniqueIps = new Set(visitors.map(v => v.ipMasked || v.id));
+    const uniqueVisitors = uniqueIps.size;
+
+    const todayStr = new Date().toDateString();
+    const todayVisits = visitors.filter(v => {
+      try {
+        return new Date(v.timestamp).toDateString() === todayStr;
+      } catch {
+        return false;
+      }
     }).length;
 
-    // Top Pages
-    const pageCounts: Record<string, number> = {
-      'Home Page (/)': 5120,
-      'Admissions AY 2026-27 (/admissions)': 4380,
-      'Toppers & Achievers (/achievers)': 2150,
-      'Branch Locations (/locations)': 1820,
-      'Campus Gallery (/gallery)': 1350,
+    // Active in last 15 minutes (at least 1 if active)
+    const fifteenMinsAgo = Date.now() - 15 * 60 * 1000;
+    const activeVisitors = visitors.filter(v => {
+      try {
+        return new Date(v.timestamp).getTime() >= fifteenMinsAgo;
+      } catch {
+        return false;
+      }
+    });
+    const activeNow = Math.max(1, new Set(activeVisitors.map(v => v.ipMasked || v.id)).size);
+
+    // Dynamic Page Counts
+    const pageCounts: Record<string, number> = {};
+    for (const v of visitors) {
+      const pageKey = v.pageTitle || v.path || 'Home Page (/)';
+      pageCounts[pageKey] = (pageCounts[pageKey] || 0) + 1;
+    }
+    if (Object.keys(pageCounts).length === 0) {
+      pageCounts['Home Page (/)'] = 1;
+    }
+
+    // Dynamic Sources Breakdown
+    const sourceCount: Record<string, number> = {};
+    for (const v of visitors) {
+      const src = v.source || 'Direct';
+      sourceCount[src] = (sourceCount[src] || 0) + 1;
+    }
+    const sourceColors: Record<string, string> = {
+      'Google Search': 'bg-blue-500',
+      'WhatsApp': 'bg-emerald-500',
+      'Direct': 'bg-purple-500',
+      'Justdial': 'bg-amber-500',
+      'Instagram': 'bg-pink-500',
     };
+    const sources = Object.entries(sourceCount).map(([name, count]) => ({
+      name,
+      count,
+      percentage: totalVisits > 0 ? Math.round((count / totalVisits) * 100) : 0,
+      color: sourceColors[name] || 'bg-slate-500'
+    }));
+    if (sources.length === 0) {
+      sources.push({ name: 'Direct Visit', count: 1, percentage: 100, color: 'bg-purple-500' });
+    }
 
-    // Sources Breakdown
-    const sources = [
-      { name: 'Google Search (Organic)', count: 6840, percentage: 46, color: 'bg-blue-500' },
-      { name: 'WhatsApp Referrals', count: 3550, percentage: 24, color: 'bg-emerald-500' },
-      { name: 'Direct Visit / Bookmarks', count: 2370, percentage: 16, color: 'bg-purple-500' },
-      { name: 'Justdial & Local Directories', count: 1180, percentage: 8, color: 'bg-amber-500' },
-      { name: 'Instagram & Social Media', count: 880, percentage: 6, color: 'bg-pink-500' },
-    ];
+    // Dynamic Devices Breakdown
+    const deviceCount: Record<string, number> = {};
+    for (const v of visitors) {
+      const dev = v.device || 'Mobile';
+      deviceCount[dev] = (deviceCount[dev] || 0) + 1;
+    }
+    const deviceColors: Record<string, string> = {
+      'Mobile': 'bg-primary',
+      'Desktop': 'bg-secondary',
+      'Tablet': 'bg-slate-400'
+    };
+    const devices = Object.entries(deviceCount).map(([name, count]) => ({
+      name: name === 'Mobile' ? 'Mobile (Smartphones)' : name === 'Desktop' ? 'Desktop / Laptops' : 'Tablets / iPads',
+      percentage: totalVisits > 0 ? Math.round((count / totalVisits) * 100) : 0,
+      color: deviceColors[name] || 'bg-slate-400'
+    }));
+    if (devices.length === 0) {
+      devices.push({ name: 'Desktop / Laptops', percentage: 100, color: 'bg-secondary' });
+    }
 
-    // Devices
-    const devices = [
-      { name: 'Mobile (Smartphones)', percentage: 76, color: 'bg-primary' },
-      { name: 'Desktop / Laptops', percentage: 20, color: 'bg-secondary' },
-      { name: 'Tablets / iPads', percentage: 4, color: 'bg-slate-400' },
-    ];
-
-    // Locations / Catchment Area
-    const catchment = [
-      { city: 'Kandivali & Borivali', percentage: 42 },
-      { city: 'Malad & Goregaon', percentage: 26 },
-      { city: 'Thane & Dahisar', percentage: 18 },
-      { city: 'Other Mumbai Suburban', percentage: 14 },
-    ];
-
-    // Active live visitors (between 11 and 18 for authentic live feel)
-    const activeNow = 14 + (Math.floor(Date.now() / 15000) % 5);
+    // Dynamic Catchment Area
+    const locationCount: Record<string, number> = {};
+    for (const v of visitors) {
+      const loc = v.location || 'Mumbai - 400017';
+      locationCount[loc] = (locationCount[loc] || 0) + 1;
+    }
+    const catchment = Object.entries(locationCount).map(([city, count]) => ({
+      city,
+      percentage: totalVisits > 0 ? Math.round((count / totalVisits) * 100) : 0
+    }));
+    if (catchment.length === 0) {
+      catchment.push({ city: 'Mumbai - 400017', percentage: 100 });
+    }
 
     res.json({
       success: true,

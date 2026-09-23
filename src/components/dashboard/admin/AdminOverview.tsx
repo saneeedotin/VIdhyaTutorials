@@ -129,7 +129,7 @@ export function AdminOverview() {
       title: 'Enrolled Students', 
       value: metrics.loading ? '...' : String(metrics.totalStudents), 
       subtitle: 'Active students across batches',
-      trend: '+12% this session', 
+      trend: metrics.totalStudents > 0 ? `${metrics.totalStudents} Active` : 'Live Count', 
       icon: Users, 
       color: 'text-primary dark:text-blue-400', 
       bg: 'bg-primary/15',
@@ -185,7 +185,7 @@ export function AdminOverview() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span>{analytics?.metrics?.activeNow || 14} Online Visitors</span>
+              <span>{(analytics?.metrics?.activeNow ?? 1)} Online Visitors</span>
             </span>
           </div>
           <h1 className="text-2xl sm:text-[28px] md:text-[32px] font-h1 font-bold tracking-tight text-primary">Institutional Overview</h1>
@@ -208,25 +208,18 @@ export function AdminOverview() {
 Generated: ${new Date().toLocaleString()}
 
 Metric,Value
-Total Website Visits,${analytics?.metrics?.totalVisits || 14820}
-Unique Visitors,${analytics?.metrics?.uniqueVisitors || 6430}
-Visits Today,${analytics?.metrics?.todayVisits || 428}
-Active Online Visitors,${analytics?.metrics?.activeNow || 14}
+Total Website Visits,${analytics?.metrics?.totalVisits ?? 0}
+Unique Visitors,${analytics?.metrics?.uniqueVisitors ?? 0}
+Visits Today,${analytics?.metrics?.todayVisits ?? 0}
+Active Online Visitors,${analytics?.metrics?.activeNow ?? 1}
 Pending Admissions,${metrics.pendingAdmissions}
 Enrolled Students,${metrics.totalStudents}
 
 Traffic Channels:
-Google Search,46%
-WhatsApp Referrals,24%
-Direct Visits,16%
-Justdial & Local,8%
-Instagram & Social,6%
+${(analytics?.sources || []).map(s => `${s.name},${s.percentage}%`).join('\n')}
 
 Top Locations:
-Kandivali & Borivali,42%
-Malad & Goregaon,26%
-Thane & Dahisar,18%
-Other Mumbai,14%`;
+${(analytics?.catchment || []).map(c => `${c.city},${c.percentage}%`).join('\n')}`;
 
               const blob = new Blob([reportData], { type: 'text/csv' });
               const url = URL.createObjectURL(blob);
@@ -297,10 +290,10 @@ Other Mumbai,14%`;
               <Eye className="w-4 h-4 text-primary" />
             </div>
             <h4 className="text-xl sm:text-3xl font-black text-primary">
-              {(analytics?.metrics?.totalVisits || 14820).toLocaleString()}
+              {(analytics?.metrics?.totalVisits ?? 0).toLocaleString()}
             </h4>
             <span className="text-[10px] text-emerald-600 font-bold flex items-center gap-1 mt-1">
-              <TrendingUp size={11} /> +18.4% this month
+              <TrendingUp size={11} /> Real-time count
             </span>
           </div>
 
@@ -310,10 +303,10 @@ Other Mumbai,14%`;
               <Users className="w-4 h-4 text-secondary" />
             </div>
             <h4 className="text-xl sm:text-3xl font-black text-on-surface">
-              {(analytics?.metrics?.uniqueVisitors || 6430).toLocaleString()}
+              {(analytics?.metrics?.uniqueVisitors ?? 0).toLocaleString()}
             </h4>
             <span className="text-[10px] text-on-surface-variant mt-1 block truncate">
-              Prospective students & parents
+              Unique visitors tracked
             </span>
           </div>
 
@@ -323,10 +316,10 @@ Other Mumbai,14%`;
               <Activity className="w-4 h-4 text-amber-500" />
             </div>
             <h4 className="text-xl sm:text-3xl font-black text-on-surface">
-              {(analytics?.metrics?.todayVisits || 428).toLocaleString()}
+              {(analytics?.metrics?.todayVisits ?? 0).toLocaleString()}
             </h4>
             <span className="text-[10px] text-amber-600 dark:text-amber-400 font-bold mt-1 block">
-              Peak: 5 PM – 9 PM
+              Today's real traffic
             </span>
           </div>
 
@@ -339,10 +332,10 @@ Other Mumbai,14%`;
               </span>
             </div>
             <h4 className="text-xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400">
-              {analytics?.metrics?.activeNow || 14}
+              {analytics?.metrics?.activeNow ?? 1}
             </h4>
             <span className="text-[10px] text-on-surface-variant mt-1 block truncate">
-              Browsing courses & admission
+              Active right now
             </span>
           </div>
         </div>
@@ -384,7 +377,7 @@ Other Mumbai,14%`;
               <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant/60" />
               <input 
                 type="text"
-                placeholder="Search by area (e.g. Kandivali, Borivali), visitor type, or page..."
+                placeholder="Search by area (e.g. Dharavi, Mumbai 17), visitor type, or page..."
                 value={visitorSearch}
                 onChange={e => setVisitorSearch(e.target.value)}
                 className="w-full pl-9 pr-4 py-2 bg-surface-container-low border border-outline-variant/30 rounded-xl text-xs text-on-surface focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30"
