@@ -43,8 +43,14 @@ const allowedOrigins = (process.env.CORS_ORIGIN || '')
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow same-origin requests (no origin header) or whitelisted origins
-    if (!origin || allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+    // Allow same-origin requests, localhost dev origins, or whitelisted origins
+    if (
+      !origin ||
+      origin.includes('localhost') ||
+      origin.includes('127.0.0.1') ||
+      allowedOrigins.length === 0 ||
+      allowedOrigins.includes(origin)
+    ) {
       callback(null, true);
     } else {
       callback(new Error(`CORS: origin ${origin} not allowed`));
