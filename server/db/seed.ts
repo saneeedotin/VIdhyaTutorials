@@ -53,44 +53,8 @@ export const seedDatabase = async () => {
       console.log('✅ Users seeded successfully!');
     }
 
-    // 2. Seed Announcements (Public & Classroom)
-    const announcementsCount = await db.announcements.countDocuments();
-    if (announcementsCount === 0) {
-      const announcements = [
-        {
-          _id: '660000000000000000000010',
-          title: '🔥 10th SSC & 12th Board Prelims Test Series 2026',
-          type: 'EXAM',
-          date: 'March 2026',
-          time: '10:00 AM - 01:00 PM',
-          tags: ['Board Exam', 'Prelims', '10th SSC', '12th HSC'],
-          isActive: true,
-          content: 'Intensive full-syllabus mock exam series conducted strictly as per Maharashtra State Board pattern. Detailed answer sheet evaluations with personalized feedback.',
-        },
-        {
-          _id: '660000000000000000000011',
-          title: '🎯 Special MHT-CET & NEET Formula Revision Workshop',
-          type: 'WORKSHOP',
-          date: 'Every Sunday',
-          time: '08:30 AM - 12:30 PM',
-          tags: ['NEET', 'MHT-CET', 'Science'],
-          isActive: true,
-          content: 'High-yield numerical problem solving, memory maps for organic reactions, and speed calculation shortcuts for Physics and Mathematics.',
-        },
-        {
-          _id: '660000000000000000000012',
-          title: '📢 Parent-Teacher Meeting (PTM) & Progress Report Distribution',
-          type: 'MEETING',
-          date: 'Upcoming Saturday',
-          time: '04:00 PM - 07:00 PM',
-          tags: ['PTM', 'Progress', 'Dharavi Branch'],
-          isActive: true,
-          content: 'One-on-one counseling session between parents and subject teachers to review test scores, attendance records, and personalized preparation roadmaps.',
-        },
-      ];
-      await db.announcements.insertMany(announcements);
-      console.log('✅ Announcements seeded successfully!');
-    }
+    // 2. Announcements - initially empty until admin publishes them
+    // (no dummy announcements)
 
     // 3. Seed Batches
     const batchesCount = await db.batches.countDocuments();

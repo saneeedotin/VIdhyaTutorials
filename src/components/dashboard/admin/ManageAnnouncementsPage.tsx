@@ -174,7 +174,22 @@ export function ManageAnnouncementsPage() {
         {isLoading ? (
           <div className="flex items-center justify-center h-64 text-slate-400 font-medium">Loading announcements...</div>
         ) : filtered.length === 0 ? (
-          <div className="flex items-center justify-center h-64 text-slate-400 font-medium">No announcements found.</div>
+          <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-4">
+              <Megaphone className="w-8 h-8" />
+            </div>
+            <h3 className="text-lg font-semibold text-on-surface mb-1">Abhi Koi Announcement Nahi Hai</h3>
+            <p className="text-sm text-on-surface-variant max-w-sm mb-6">
+              Aap jab yahan se nayi announcement publish karenge, tabhi woh website aur portal par dikhayi degi.
+            </p>
+            <button
+              onClick={() => openModal()}
+              className="bg-primary hover:bg-primary/90 text-white font-medium py-2.5 px-5 rounded-xl flex items-center gap-2 transition-all shadow-sm"
+            >
+              <Plus className="w-4 h-4" />
+              Nayi Announcement Dalein
+            </button>
+          </div>
         ) : (
           <table className="w-full text-left border-collapse">
             <thead className="bg-surface-container-low border-b border-outline-variant/30 text-xs font-semibold text-on-surface-variant uppercase tracking-wider sticky top-0 z-10">
