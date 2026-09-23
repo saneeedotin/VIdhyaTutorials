@@ -213,7 +213,6 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                       { route: 'courses', label: 'Courses & Wings', icon: 'school' },
                       { route: 'admissions', label: 'Admissions 2026-27', icon: 'how_to_reg' },
                       { route: 'gallery', label: 'Campus Gallery', icon: 'photo_library' },
-                      { route: 'achievers', label: 'Wall of Fame / Achievers', icon: 'workspace_premium' },
                       { route: 'about', label: 'About Vidhya', icon: 'info' },
                       { route: 'our-locations', label: 'Locate Us (Matunga)', icon: 'location_on' },
                     ].map((item) => (
