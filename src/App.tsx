@@ -18,10 +18,22 @@ import { ResetPasswordPage } from './components/auth/ResetPasswordPage';
 import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import ScrollToTop from './components/ScrollToTop';
 
-import { AdminLayout } from './components/admin/AdminLayout';
-import { AdminDashboard } from './components/admin/AdminDashboard';
-import { AdminInquiries } from './components/admin/AdminInquiries';
-import { AdminGallery } from './components/admin/AdminGallery';
+import { DashboardLayout } from './components/dashboard/DashboardLayout';
+import { AdminOverview } from './components/dashboard/admin/AdminOverview';
+import { AdmissionManagement } from './components/dashboard/admin/AdmissionManagement';
+import { FormManagement } from './components/dashboard/admin/FormManagement';
+import { WebsiteContentManager } from './components/dashboard/admin/WebsiteContentManager';
+import { UserManagement } from './components/dashboard/admin/UserManagement';
+import { ManageAnnouncementsPage } from './components/dashboard/admin/ManageAnnouncementsPage';
+import { BatchManagement } from './components/dashboard/admin/BatchManagement';
+import { GlobalLedger } from './components/dashboard/admin/GlobalLedger';
+import { ProfileSettings } from './components/dashboard/shared/ProfileSettings';
+
+import { StudentDashboard } from './components/dashboard/student/StudentDashboard';
+import { CourseViewer } from './components/dashboard/student/CourseViewer';
+import { TeacherDashboard } from './components/dashboard/teacher/TeacherDashboard';
+import { TeacherAttendance } from './components/dashboard/teacher/TeacherAttendance';
+import { MaterialUploader } from './components/dashboard/teacher/MaterialUploader';
 
 export default function App() {
   return (
@@ -51,12 +63,56 @@ export default function App() {
           <Route path="/login" element={<LoginRegisterPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-          {/* Admin Dashboard Routes */}
-          <Route path="/admin" element={<ProtectedRoute allowedRoles={['ADMIN']}><AdminLayout /></ProtectedRoute>}>
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="inquiries" element={<AdminInquiries />} />
-            <Route path="gallery" element={<AdminGallery />} />
+          {/* Student Portal */}
+          <Route
+            path="/student"
+            element={
+              <ProtectedRoute allowedRoles={['STUDENT']}>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<StudentDashboard />} />
+            <Route path="courses" element={<CourseViewer />} />
+            <Route path="settings" element={<ProfileSettings />} />
+          </Route>
+
+          {/* Teacher Portal */}
+          <Route
+            path="/teacher"
+            element={
+              <ProtectedRoute allowedRoles={['TEACHER']}>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<TeacherDashboard />} />
+            <Route path="attendance" element={<TeacherAttendance />} />
+            <Route path="materials/upload" element={<MaterialUploader />} />
+            <Route path="settings" element={<ProfileSettings />} />
+          </Route>
+
+          {/* Admin Portal (Full Featured) */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN']}>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Navigate to="dashboard" replace />} />
+            <Route path="dashboard" element={<AdminOverview />} />
+            <Route path="admissions" element={<AdmissionManagement />} />
+            <Route path="forms" element={<FormManagement />} />
+            <Route path="content" element={<WebsiteContentManager />} />
+            <Route path="users" element={<UserManagement />} />
+            <Route path="batches" element={<BatchManagement />} />
+            <Route path="fees" element={<GlobalLedger />} />
+            <Route path="announcements" element={<ManageAnnouncementsPage />} />
+            <Route path="settings" element={<ProfileSettings />} />
           </Route>
 
           {/* 404 Fallback */}
