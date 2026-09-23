@@ -26,8 +26,6 @@ const teacherNav: NavItem[] = [
 const adminNav: NavItem[] = [
   { name: 'Overview', href: '/admin/dashboard', icon: LayoutDashboard },
   { name: 'Admissions', href: '/admin/admissions', icon: UserPlus },
-  { name: 'Batches', href: '/admin/batches', icon: Library },
-  { name: 'Fee Ledger', href: '/admin/fees', icon: IndianRupee },
   { name: 'Forms', href: '/admin/forms', icon: FileText },
   { name: 'Users', href: '/admin/users', icon: Users },
   { name: 'Announcements', href: '/admin/announcements', icon: Megaphone },
