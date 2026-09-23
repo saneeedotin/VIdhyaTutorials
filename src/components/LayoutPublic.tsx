@@ -66,7 +66,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
         referrer: document.referrer || 'Direct',
         device,
         browser,
-        location: 'Mumbai, Maharashtra'
+        location: 'Dharavi, Mumbai - 400017'
       }).catch(() => {});
     } catch (e) {
       // ignore

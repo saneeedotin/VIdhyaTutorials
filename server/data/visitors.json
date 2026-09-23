@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": "vis-1790189046456-567",
+    "timestamp": "2026-09-23T18:44:06.456Z",
+    "path": "/",
+    "pageTitle": "Home - Vidhya Tutorials",
+    "device": "Desktop",
+    "browser": "Chrome",
+    "os": "Online Visitor",
+    "referrer": "Direct",
+    "source": "Direct",
+    "location": "Dharavi, Mumbai - 400017",
+    "visitorTag": "New Parent",
+    "ipMasked": "127.0.**.**"
+  }
+]
