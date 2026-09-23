@@ -214,7 +214,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                       { route: 'admissions', label: 'Admissions 2026-27', icon: 'how_to_reg' },
                       { route: 'gallery', label: 'Campus Gallery', icon: 'photo_library' },
                       { route: 'about', label: 'About Vidhya', icon: 'info' },
-                      { route: 'our-locations', label: 'Locate Us (Matunga)', icon: 'location_on' },
+                      { route: 'our-locations', label: 'Locate Us', icon: 'location_on' },
                     ].map((item) => (
                       <button 
                         key={item.route}
