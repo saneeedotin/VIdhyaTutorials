@@ -229,7 +229,7 @@ export function LiveNoticeBoard() {
                 <motion.div
                   key={item._id || idx}
                   whileHover={{ y: -4 }}
-                  className="bg-surface-container-low rounded-2xl p-5 sm:p-6 border border-outline-variant/30 hover:border-primary/40 hover:shadow-lg transition-all flex flex-col justify-between group cursor-pointer"
+                  className="notice-card rounded-2xl p-5 sm:p-6 border shadow-md hover:shadow-xl transition-all flex flex-col justify-between group cursor-pointer"
                   onClick={() => setSelectedAnnouncement(item)}
                 >
                   <div>
@@ -239,21 +239,21 @@ export function LiveNoticeBoard() {
                         {badge.label}
                       </span>
                       {item.date && (
-                        <span className="text-[11px] font-semibold text-on-surface-variant flex items-center gap-1">
-                          <Calendar size={12} className="text-primary" />
-                          {item.date}
+                        <span className="notice-meta text-[11px] font-semibold flex items-center gap-1">
+                          <Calendar size={12} className="text-primary dark:text-blue-400" />
+                          <span>{item.date}</span>
                         </span>
                       )}
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-bold text-base text-on-surface group-hover:text-primary transition-colors line-clamp-2 mb-2">
+                    <h3 className="notice-title font-bold text-base group-hover:text-primary transition-colors line-clamp-2 mb-2">
                       {item.title}
                     </h3>
 
                     {/* Time if available */}
                     {item.time && (
-                      <div className="text-xs text-on-surface-variant flex items-center gap-1.5 mb-3 font-medium">
+                      <div className="notice-meta text-xs flex items-center gap-1.5 mb-3 font-medium">
                         <Clock size={13} className="text-amber-500 shrink-0" />
                         <span>{item.time}</span>
                       </div>
@@ -261,23 +261,23 @@ export function LiveNoticeBoard() {
 
                     {/* Content Snippet */}
                     {item.content && (
-                      <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-3 mb-4">
+                      <p className="notice-content text-xs leading-relaxed line-clamp-3 mb-4">
                         {item.content}
                       </p>
                     )}
                   </div>
 
                   {/* Footer with Tags and Read More */}
-                  <div className="pt-3 border-t border-outline-variant/20 flex items-center justify-between mt-auto">
+                  <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between mt-auto">
                     <div className="flex items-center gap-1.5 overflow-hidden">
                       {item.tags && item.tags.slice(0, 2).map((t, ti) => (
-                        <span key={ti} className="text-[10px] bg-surface-container px-2 py-0.5 rounded-md text-on-surface-variant/80 font-medium truncate max-w-[90px]">
+                        <span key={ti} className="notice-tag text-[10px] px-2 py-0.5 rounded-md font-medium truncate max-w-[90px]">
                           #{t}
                         </span>
                       ))}
                     </div>
 
-                    <span className="text-xs font-bold text-primary group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 shrink-0">
+                    <span className="notice-link text-xs font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 shrink-0">
                       <span>Details</span>
                       <ArrowRight size={13} />
                     </span>

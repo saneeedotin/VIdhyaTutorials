@@ -233,18 +233,18 @@ select option, select optgroup {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.theme-dark-card h1, 
-.theme-dark-card h2, 
-.theme-dark-card h3, 
-.theme-dark-card h4, 
-.theme-dark-card h5, 
-.theme-dark-card h6,
-.theme-dark-card .text-primary {
+.theme-dark-card h1:not(.notice-card *), 
+.theme-dark-card h2:not(.notice-card *), 
+.theme-dark-card h3:not(.notice-card *), 
+.theme-dark-card h4:not(.notice-card *), 
+.theme-dark-card h5:not(.notice-card *), 
+.theme-dark-card h6:not(.notice-card *),
+.theme-dark-card .text-primary:not(.notice-card *) {
   color: #ffffff !important;
 }
 
-.theme-dark-card .text-on-surface-variant,
-.theme-dark-card .text-on-surface {
+.theme-dark-card .text-on-surface-variant:not(.notice-card *),
+.theme-dark-card .text-on-surface:not(.notice-card *) {
   color: rgba(255, 255, 255, 0.8) !important;
 }
 
@@ -252,11 +252,82 @@ select option, select optgroup {
   color: var(--color-secondary-fixed-dim) !important;
 }
 
-.theme-dark-card .bg-surface-container,
-.theme-dark-card .bg-surface-bright,
-.theme-dark-card .bg-surface {
+.theme-dark-card .bg-surface-container:not(.notice-card *),
+.theme-dark-card .bg-surface-bright:not(.notice-card *),
+.theme-dark-card .bg-surface:not(.notice-card *) {
   background-color: rgba(255, 255, 255, 0.1) !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Notice Board Cards - High Contrast & Crystal Clear Readability */
+.notice-card {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+.dark .notice-card {
+  background-color: #0b1a2e !important;
+  color: #f8fafc !important;
+  border-color: rgba(51, 65, 85, 0.6) !important;
+}
+
+.notice-card h3,
+.notice-card .notice-title,
+.theme-dark-card .notice-card h3 {
+  color: #0f172a !important;
+}
+
+.dark .notice-card h3,
+.dark .notice-card .notice-title,
+.dark .theme-dark-card .notice-card h3 {
+  color: #ffffff !important;
+}
+
+.notice-card p,
+.notice-card .notice-content,
+.theme-dark-card .notice-card p,
+.theme-dark-card .notice-card .notice-content {
+  color: #334155 !important;
+}
+
+.dark .notice-card p,
+.dark .notice-card .notice-content,
+.dark .theme-dark-card .notice-card p,
+.dark .theme-dark-card .notice-card .notice-content {
+  color: #cbd5e1 !important;
+}
+
+.notice-card .notice-meta,
+.theme-dark-card .notice-card .notice-meta {
+  color: #475569 !important;
+}
+
+.dark .notice-card .notice-meta,
+.dark .theme-dark-card .notice-card .notice-meta {
+  color: #94a3b8 !important;
+}
+
+.notice-card .notice-tag,
+.theme-dark-card .notice-card .notice-tag {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+}
+
+.dark .notice-card .notice-tag,
+.dark .theme-dark-card .notice-card .notice-tag {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+.notice-card .notice-link,
+.theme-dark-card .notice-card .notice-link {
+  color: #0284c7 !important;
+}
+
+.dark .notice-card .notice-link,
+.dark .theme-dark-card .notice-card .notice-link {
+  color: #38bdf8 !important;
 }
 
 /* ═══════════════════════════════════════════════════════ */
