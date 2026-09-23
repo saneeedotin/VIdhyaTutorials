@@ -35,13 +35,20 @@ apiClient.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     
-    // If the error is 401 and we haven't already tried to refresh
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    const isAuthRoute =
+      originalRequest?.url?.includes('/api/auth/refresh') ||
+      originalRequest?.url?.includes('/api/auth/login') ||
+      originalRequest?.url?.includes('/api/auth/forgot-password') ||
+      originalRequest?.url?.includes('/api/auth/reset-password');
+
+    // If the error is 401 and not an auth route and we haven't already tried to refresh
+    if (error.response?.status === 401 && originalRequest && !originalRequest._retry && !isAuthRoute) {
       originalRequest._retry = true;
       
       try {
         // Attempt to refresh the token using the httpOnly cookie
-        const { data } = await axios.post(`${apiClient.defaults.baseURL}/api/auth/refresh`, {}, {
+        const baseUrl = apiClient.defaults.baseURL || '';
+        const { data } = await axios.post(`${baseUrl}/api/auth/refresh`, {}, {
           withCredentials: true
         });
         
