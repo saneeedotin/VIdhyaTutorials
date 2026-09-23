@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import axios from 'axios';
 import { apiClient, setAccessToken } from '../api/apiClient';
 
 interface User {
@@ -52,7 +53,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const restoreSession = async () => {
       try {
-        const { data } = await apiClient.post('/api/auth/refresh');
+        // Use plain axios call with credentials so it does NOT trigger apiClient's response interceptor on 401
+        const baseUrl = apiClient.defaults.baseURL || '';
+        const { data } = await axios.post(`${baseUrl}/api/auth/refresh`, {}, {
+          withCredentials: true
+        });
         setAccessToken(data.accessToken);
         
         // Fetch user profile
