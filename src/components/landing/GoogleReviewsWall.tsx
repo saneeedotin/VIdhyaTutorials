@@ -706,7 +706,7 @@ export const GoogleReviewsWall: React.FC = () => {
 
                 <div className="flex items-center gap-2 text-xs font-medium text-on-surface-variant mt-3">
                   <MapPin className="w-4 h-4 text-rose-500 shrink-0" />
-                  <span>Matunga Road, Mumbai - 400016</span>
+                  <span>Matunga Road, Mumbai - 400017</span>
                 </div>
               </motion.div>
             </div>

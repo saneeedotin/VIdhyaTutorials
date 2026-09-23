@@ -443,7 +443,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
                       rel="noopener noreferrer"
                       className="hover:text-primary dark:hover:text-blue-400 leading-snug transition-colors group flex items-start gap-1"
                     >
-                      <span>Matunga Road, Mumbai - 400016</span>
+                      <span>Matunga Road, Mumbai - 400017</span>
                       <ExternalLink size={13} className="shrink-0 opacity-0 group-hover:opacity-100 transition-opacity mt-1 text-primary" />
                     </a>
                   </div>

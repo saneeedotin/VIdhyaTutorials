@@ -61,7 +61,7 @@ export const sendAppointmentEmail = async (appointmentDetails: any) => {
         </div>
       </div>
       <div style="background: #f1f5f9; padding: 14px; text-align: center; font-size: 11px; color: #64748b;">
-        Vidhya Tutorials • Official Academic Desk Alert System • Mumbai - 400016
+        Vidhya Tutorials • Official Academic Desk Alert System • Mumbai - 400017
       </div>
     </div>
   `;
@@ -172,7 +172,7 @@ export const sendAdmissionEmail = async (admissionDetails: any) => {
         </div>
       </div>
       <div style="background: #f1f5f9; padding: 14px; text-align: center; font-size: 11px; color: #64748b;">
-        Vidhya Tutorials • Admissions Bureau • Matunga Road Center, Mumbai - 400016
+        Vidhya Tutorials • Admissions Bureau • Matunga Road Center, Mumbai - 400017
       </div>
     </div>
   `;

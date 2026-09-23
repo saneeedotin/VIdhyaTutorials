@@ -283,7 +283,7 @@ export function AdmissionFormPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-on-surface-variant font-medium">Branch:</span>
-              <span className="text-on-surface">Matunga Road, Mumbai - 400016</span>
+              <span className="text-on-surface">Matunga Road, Mumbai - 400017</span>
             </div>
           </div>
 
@@ -958,13 +958,13 @@ export function AdmissionFormPage() {
 
               {/* Printed Institute Contact Footer */}
               <div className="hidden print:block pt-3 border-t border-gray-300 text-[10px] text-center text-gray-600">
-                Vidhya Tutorials • Matunga Road, Mumbai - 400016 • Tel: +91 99871 18369 / +91 93247 18369
+                Vidhya Tutorials • Matunga Road, Mumbai - 400017 • Tel: +91 99871 18369 / +91 93247 18369
               </div>
 
               {/* ── Submit & Print Buttons Row (Screen only) ── */}
               <div className="pt-4 border-t border-outline-variant/20 flex flex-col sm:flex-row items-center justify-between gap-4 print:hidden">
                 <div className="text-[11px] sm:text-xs text-on-surface-variant text-center sm:text-left">
-                  Matunga Road, Mumbai - 400016
+                  Matunga Road, Mumbai - 400017
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
