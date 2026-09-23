@@ -231,20 +231,20 @@ export function AboutPage() {
         <div className="relative z-10 max-w-[1280px] mx-auto flex flex-col items-start text-left w-full">
           <FadeInWhenVisible className="max-w-4xl">
             <span className="inline-block px-3.5 py-1.5 bg-white/15 backdrop-blur-md text-white border border-white/20 rounded-full text-[11px] sm:text-data-label font-data-label mb-4 sm:mb-5 tracking-widest uppercase shadow-md">
-              ✨ Established 2007 • 18+ Years of Academic Excellence
+              ✨ 18+ Years of Academic Excellence & Proven Results
             </span>
             <h1 className="font-h1 text-2xl sm:text-4xl md:text-[54px] font-bold text-white leading-tight tracking-[-0.02em] mb-3 sm:mb-4">
               Dedicated to <span className="italic text-amber-300 font-serif">Excellence</span> to shape future achievers.
             </h1>
             <p className="text-white/90 font-body-lg text-sm sm:text-base md:text-[18px] max-w-2xl font-medium leading-relaxed">
-              Operating since 2007 at Matunga Road, Mumbai, Vidhya Tutorials delivers concept-oriented teaching, disciplined test series, and personalized individual mentorship.
+              Operating at Matunga Road, Mumbai, Vidhya Tutorials delivers concept-oriented teaching, disciplined test series, and personalized individual mentorship.
             </p>
           </FadeInWhenVisible>
         </div>
       </section>
 
       <div className="relative z-10 w-full bg-surface-container-low shadow-[0_-20px_50px_rgba(0,0,0,0.06)] overflow-hidden">
-        <ScrollTicker items={["Established in 2007", "18+ Years of Academic Brilliance", "Dedicated Faculty Mentorship", "Matunga Road Campus", "10,000+ Alumni Mentored"]} className="bg-primary text-white dark:text-[#001b3c] border-b border-white/10 dark:border-[#001b3c]/20" />
+        <ScrollTicker items={["18+ Years of Academic Brilliance", "Dedicated Faculty Mentorship", "Matunga Road Campus", "10,000+ Alumni Mentored", "Consistent Board Toppers"]} className="bg-primary text-white dark:text-[#001b3c] border-b border-white/10 dark:border-[#001b3c]/20" />
         <div className="pt-10 sm:pt-16 pb-20 sm:pb-24 space-y-10 sm:space-y-16 md:space-y-24 px-3.5 sm:px-6 md:px-[64px]">
 
           {/* 1.5 Quick Heritage Highlights Strip */}
@@ -252,21 +252,21 @@ export function AboutPage() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
               <FadeInWhenVisible delay={0.05} className="bg-surface theme-dark-card rounded-2xl p-3 sm:p-5 md:p-6 border border-outline-variant/30 shadow-md flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                 <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                  <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Award className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div>
-                  <p className="text-lg sm:text-2xl font-extrabold text-primary dark:text-blue-400">2007</p>
-                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-semibold uppercase tracking-wider">Established</p>
+                  <p className="text-lg sm:text-2xl font-extrabold text-primary dark:text-blue-400">18+</p>
+                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-semibold uppercase tracking-wider">Years Exp.</p>
                 </div>
               </FadeInWhenVisible>
 
               <FadeInWhenVisible delay={0.1} className="bg-surface theme-dark-card rounded-2xl p-3 sm:p-5 md:p-6 border border-outline-variant/30 shadow-md flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                 <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center shrink-0">
-                  <Award className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <Star className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div>
-                  <p className="text-lg sm:text-2xl font-extrabold text-amber-500">18+ Years</p>
-                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-semibold uppercase tracking-wider">Legacy</p>
+                  <p className="text-lg sm:text-2xl font-extrabold text-amber-500">5.0 ★</p>
+                  <p className="text-[10px] sm:text-xs text-on-surface-variant font-semibold uppercase tracking-wider">Rating</p>
                 </div>
               </FadeInWhenVisible>
 
@@ -304,8 +304,8 @@ export function AboutPage() {
                     <span>Matunga Road, Mumbai</span>
                   </span>
                   <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-secondary/15 text-secondary border border-secondary/25">
-                    <Calendar size={13} />
-                    <span>Started Since 2007</span>
+                    <Award size={13} />
+                    <span>18+ Years Legacy</span>
                   </span>
                 </div>
 
@@ -315,7 +315,7 @@ export function AboutPage() {
                 <div className="w-24 h-1.5 bg-secondary rounded-full mb-4" />
 
                 <p className="text-on-surface-variant font-body-lg text-[16px] md:text-[17px] leading-relaxed">
-                  <strong className="text-primary font-bold">Vidhya Tutorials</strong> was established in <strong className="text-on-surface font-semibold">2007</strong> with a visionary purpose: to provide disciplined, concept-driven, and truly student-centric coaching in Mumbai.
+                  <strong className="text-primary font-bold">Vidhya Tutorials</strong> was founded with a visionary purpose: to provide disciplined, concept-driven, and truly student-centric coaching in Mumbai.
                 </p>
 
                 <p className="text-on-surface-variant font-body-lg text-[16px] md:text-[17px] leading-relaxed">
@@ -327,7 +327,7 @@ export function AboutPage() {
                     <Building2 className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <div>
                       <div className="text-xs font-bold text-on-surface">Academic Legacy</div>
-                      <div className="text-[12px] text-on-surface-variant">Established Since 2007</div>
+                      <div className="text-[12px] text-on-surface-variant">18+ Years of Brilliance</div>
                     </div>
                   </div>
 
@@ -663,7 +663,7 @@ export function AboutPage() {
                       <span>Founder & Academic Head</span>
                     </span>
                     <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
-                      Est. 2007
+                      Matunga Road Campus
                     </span>
                   </div>
 
@@ -813,13 +813,13 @@ export function AboutPage() {
             </FadeInWhenVisible>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-              {/* Milestone 1: 2007 */}
+              {/* Milestone 1: Genesis */}
               <FadeInWhenVisible delay={0.1} className="relative p-6 rounded-2xl bg-surface-container/50 border border-outline-variant/30 flex flex-col justify-between hover:border-primary/40 transition-all">
                 <div>
-                  <span className="text-3xl font-extrabold text-primary block mb-2">2007</span>
+                  <span className="text-3xl font-extrabold text-primary block mb-2">Genesis</span>
                   <h4 className="font-bold text-base text-on-surface mb-2">Foundation of Vidhya Tutorials</h4>
                   <p className="text-xs text-on-surface-variant leading-relaxed">
-                    Established in Mumbai with small interactive batches focused purely on concept clarity, disciplined study routines, and individual doubt resolution.
+                    Started in Mumbai with small interactive batches focused purely on concept clarity, disciplined study routines, and individual doubt resolution.
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-outline-variant/20 text-[11px] font-semibold text-secondary">

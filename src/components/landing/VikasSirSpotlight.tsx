@@ -173,7 +173,7 @@ export function VikasSirSpotlight({ onScheduleCounseling, onBookDemo }: VikasSir
                 <div className="mt-2.5 flex items-center gap-2">
                   <span className="w-5 h-0.5 bg-primary/50 dark:bg-blue-400/50" />
                   <span className="text-xs font-bold uppercase tracking-wider text-primary dark:text-blue-400">
-                    Vikas Tank • Founder & Academic Head (Est. 2007)
+                    Vikas Tank • Founder & Academic Head
                   </span>
                 </div>
               </div>

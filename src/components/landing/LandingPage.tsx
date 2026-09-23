@@ -91,7 +91,7 @@ export function LandingPage() {
 
             {/* Description */}
             <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base md:text-[18px] mb-6 sm:mb-8 max-w-xl leading-relaxed font-normal">
-              Empowering the next generation of leaders through personalized mentorship, rigorous academic discipline, and an unbroken tradition of board toppers since 2007.
+              Empowering the next generation of leaders through personalized mentorship, rigorous academic discipline, and an unbroken tradition of board toppers.
             </p>
 
             {/* Key Accreditations Bar (Clean Light Aesthetic) */}
