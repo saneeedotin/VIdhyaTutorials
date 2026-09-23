@@ -155,46 +155,6 @@ router.post('/login', loginLimiter, async (req, res) => {
           phone: '+91 88981 17343',
           createdAt: new Date().toISOString(),
         });
-      } else if ((searchId === 'TCH-1001' || cleanEmail === 'teacher@vidhya.com') && (password === 'password123' || password === 'teacher123')) {
-        const passwordHash = await bcrypt.hash('password123', saltRounds);
-        user = await db.users.create({
-          userId: 'TCH-1001',
-          email: 'teacher@vidhya.com',
-          name: 'Prof. Rajesh Sharma (Senior Faculty)',
-          role: 'TEACHER',
-          standard: '10th',
-          division: 'A',
-          passwordHash,
-          schoolCode: 'VIDHYA',
-          isActive: true,
-          xp: 600,
-          level: 6,
-          currentStreak: 15,
-          longestStreak: 30,
-          badges: ['Master Teacher', 'Top Mentor'],
-          phone: '+91 98200 12345',
-          createdAt: new Date().toISOString(),
-        });
-      } else if ((searchId === 'STU-1001' || cleanEmail === 'student@vidhya.com') && (password === 'password123' || password === 'student123')) {
-        const passwordHash = await bcrypt.hash('password123', saltRounds);
-        user = await db.users.create({
-          userId: 'STU-1001',
-          email: 'student@vidhya.com',
-          name: 'Aditya Sharma',
-          role: 'STUDENT',
-          standard: '10th',
-          division: 'A',
-          passwordHash,
-          schoolCode: 'VIDHYA',
-          isActive: true,
-          xp: 320,
-          level: 3,
-          currentStreak: 7,
-          longestStreak: 14,
-          badges: ['Consistent Learner', 'Problem Solver'],
-          phone: '+91 98765 43210',
-          createdAt: new Date().toISOString(),
-        });
       } else {
         return res.status(401).json({
           error: 'Invalid credentials. Please check your User ID or email and password.',

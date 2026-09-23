@@ -89,10 +89,10 @@ export function AdminOverview() {
       const adminData = adminRes.data?.data || {};
 
       setMetrics({
-        totalStudents: adminData.totalStudents || approvedCount || 48,
+        totalStudents: adminData.totalStudents !== undefined ? adminData.totalStudents : (approvedCount || 0),
         pendingAdmissions: pendingCount,
         approvedAdmissions: approvedCount,
-        totalBatches: adminData.totalBatches || 6,
+        totalBatches: adminData.totalBatches !== undefined ? adminData.totalBatches : 0,
         loading: false
       });
     } catch (err) {
