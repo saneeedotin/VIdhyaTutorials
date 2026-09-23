@@ -83,10 +83,12 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Connect DB and Start Server
-const start = async () => {
-  await connectDB();
-  app.listen(PORT, () => {
+const start = () => {
+  // Start listening immediately to satisfy Hostinger's 3-second timeout requirement
+  app.listen(PORT, async () => {
     console.log(`✅ Server running on port ${PORT} (${process.env.NODE_ENV || 'development'})`);
+    // Initialize DB connection in the background
+    await connectDB().catch(err => console.error('Database connection error:', err));
   });
 };
 

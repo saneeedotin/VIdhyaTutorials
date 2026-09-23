@@ -5,10 +5,12 @@ import fs from 'fs';
 import path from 'path';
 
 let initialized = false;
+let disabled = false;
 let firestoreInstance: Firestore | null = null;
 let authInstance: Auth | null = null;
 
 export function initFirebase(): boolean {
+  if (disabled) return false;
   if (initialized) return true;
 
   try {
@@ -62,7 +64,9 @@ export function initFirebase(): boolean {
     }
 
     // 4. Default / Application Default Credentials fallback
-    if (!credential) {
+    // Only attempt ADC if explicitly requested or if GOOGLE_APPLICATION_CREDENTIALS is set,
+    // otherwise it hangs on Hostinger trying to reach GCP metadata servers.
+    if (!credential && (process.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.FIREBASE_USE_ADC === 'true')) {
       try {
         credential = applicationDefault();
         console.log('🔑 Firebase: Falling back to Application Default Credentials');
@@ -98,10 +102,18 @@ export function initFirebase(): boolean {
 }
 
 export function isFirebaseActive(): boolean {
+  if (disabled) return false;
   if (!initialized) {
     initFirebase();
   }
   return initialized && firestoreInstance !== null;
+}
+
+export function disableFirebase() {
+  disabled = true;
+  initialized = false;
+  firestoreInstance = null;
+  authInstance = null;
 }
 
 export function getFirestore(): Firestore {

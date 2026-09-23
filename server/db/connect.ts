@@ -1,4 +1,4 @@
-import { initFirebase, isFirebaseActive, getFirestore } from './firebase';
+import { initFirebase, isFirebaseActive, getFirestore, disableFirebase } from './firebase';
 import { seedDatabase } from './seed';
 
 export const connectDB = async () => {
@@ -18,6 +18,7 @@ export const connectDB = async () => {
     } catch (primaryError: any) {
       console.warn('⚠️ Could not connect to remote Firestore:', primaryError?.message || primaryError);
       console.log('🔄 Falling back to embedded persistent database engine (server/data/)...');
+      disableFirebase();
     }
   } else {
     console.log('📦 No Firebase credentials configured. Initializing embedded persistent database (server/data/)...');
