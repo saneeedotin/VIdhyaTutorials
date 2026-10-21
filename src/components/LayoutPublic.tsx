@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Moon, Sun, MapPin, Phone, Mail, Instagram, Clock, PhoneCall, X, ExternalLink, Copy, Check, ArrowUpRight } from 'lucide-react';
+import { Moon, Sun, MapPin, Phone, Mail, Instagram, Clock, PhoneCall, X, ExternalLink, Copy, Check, ArrowUpRight, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SmoothScroll } from './SmoothScroll';
 import { AdmissionModalPopup } from './ui/AdmissionModalPopup';
+import { QuickSearchModal } from './ui/QuickSearchModal';
 import { apiClient } from '../api/apiClient';
 
 interface LayoutPublicProps {
@@ -18,6 +19,7 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
   
   const currentRoute = location.pathname;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const menuRef = useRef<HTMLElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDark, setIsDark] = useState(() => {
@@ -25,6 +27,18 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
   });
   const [activeContact, setActiveContact] = useState<'location' | 'phone' | 'email' | 'instagram' | null>(null);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  // Global shortcut for search (Cmd+K / Ctrl+K)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchModalOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const copyToClipboard = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -119,27 +133,64 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
       
       {/* TopNavBar */}
       <header ref={menuRef} className={`${headerClass()} print:hidden`}>
-        <div className="flex justify-between items-center max-w-[1280px] mx-auto px-4 sm:px-6 md:px-[64px] h-20">
+        <div className="flex justify-between items-center max-w-[1280px] mx-auto px-4 sm:px-6 md:px-[64px] h-20 gap-3 sm:gap-6">
           
-          <div className="flex items-center cursor-pointer pointer-events-auto px-1 py-1 rounded-2xl transition-all" onClick={() => onNavigate('home')}>
-            <img alt="Vidhya Tutorials Logo" className="h-9 sm:h-10 w-auto object-contain shrink-0" src="/logo.svg?v=1783890290950" />
-            <motion.span 
-              initial={false}
-              animate={{ 
-                width: isScrolled ? 0 : 'auto', 
-                opacity: isScrolled ? 0 : 1,
-                marginLeft: isScrolled ? 0 : 10
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className={`font-h3 text-lg sm:text-h3 font-bold tracking-tight whitespace-nowrap overflow-hidden transition-colors duration-300 ${
+          {/* Logo & Institute Name (Always visible - Never collapses into empty space) */}
+          <div className="flex items-center gap-2.5 sm:gap-3 cursor-pointer pointer-events-auto group shrink-0" onClick={() => onNavigate('home')}>
+            <img alt="Vidhya Tutorials Logo" className="h-9 sm:h-11 w-auto object-contain shrink-0 transition-transform group-hover:scale-105" src="/logo.svg?v=1783890290950" />
+            <div className="flex flex-col">
+              <span className={`font-h3 text-base sm:text-xl font-extrabold tracking-tight whitespace-nowrap leading-tight transition-colors duration-300 ${
                 isDarkHeroAtTop ? 'text-white drop-shadow-sm' : 'text-primary dark:text-white'
-              }`}
-            >
-              Vidhya Tutorials
-            </motion.span>
+              }`}>
+                Vidhya Tutorials
+              </span>
+              <span className={`text-[10px] sm:text-[11px] font-bold tracking-wide whitespace-nowrap transition-colors duration-300 hidden min-[400px]:block ${
+                isDarkHeroAtTop ? 'text-white/80' : 'text-secondary dark:text-blue-300'
+              }`}>
+                6th–12th • SSC • ICSE • CBSE
+              </span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 pointer-events-auto">
+          {/* Center Search Bar (Addresses "give a search bar on top / looks empty") */}
+          <div className="hidden md:flex items-center justify-center flex-1 max-w-md mx-2 pointer-events-auto">
+            <button
+              type="button"
+              onClick={() => setSearchModalOpen(true)}
+              className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 rounded-full border text-xs font-medium transition-all duration-200 cursor-pointer group shadow-xs ${
+                isDarkHeroAtTop
+                  ? 'bg-white/10 hover:bg-white/20 border-white/20 text-white/90 hover:text-white backdrop-blur-md'
+                  : 'bg-surface-container-low/80 hover:bg-surface-container border-outline-variant/30 text-on-surface-variant hover:text-on-surface'
+              }`}
+              title="Search courses, classes, boards (SSC/ICSE/CBSE) and subjects"
+            >
+              <div className="flex items-center gap-2.5 truncate">
+                <Search size={15} className="shrink-0 text-primary dark:text-blue-300 group-hover:scale-110 transition-transform" />
+                <span className="truncate text-slate-600 dark:text-slate-300 font-medium">Search courses (6th, 7th, 10th ICSE, NEET)...</span>
+              </div>
+              <kbd className="hidden lg:inline-flex items-center gap-0.5 px-2 py-0.5 rounded text-[10px] font-mono bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 opacity-70">
+                ⌘K
+              </kbd>
+            </button>
+          </div>
+
+          {/* Right Action Icons & Menu */}
+          <div className="flex items-center gap-2 pointer-events-auto shrink-0">
+            {/* Mobile/Tablet Search Button */}
+            <button
+              type="button"
+              onClick={() => setSearchModalOpen(true)}
+              className={`md:hidden min-w-[40px] min-h-[40px] p-2 rounded-2xl apple-active transition-colors duration-150 flex items-center justify-center cursor-pointer ${
+                isDarkHeroAtTop 
+                  ? 'text-white hover:bg-white/10' 
+                  : 'text-primary dark:text-white hover:bg-primary/10 dark:hover:bg-white/10'
+              }`}
+              aria-label="Search Courses"
+              title="Search Courses"
+            >
+              <Search size={20} />
+            </button>
+
             {/* Quick action: Apply Now (hidden on tiny screens, visible on sm+) */}
             <button
               onClick={() => navigate('/apply')}
@@ -574,6 +625,9 @@ export const LayoutPublic: React.FC<LayoutPublicProps> = ({ children }) => {
 
       {/* Academic Year Admissions Auto-Popup & Floating Side Trigger */}
       <AdmissionModalPopup />
+
+      {/* Global Interactive Course & Class Quick Search Modal */}
+      <QuickSearchModal isOpen={searchModalOpen} onClose={() => setSearchModalOpen(false)} />
     </div>
     </SmoothScroll>
   );

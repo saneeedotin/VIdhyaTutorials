@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Lock, Eye, EyeOff, Loader2, CheckCircle2, AlertTriangle, ArrowLeft, KeyRound } from 'lucide-react';
 import { apiClient } from '../../api/apiClient';
 
@@ -11,9 +10,10 @@ export function ResetPasswordPage() {
 
   const [verifying, setVerifying] = useState(true);
   const [tokenValid, setTokenValid] = useState(false);
-  const [tokenEmail, setTokenEmail] = useState('');
+  const [tokenEmail, setTokenEmail] = useState('vidhyatutorials22@gmail.com');
   const [verificationError, setVerificationError] = useState('');
 
+  // Active form inputs
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -23,10 +23,11 @@ export function ResetPasswordPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   useEffect(() => {
+    // If no token provided in URL
     if (!token) {
       setVerifying(false);
       setTokenValid(false);
-      setVerificationError('No reset token was found in the link. Please request a new password reset link.');
+      setVerificationError('No reset token found in link. Password reset is strictly allowed via the official email link only.');
       return;
     }
 
@@ -38,11 +39,11 @@ export function ResetPasswordPage() {
           setTokenEmail(res.data.email || 'vidhyatutorials22@gmail.com');
         } else {
           setTokenValid(false);
-          setVerificationError(res.data?.error || 'Password reset link is invalid or expired.');
+          setVerificationError(res.data?.error || 'Password reset link is invalid or has expired (strictly 5-minute limit).');
         }
       } catch (err: any) {
         setTokenValid(false);
-        setVerificationError(err.response?.data?.error || 'Password reset link is invalid or has expired (15-minute limit).');
+        setVerificationError(err.response?.data?.error || 'This password reset link has expired (strictly 5-minute limit). Please request a new link.');
       } finally {
         setVerifying(false);
       }
@@ -51,6 +52,7 @@ export function ResetPasswordPage() {
     verifyToken();
   }, [token]);
 
+  // Submit Password Update via verified single-use token
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError('');
@@ -77,7 +79,7 @@ export function ResetPasswordPage() {
         navigate('/login', { replace: true });
       }, 2500);
     } catch (err: any) {
-      setSubmitError(err.response?.data?.error || 'Failed to update password. Please request a new link.');
+      setSubmitError(err.response?.data?.error || 'Failed to update password. Link may have expired (5-minute limit). Please request a new link.');
     } finally {
       setSubmitting(false);
     }
@@ -95,7 +97,7 @@ export function ResetPasswordPage() {
         <div className="text-center mb-6">
           <Link to="/" className="inline-flex items-center gap-2 mb-3">
             <img 
-              src="/vidhya-tutorials-logo.png" 
+              src="/logo-emblem.png" 
               alt="Vidhya Tutorials" 
               className="w-10 h-10 object-contain" 
               onError={(e) => { (e.target as HTMLImageElement).src = '/logo.svg'; }}
@@ -116,13 +118,13 @@ export function ResetPasswordPage() {
             <div className="py-12 flex flex-col items-center justify-center text-center space-y-4">
               <Loader2 className="w-10 h-10 text-primary animate-spin" />
               <div>
-                <h2 className="text-lg font-bold text-primary">Verifying Reset Link</h2>
-                <p className="text-xs text-on-surface-variant mt-1">Checking link validity and security token...</p>
+                <h2 className="text-lg font-bold text-primary">Verifying Email Reset Link</h2>
+                <p className="text-xs text-on-surface-variant mt-1">Validating single-use security token (5-minute validity)...</p>
               </div>
             </div>
           )}
 
-          {/* 2. INVALID / EXPIRED TOKEN */}
+          {/* 2. INVALID / EXPIRED TOKEN STATE */}
           {!verifying && !tokenValid && (
             <div className="text-center space-y-5 py-4">
               <div className="w-14 h-14 mx-auto rounded-2xl bg-error/10 text-error flex items-center justify-center">
@@ -131,14 +133,14 @@ export function ResetPasswordPage() {
               <div>
                 <h2 className="text-xl font-bold text-on-surface">Link Expired or Invalid</h2>
                 <p className="text-xs text-on-surface-variant mt-2 leading-relaxed max-w-sm mx-auto">
-                  {verificationError || 'This password reset link is invalid or has already expired. Password reset links are strictly single-use and valid for 15 minutes.'}
+                  {verificationError || 'This password reset link is invalid or has expired. Password reset links are strictly single-use and valid for 5 minutes only.'}
                 </p>
               </div>
 
-              <div className="pt-2 flex flex-col gap-2.5">
+              <div className="pt-2">
                 <Link
                   to="/login"
-                  className="w-full py-3 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-md"
+                  className="w-full py-3.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-md shadow-primary/20"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   <span>Return to Sign In</span>
@@ -162,7 +164,7 @@ export function ResetPasswordPage() {
               <div className="pt-2">
                 <Link
                   to="/login"
-                  className="w-full py-3 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-md"
+                  className="w-full py-3.5 rounded-xl bg-primary text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary/90 transition-all shadow-md"
                 >
                   <span>Sign In with New Password</span>
                 </Link>
@@ -170,7 +172,7 @@ export function ResetPasswordPage() {
             </div>
           )}
 
-          {/* 4. ACTIVE RESET FORM */}
+          {/* 4. ACTIVE RESET FORM (ONLY FROM VALID 5-MIN EMAIL TOKEN) */}
           {!verifying && tokenValid && !submitSuccess && (
             <div>
               <div className="mb-6">

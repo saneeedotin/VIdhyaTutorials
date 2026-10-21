@@ -12,7 +12,7 @@ router.post('/apply', async (req, res) => {
     if (!data.studentName || !data.phone || !data.standard) {
       return res.status(400).json({ error: 'Student name, phone, and standard are required' });
     }
-
+    
     const newApp = await db.admissions.create({
       ...data,
       status: 'PENDING',

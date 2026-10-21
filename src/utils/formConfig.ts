@@ -51,16 +51,18 @@ export const DEFAULT_FORM_CONFIGS: WebsiteFormsConfig = {
     helplineWhatsApp: '918898117343',
     successMessage: 'Admission application submitted successfully! Our counseling team will contact you shortly.',
     standards: [
+      '6th Standard',
+      '7th Standard',
       '8th Standard',
       '9th Standard',
-      '10th SSC Board',
+      '10th SSC / ICSE / CBSE Board',
       '11th Science',
       '12th Science (HSC)',
       '11th Commerce',
       '12th Commerce',
       'MHT-CET / NEET / JEE Special'
     ],
-    streams: ['General School (8th-10th)', 'Science (PCM / PCB / PCMB)', 'Commerce (Accounts / Stats)'],
+    streams: ['General School (6th-10th)', 'Science (PCM / PCB / PCMB)', 'Commerce (Accounts / Stats)'],
     declarationText: 'I hereby declare that all the information provided above is true and complete to the best of my knowledge.',
     noticeText: 'Physical verification of original documents will be scheduled after online review.'
   },
@@ -75,9 +77,11 @@ export const DEFAULT_FORM_CONFIGS: WebsiteFormsConfig = {
     helplineWhatsApp: '918898117343',
     successMessage: 'Thank you! Your enquiry has been received. Our senior counselor will call you within 2 hours.',
     standards: [
+      '6th Standard',
+      '7th Standard',
       '8th Standard',
       '9th Standard',
-      '10th Standard (SSC / CBSE)',
+      '10th Standard (SSC / ICSE / CBSE)',
       '11th Science',
       '12th Science',
       '11th Commerce',
@@ -104,9 +108,11 @@ export const DEFAULT_FORM_CONFIGS: WebsiteFormsConfig = {
     helplineWhatsApp: '918898117343',
     successMessage: 'Demo class booked! Our coordinator will confirm your seat timing via WhatsApp/SMS.',
     standards: [
+      '6th Standard',
+      '7th Standard',
       '8th Standard',
       '9th Standard',
-      '10th Standard',
+      '10th Standard (SSC / ICSE / CBSE)',
       '11th Science',
       '12th Science',
       '11th Commerce',
@@ -137,8 +143,11 @@ export const DEFAULT_FORM_CONFIGS: WebsiteFormsConfig = {
     helplineWhatsApp: '918898117343',
     successMessage: 'Counseling slot requested! Our advisory team will reach out to lock in your appointment time.',
     standards: [
-      '8th - 10th School Wing',
-      '10th Board Appearing',
+      '6th Standard (SSC / ICSE / CBSE)',
+      '7th Standard (SSC / ICSE / CBSE)',
+      '8th Standard (SSC / ICSE / CBSE)',
+      '9th Standard (SSC / ICSE / CBSE)',
+      '10th Standard (SSC / ICSE / CBSE)',
       '11th Science Stream',
       '12th HSC / MHT-CET',
       '11th - 12th Commerce'
@@ -174,9 +183,11 @@ export const DEFAULT_FORM_CONFIGS: WebsiteFormsConfig = {
     helplineWhatsApp: '918898117343',
     successMessage: 'Thank you! We will get in touch with you right away.',
     standards: [
+      '6th Standard',
+      '7th Standard',
       '8th Standard',
       '9th Standard',
-      '10th SSC / CBSE',
+      '10th SSC / ICSE / CBSE',
       '11th Science',
       '12th Science',
       '11th Commerce',
@@ -186,7 +197,26 @@ export const DEFAULT_FORM_CONFIGS: WebsiteFormsConfig = {
   }
 };
 
-const STORAGE_KEY = 'vt_all_website_form_configs_v1';
+const STORAGE_KEY = 'vt_all_website_form_configs_v3';
+
+// Clear obsolete legacy caches so old cached standard lists don't override new ones
+try {
+  localStorage.removeItem('vt_all_website_form_configs_v1');
+  localStorage.removeItem('vt_all_website_form_configs_v2');
+} catch (e) {
+  // browser-only
+}
+
+function normalizeStandards(standards: string[] | undefined, fallbackList: string[]): string[] {
+  if (!Array.isArray(standards) || standards.length === 0) return [...fallbackList];
+  const has6th = standards.some(s => s.toLowerCase().startsWith('6th'));
+  const has7th = standards.some(s => s.toLowerCase().startsWith('7th'));
+  const has8th = standards.some(s => s.toLowerCase().startsWith('8th'));
+  if (!has6th || !has7th || !has8th) {
+    return [...fallbackList];
+  }
+  return standards;
+}
 
 export function getAllFormConfigs(): WebsiteFormsConfig {
   let result: WebsiteFormsConfig = { ...DEFAULT_FORM_CONFIGS };
@@ -207,6 +237,12 @@ export function getAllFormConfigs(): WebsiteFormsConfig {
   } catch (err) {
     console.error('Failed to load form configs from storage:', err);
   }
+
+  // Strictly enforce 6th, 7th, 8th standards on all forms
+  result.admissionPopup.standards = normalizeStandards(result.admissionPopup.standards, DEFAULT_FORM_CONFIGS.admissionPopup.standards);
+  result.enquiry.standards = normalizeStandards(result.enquiry.standards, DEFAULT_FORM_CONFIGS.enquiry.standards);
+  result.freeDemo.standards = normalizeStandards(result.freeDemo.standards, DEFAULT_FORM_CONFIGS.freeDemo.standards);
+  result.admission.standards = normalizeStandards(result.admission.standards, DEFAULT_FORM_CONFIGS.admission.standards);
 
   // Strictly sync legacy widget toggle
   try {

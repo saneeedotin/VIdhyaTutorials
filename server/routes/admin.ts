@@ -142,12 +142,18 @@ router.put('/fees/receipts/:id', async (req, res) => {
   }
 });
 
-// 4. Users (Teachers & Students)
+// 4. Users (Strictly Vikas Tank Sir only)
 router.get('/users', async (req, res) => {
   try {
     const { role } = req.query;
     const query = role ? { role } : {};
-    const users = await db.users.find(query);
+    let users = await db.users.find(query);
+    // Strict policy: Only Vikas Tank Sir (Director & Founder)
+    users = users.filter((u: any) => {
+      const uId = String(u.userId || '').toUpperCase();
+      const uEmail = String(u.email || '').toLowerCase();
+      return uId === 'ADM-1234' || uEmail === 'vidhyatutorials22@gmail.com' || u.role === 'ADMIN';
+    });
     res.json({ success: true, data: users });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });

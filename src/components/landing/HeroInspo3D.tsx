@@ -59,7 +59,7 @@ export const HeroInspo3D: React.FC<HeroInspo3DProps> = ({ onOpenFreeDemo, onOpen
     {
       id: 1,
       title: 'Concept-First Learning',
-      subtitle: 'Grades 6th – 10th SSC & CBSE Foundation',
+      subtitle: 'Grades 6th – 10th SSC, ICSE & CBSE Foundation',
       icon: BookOpen,
       badge: 'School Wing',
       position: 'top-6 -left-4 sm:top-10 sm:-left-16',
@@ -137,7 +137,7 @@ export const HeroInspo3D: React.FC<HeroInspo3DProps> = ({ onOpenFreeDemo, onOpen
         >
           <div className="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md p-1.5 border border-white/20 shadow-lg flex items-center justify-center group-hover:scale-105 transition-transform">
             <img 
-              src="/vidhya-tutorials-logo.png" 
+              src="/logo-emblem.png" 
               alt="Vidhya Tutorials" 
               className="w-full h-full object-contain"
             />

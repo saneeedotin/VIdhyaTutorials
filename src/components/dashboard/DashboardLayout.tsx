@@ -44,9 +44,9 @@ export function DashboardLayout() {
 
   const rolePath = user?.role?.toLowerCase() || 'admin';
 
-  const avatarSrc = (user?.role === 'ADMIN' && (!user.profilePic || user.profilePic.includes('ui-avatars.com') || user.profilePic === '/admin-avatar.jpg'))
-    ? '/admin-avatar.jpg?v=3'
-    : (user?.profilePic || '/admin-avatar.jpg?v=3');
+  const avatarSrc = (user?.role === 'ADMIN' && (!user.profilePic || user.profilePic.includes('ui-avatars.com') || user.profilePic.includes('admin-avatar')))
+    ? '/vikas-sir-ai-portrait.jpg?v=5'
+    : (user?.profilePic || '/vikas-sir-ai-portrait.jpg?v=5');
 
   // Primary mobile nav (limit to max 4 + optional "More" sheet trigger)
   const isLargeNav = activeNav.length > 4;
@@ -69,7 +69,7 @@ export function DashboardLayout() {
           </div>
           <div className="flex items-center gap-2">
             <img 
-              src="/vidhya-tutorials-logo.png" 
+              src="/logo-emblem.png" 
               alt="Vidhya Tutorials" 
               className="w-7 h-7 object-contain rounded-md"
               onError={(e) => { (e.target as HTMLImageElement).src = '/logo.svg'; }}
@@ -102,9 +102,9 @@ export function DashboardLayout() {
           {/* Top Brand Header */}
           <div className="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-outline-variant/20 px-1">
             <Link to="/" className="flex items-center gap-2.5 group cursor-pointer min-w-0" title="Vidhya Tutorials">
-              <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-outline-variant/30 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-primary/50 transition-all overflow-hidden shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900 border border-outline-variant/30 p-1.5 flex items-center justify-center shadow-xs group-hover:scale-105 group-hover:border-primary/50 transition-all overflow-hidden shrink-0">
                 <img 
-                  src="/vidhya-tutorials-logo.png" 
+                  src="/logo-emblem.png" 
                   alt="Vidhya Tutorials Logo" 
                   className="w-full h-full object-contain"
                   onError={(e) => { (e.target as HTMLImageElement).src = '/logo.svg'; }}

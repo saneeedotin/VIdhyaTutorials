@@ -25,7 +25,12 @@ const PORT = process.env.PORT || 5000;
 // Provide __dirname safely for both ESM (dev) and CJS (prod)
 const getDirname = () => {
   if (typeof __dirname !== 'undefined') return __dirname;
-  return path.dirname(fileURLToPath(import.meta.url));
+  try {
+    if (typeof import.meta !== 'undefined' && import.meta.url) {
+      return path.dirname(fileURLToPath(import.meta.url));
+    }
+  } catch {}
+  return process.cwd();
 };
 const __dirname_safe = getDirname();
 

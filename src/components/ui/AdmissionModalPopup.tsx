@@ -38,7 +38,7 @@ export const AdmissionModalPopup: React.FC = () => {
     name: '',
     phone: '',
     email: '',
-    standard: config.standards?.[0] || '10th Standard',
+    standard: config.standards?.[0] || '6th Standard',
     message: ''
   });
 
@@ -295,22 +295,28 @@ export const AdmissionModalPopup: React.FC = () => {
                         onChange={handleChange}
                         className="w-full px-3.5 py-2.5 rounded-xl bg-surface-bright dark:bg-surface-container border border-outline-variant/40 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all cursor-pointer font-medium"
                       >
-                        {(config.standards && config.standards.length > 0) ? (
-                          config.standards.map((std: string) => (
+                        {(() => {
+                          const raw = config.standards || [];
+                          const has6th = raw.some((s: string) => s.toLowerCase().startsWith('6th'));
+                          const has7th = raw.some((s: string) => s.toLowerCase().startsWith('7th'));
+                          const has8th = raw.some((s: string) => s.toLowerCase().startsWith('8th'));
+                          const list = (has6th && has7th && has8th && raw.length >= 7)
+                            ? raw
+                            : [
+                                '6th Standard',
+                                '7th Standard',
+                                '8th Standard',
+                                '9th Standard',
+                                '10th SSC / ICSE / CBSE',
+                                '11th Science',
+                                '12th Science',
+                                '11th Commerce',
+                                '12th Commerce'
+                              ];
+                          return list.map((std: string) => (
                             <option key={std} value={std}>{std}</option>
-                          ))
-                        ) : (
-                          <>
-                            <option value="6th to 8th Foundation">6th - 8th Foundation (School)</option>
-                            <option value="9th Standard">9th Standard (State / CBSE / ICSE)</option>
-                            <option value="10th Standard">10th Standard (Board Year Batch)</option>
-                            <option value="11th Science">11th Science (PCMB / NEET / CET)</option>
-                            <option value="12th Science">12th Science & Entrance Prep</option>
-                            <option value="11th Commerce">11th Commerce (Accounts, Maths, Eco)</option>
-                            <option value="12th Commerce">12th Commerce (HSC Board Batch)</option>
-                            <option value="NEET / CET Entrance Batch">NEET & MHT-CET Entrance</option>
-                          </>
-                        )}
+                          ));
+                        })()}
                       </select>
                     </div>
 

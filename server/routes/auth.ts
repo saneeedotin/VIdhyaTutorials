@@ -452,10 +452,10 @@ router.put('/profile', protect, async (req: AuthRequest, res) => {
 });
 
 // ══════════════════════════════════════════════════════════════
-// SECURE FORGOT PASSWORD / EMAIL RESET LINK SYSTEM
+// SECURE FORGOT PASSWORD / STRICT EMAIL-ONLY 5-MINUTE RESET
 // ══════════════════════════════════════════════════════════════
 
-// 1. REQUEST RESET LINK (Sends single-use link to registered email)
+// 1. REQUEST RESET LINK (Sends single-use link to email, strictly valid for 5 minutes)
 router.post('/forgot-password', async (req, res) => {
   try {
     const { email } = req.body;
@@ -478,10 +478,19 @@ router.post('/forgot-password', async (req, res) => {
       $or: [{ email: AUTHORIZED_ADMIN_EMAIL }, { email: cleanEmail }]
     });
 
-    // Generate cryptographically secure token
-    const token = crypto.randomBytes(32).toString('hex');
-    const expiresAt = Date.now() + 15 * 60 * 1000; // 15 minutes
+    // Generate single-use signed token strictly valid for 5 MINUTES ONLY
+    const token = jwt.sign(
+      {
+        email: AUTHORIZED_ADMIN_EMAIL,
+        userId: user?.userId || 'ADM-1234',
+        purpose: 'password_reset',
+        iat: Math.floor(Date.now() / 1000)
+      },
+      JWT_SECRET!,
+      { expiresIn: '5m' }
+    );
 
+    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes strictly
     resetTokens.set(token, {
       email: AUTHORIZED_ADMIN_EMAIL,
       userId: user?.userId || 'ADM-1234',
@@ -504,7 +513,7 @@ router.post('/forgot-password', async (req, res) => {
 
     return res.json({
       success: true,
-      message: `Password reset link has been dispatched to ${AUTHORIZED_ADMIN_EMAIL}. Please check your email inbox (and spam folder). The link will expire in 15 minutes.`,
+      message: `Password reset link has been dispatched to ${AUTHORIZED_ADMIN_EMAIL}. Please check your email inbox (and spam folder). The link is strictly valid for 5 minutes only.`,
       emailSent: sendResult.sent,
     });
   } catch (error: any) {
@@ -513,27 +522,48 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-// 2. VERIFY TOKEN (Used by frontend when opening the reset link)
+// 2. VERIFY TOKEN (Used by frontend when opening the reset link from email)
 router.post('/verify-reset-token', async (req, res) => {
   try {
     const { token } = req.body;
+
     if (!token || typeof token !== 'string') {
       return res.status(400).json({ valid: false, error: 'Reset token is required.' });
     }
 
+    // Check in-memory Map first to ensure it hasn't been already used
     const tokenData = resetTokens.get(token);
     if (!tokenData) {
       return res.status(400).json({
         valid: false,
-        error: 'This password reset link is invalid or has already been used.',
+        error: 'This password reset link is invalid or has already been used. Please request a new link.',
       });
     }
 
+    // Check 5-minute expiry
     if (Date.now() > tokenData.expiresAt) {
       resetTokens.delete(token);
       return res.status(400).json({
         valid: false,
-        error: 'This password reset link has expired (15-minute limit). Please request a new link.',
+        error: 'This password reset link has expired (strictly 5-minute validity). Please request a new link.',
+      });
+    }
+
+    // Verify JWT cryptographic signature
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET!) as any;
+      if (decoded && (decoded.purpose === 'password_reset' || decoded.type === 'pwd_reset')) {
+        return res.json({
+          valid: true,
+          email: decoded.email || AUTHORIZED_ADMIN_EMAIL,
+          userId: decoded.userId || 'ADM-1234',
+        });
+      }
+    } catch (jwtErr: any) {
+      resetTokens.delete(token);
+      return res.status(400).json({
+        valid: false,
+        error: 'This password reset link has expired (5-minute limit) or is invalid. Please request a new link from sign-in.',
       });
     }
 
@@ -548,7 +578,7 @@ router.post('/verify-reset-token', async (req, res) => {
   }
 });
 
-// 3. COMPLETE PASSWORD RESET (Applies new password using validated token)
+// 3. COMPLETE PASSWORD RESET (Applies new password using strictly validated single-use token)
 router.post('/reset-password', async (req, res) => {
   try {
     const { token, newPassword } = req.body;
@@ -557,34 +587,49 @@ router.post('/reset-password', async (req, res) => {
       return res.status(400).json({ error: 'Reset token is missing or invalid.' });
     }
 
-    const tokenData = resetTokens.get(token);
-    if (!tokenData) {
-      return res.status(400).json({
-        error: 'This password reset link is invalid or has already been used. Please request a new one.',
-      });
-    }
-
-    if (Date.now() > tokenData.expiresAt) {
-      resetTokens.delete(token);
-      return res.status(400).json({
-        error: 'This password reset link has expired. Please request a new reset link.',
-      });
-    }
-
     if (!newPassword || newPassword.length < 4) {
       return res.status(400).json({
         error: 'New password must be at least 4 characters long.',
       });
     }
 
+    const tokenData = resetTokens.get(token);
+    if (!tokenData) {
+      return res.status(400).json({
+        error: 'This password reset link is invalid or has already been used. Please request a new link.',
+      });
+    }
+
+    if (Date.now() > tokenData.expiresAt) {
+      resetTokens.delete(token);
+      return res.status(400).json({
+        error: 'This password reset link has expired (5-minute limit). Please request a new link.',
+      });
+    }
+
+    // Verify JWT
+    let targetEmail = tokenData.email || AUTHORIZED_ADMIN_EMAIL;
+    let targetUserId = tokenData.userId || 'ADM-1234';
+
+    try {
+      const decoded = jwt.verify(token, JWT_SECRET!) as any;
+      if (decoded?.email) targetEmail = decoded.email;
+      if (decoded?.userId) targetUserId = decoded.userId;
+    } catch {
+      resetTokens.delete(token);
+      return res.status(400).json({
+        error: 'This password reset link has expired (5-minute limit). Please request a new link.',
+      });
+    }
+
     const saltRounds = parseInt(process.env.BCRYPT_ROUNDS || '10', 10);
     const passwordHash = await bcrypt.hash(newPassword, saltRounds);
 
-    let user = await db.users.findOne({ email: tokenData.email });
+    let user = await db.users.findOne({ email: targetEmail });
     if (!user) {
       user = await db.users.create({
-        userId: tokenData.userId || 'ADM-1234',
-        email: tokenData.email,
+        userId: targetUserId,
+        email: targetEmail,
         name: 'Vikas Tank Sir (Director & Founder)',
         role: 'ADMIN',
         passwordHash,
@@ -605,8 +650,8 @@ router.post('/reset-password', async (req, res) => {
 
     return res.json({
       success: true,
-      message: 'Your password has been reset successfully! You can now log in.',
-      userId: user.userId,
+      message: 'Your administrator password has been updated successfully! You can now log in.',
+      userId: user?.userId || 'ADM-1234',
     });
   } catch (error: any) {
     console.error('Reset password error:', error);

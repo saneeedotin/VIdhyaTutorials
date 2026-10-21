@@ -240,7 +240,7 @@ export const sendPasswordResetEmail = async (toEmail: string, resetUrl: string, 
       <div style="padding: 24px; color: #1e293b; line-height: 1.6;">
         <h3 style="margin-top: 0; color: #1e3a8a;">Hello ${userName || 'Administrator'},</h3>
         <p>A request was received to reset the password for your Vidhya Tutorials administrative account.</p>
-        <p>Click the button below to securely set your new password. This single-use link is valid for <strong>15 minutes</strong>:</p>
+        <p>Click the button below to securely set your new password. This single-use link is strictly valid for <strong>5 minutes only</strong>:</p>
         <div style="text-align: center; margin: 28px 0;">
           <a href="${resetUrl}" style="background: #2563eb; color: #ffffff; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; display: inline-block;">Reset My Password</a>
         </div>

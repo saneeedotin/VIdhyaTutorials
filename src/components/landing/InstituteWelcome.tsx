@@ -104,23 +104,6 @@ export function InstituteWelcome() {
                     </p>
                   </div>
 
-                  {/* Trust Footer Pills */}
-                  <div className="mt-6 pt-5 border-t border-slate-200 dark:border-slate-800 w-full flex items-center justify-around text-center text-xs">
-                    <div>
-                      <div className="font-bold text-primary dark:text-blue-400 text-sm">15+ Yrs</div>
-                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">Legacy</div>
-                    </div>
-                    <div className="h-6 w-px bg-slate-200 dark:bg-slate-800" />
-                    <div>
-                      <div className="font-bold text-secondary dark:text-blue-300 text-sm">10,000+</div>
-                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">Students</div>
-                    </div>
-                    <div className="h-6 w-px bg-slate-200 dark:bg-slate-800" />
-                    <div>
-                      <div className="font-bold text-amber-500 text-sm">98.9%</div>
-                      <div className="text-[10px] text-slate-500 uppercase tracking-wider">Top Score</div>
-                    </div>
-                  </div>
 
                 </div>
               </div>

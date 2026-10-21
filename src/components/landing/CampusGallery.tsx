@@ -142,7 +142,7 @@ export const GALLERY_PHOTOS: GalleryPhoto[] = [
   // ── Faculty Mentorship & Leadership (Real Photos) ──
   {
     id: 'photo-m1',
-    src: '/sir-real-photo.jpg',
+    src: '/vikas-sir-ai-portrait.jpg?v=5',
     title: 'Vikas Sir — Founder & Senior Academic Head',
     category: 'Mentorship',
     description: 'Direct 1-on-1 concept coaching, personal attention, and proven board exam strategy.'

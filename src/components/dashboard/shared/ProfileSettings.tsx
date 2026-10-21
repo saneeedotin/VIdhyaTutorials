@@ -15,7 +15,8 @@ import {
   ShieldCheck, 
   AlertTriangle, 
   Sparkles,
-  RotateCcw
+  RotateCcw,
+  Loader2
 } from 'lucide-react';
 import Cropper from 'react-easy-crop';
 import { apiClient } from '../../../api/apiClient';
@@ -82,8 +83,8 @@ export function ProfileSettings() {
     standard: user?.standard || '6th',
     division: user?.division || 'A',
     courses: formatCourses(user?.courses),
-    profilePic: (user?.role === 'ADMIN' && (!user?.profilePic || user?.profilePic?.includes('ui-avatars.com')))
-      ? '/admin-avatar.jpg'
+    profilePic: (user?.role === 'ADMIN' && (!user?.profilePic || user?.profilePic?.includes('ui-avatars.com') || user?.profilePic?.includes('admin-avatar')))
+      ? '/vikas-sir-ai-portrait.jpg?v=5'
       : (user?.profilePic || `https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=0f8ff7&color=fff&size=200`),
     currentPassword: '',
     newPassword: '',
@@ -106,8 +107,8 @@ export function ProfileSettings() {
         standard: user.standard || prev.standard,
         division: user.division || prev.division,
         courses: formatCourses(user.courses) || prev.courses,
-        profilePic: (user.role === 'ADMIN' && (!user.profilePic || user.profilePic.includes('ui-avatars.com')))
-          ? '/admin-avatar.jpg'
+        profilePic: (user.role === 'ADMIN' && (!user.profilePic || user.profilePic.includes('ui-avatars.com') || user.profilePic.includes('admin-avatar')))
+          ? '/vikas-sir-ai-portrait.jpg?v=5'
           : (user.profilePic || prev.profilePic),
       }));
     }
@@ -120,6 +121,60 @@ export function ProfileSettings() {
   const showToast = (text: string, error = false) => {
     setToastMsg({ text, error });
     setTimeout(() => setToastMsg(null), 4000);
+  };
+  
+  const [passwordLoading, setPasswordLoading] = useState(false);
+  const [resetEmailSending, setResetEmailSending] = useState(false);
+
+  const handleUpdatePasswordOnly = async () => {
+    if (!formData.newPassword) {
+      showToast('Please enter a new password.', true);
+      return;
+    }
+    if (formData.newPassword.length < 4) {
+      showToast('New password must be at least 4 characters long.', true);
+      return;
+    }
+    if (formData.newPassword !== formData.confirmPassword) {
+      showToast('New passwords do not match. Please re-check.', true);
+      return;
+    }
+
+    setPasswordLoading(true);
+    try {
+      const { data } = await apiClient.put('/api/auth/profile', {
+        newPassword: formData.newPassword,
+        currentPassword: formData.currentPassword || undefined,
+      });
+
+      if (data.success) {
+        setFormData(prev => ({
+          ...prev,
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: '',
+        }));
+        showToast('Password updated successfully!');
+      }
+    } catch (err: any) {
+      showToast(err.response?.data?.error || 'Failed to update password. Please check your current password.', true);
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
+  const handleSendResetEmailFromSettings = async () => {
+    setResetEmailSending(true);
+    try {
+      const res = await apiClient.post('/api/auth/forgot-password', {
+        email: user?.email || 'vidhyatutorials22@gmail.com',
+      });
+      showToast(res.data?.message || 'Password reset link sent to your registered email!');
+    } catch (err: any) {
+      showToast(err.response?.data?.error || 'Failed to send reset email link.', true);
+    } finally {
+      setResetEmailSending(false);
+    }
   };
   
   // Cropper state
@@ -154,7 +209,7 @@ export function ProfileSettings() {
   };
 
   const handleResetAvatar = () => {
-    const defaultPic = user?.role === 'ADMIN' ? '/admin-avatar.jpg' : `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.name || 'User')}&background=0f8ff7&color=fff&size=200`;
+    const defaultPic = user?.role === 'ADMIN' ? '/vikas-sir-ai-portrait.jpg?v=5' : `https://ui-avatars.com/api/?name=${encodeURIComponent(formData.name || 'User')}&background=0f8ff7&color=fff&size=200`;
     setFormData(prev => ({ ...prev, profilePic: defaultPic }));
     showToast('Profile photo reset to default. Click "Save Changes" to apply.');
   };
@@ -282,7 +337,7 @@ export function ProfileSettings() {
                 alt={formData.name} 
                 className="w-full h-full object-cover" 
                 onError={(e) => {
-                  (e.target as HTMLImageElement).src = '/admin-avatar.jpg';
+                  (e.target as HTMLImageElement).src = '/vikas-sir-ai-portrait.jpg?v=5';
                 }}
               />
             </div>
@@ -513,15 +568,28 @@ export function ProfileSettings() {
 
           {/* Card 2: Change Password & Security */}
           <div className="bg-surface rounded-3xl p-6 sm:p-8 border border-outline-variant/30 shadow-sm space-y-6">
-            <h3 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2 border-b border-outline-variant/20 pb-4">
-              <KeyRound className="w-5 h-5 text-primary" />
-              <span>Change Portal Password</span>
-            </h3>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-outline-variant/20 pb-4">
+              <h3 className="text-base sm:text-lg font-bold text-on-surface flex items-center gap-2">
+                <KeyRound className="w-5 h-5 text-primary" />
+                <span>Change Portal Password</span>
+              </h3>
+              
+              <button
+                type="button"
+                onClick={handleSendResetEmailFromSettings}
+                disabled={resetEmailSending}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-primary/10 hover:bg-primary/20 text-primary font-bold text-xs transition-colors cursor-pointer disabled:opacity-50 w-fit"
+                title="Send a 24-hour reset link to registered email"
+              >
+                {resetEmailSending ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Mail className="w-3.5 h-3.5" />}
+                <span>{resetEmailSending ? 'Sending Link...' : 'Email Reset Link'}</span>
+              </button>
+            </div>
 
             <div className="p-4 rounded-2xl bg-surface-container-low border border-outline-variant/20 flex items-start gap-3 text-xs text-on-surface-variant">
               <Lock className="w-4 h-4 text-primary shrink-0 mt-0.5" />
               <span>
-                To change your password, enter a new password below and click <strong>"Save Changes"</strong>. Leave blank if you do not wish to change your password.
+                To set a new password, enter your new credentials below and click <strong>"Update Password"</strong>. You can also click <strong>"Email Reset Link"</strong> above to send a direct link to <strong className="text-on-surface">{user?.email || 'vidhyatutorials22@gmail.com'}</strong>.
               </span>
             </div>
 
@@ -534,9 +602,8 @@ export function ProfileSettings() {
                   type="password" 
                   value={formData.currentPassword} 
                   onChange={e => setFormData({ ...formData, currentPassword: e.target.value })}
-                  disabled={!isEditing}
                   placeholder="••••••••"
-                  className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-4 py-3 focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30 disabled:opacity-75 font-medium text-on-surface text-xs"
+                  className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-4 py-3 focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30 font-medium text-on-surface text-xs"
                 />
               </div>
 
@@ -548,9 +615,8 @@ export function ProfileSettings() {
                   type="password" 
                   value={formData.newPassword} 
                   onChange={e => setFormData({ ...formData, newPassword: e.target.value })}
-                  disabled={!isEditing}
                   placeholder="At least 4 characters"
-                  className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-4 py-3 focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30 disabled:opacity-75 font-medium text-on-surface text-xs"
+                  className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-4 py-3 focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30 font-medium text-on-surface text-xs"
                 />
               </div>
 
@@ -562,25 +628,35 @@ export function ProfileSettings() {
                   type="password" 
                   value={formData.confirmPassword} 
                   onChange={e => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  disabled={!isEditing}
                   placeholder="Re-enter new password"
-                  className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-4 py-3 focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30 disabled:opacity-75 font-medium text-on-surface text-xs"
+                  className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-4 py-3 focus:outline-hidden focus:border-primary focus:ring-1 focus:ring-primary/30 font-medium text-on-surface text-xs"
                 />
               </div>
             </div>
 
-            {isEditing && (
-              <div className="pt-2 flex justify-end">
-                <button
-                  type="button"
-                  onClick={handleSave}
-                  disabled={loading}
-                  className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-xs font-bold shadow-md shadow-primary/20 flex items-center gap-2 cursor-pointer disabled:opacity-50"
-                >
-                  {loading ? 'Saving...' : <><CheckCircle2 className="w-4 h-4" /> Save Profile & Password</>}
-                </button>
-              </div>
-            )}
+            <div className="pt-2 flex flex-wrap items-center justify-between gap-3">
+              <span className="text-[11px] text-on-surface-variant">
+                Password must be at least 4 characters long.
+              </span>
+              <button
+                type="button"
+                onClick={handleUpdatePasswordOnly}
+                disabled={passwordLoading || !formData.newPassword}
+                className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-xl text-xs font-bold shadow-md shadow-primary/20 flex items-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {passwordLoading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Updating Password...</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Update Password</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>

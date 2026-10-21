@@ -214,22 +214,29 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({
                           onChange={handleChange}
                           className="w-full pl-10 pr-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-900 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition-all cursor-pointer"
                         >
-                          {(config.standards && config.standards.length > 0) ? (
-                            config.standards.map((s: string) => (
-                              <option key={s} value={s}>{s}</option>
-                            ))
-                          ) : (
-                            <>
-                              <option value="8th Standard">8th Standard (School)</option>
-                              <option value="9th Standard">9th Standard (School)</option>
-                              <option value="10th Standard">10th SSC / Board</option>
-                              <option value="11th Commerce">11th Commerce (FYJC)</option>
-                              <option value="12th Commerce">12th Commerce (SYJC)</option>
-                              <option value="11th Science">11th Science (PCM/PCB)</option>
-                              <option value="12th Science">12th Science (PCM/PCB)</option>
-                              <option value="MHT-CET / NEET">MHT-CET / NEET Entrance</option>
-                            </>
-                          )}
+                          {(() => {
+                            const raw = config.standards || [];
+                            const has6th = raw.some((s: string) => s.toLowerCase().startsWith('6th'));
+                            const has7th = raw.some((s: string) => s.toLowerCase().startsWith('7th'));
+                            const has8th = raw.some((s: string) => s.toLowerCase().startsWith('8th'));
+                            const list = (has6th && has7th && has8th && raw.length >= 7)
+                              ? raw
+                              : [
+                                  '6th Standard (SSC / ICSE / CBSE)',
+                                  '7th Standard (SSC / ICSE / CBSE)',
+                                  '8th Standard (SSC / ICSE / CBSE)',
+                                  '9th Standard (SSC / ICSE / CBSE)',
+                                  '10th Standard (SSC / ICSE / CBSE)',
+                                  '11th Commerce',
+                                  '12th Commerce',
+                                  '11th Science',
+                                  '12th Science',
+                                  'NEET / JEE Crash Course'
+                                ];
+                            return list.map((std: string) => (
+                              <option key={std} value={std}>{std}</option>
+                            ));
+                          })()}
                         </select>
                       </div>
                     </div>

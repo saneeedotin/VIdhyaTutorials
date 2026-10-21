@@ -106,7 +106,7 @@ export function LandingPage() {
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs text-slate-800 dark:text-slate-200">
                 <span className="text-primary dark:text-blue-400 font-bold">6th–12th</span>
-                <span>School • Commerce • Science</span>
+                <span>SSC • ICSE • CBSE • HSC</span>
               </div>
             </div>
 
@@ -161,7 +161,7 @@ export function LandingPage() {
                     <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="School" src="/assets/wings/school.jpg" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6 transition-opacity duration-300">
                       <h3 className="text-white font-h3 text-[24px] font-medium mb-2 group-hover:text-primary-fixed-dim transition-colors">School</h3>
-                      <p className="text-white/80 text-sm transform transition-transform duration-300 group-hover:translate-y-[-2px]">Foundational excellence for grades 6-10.</p>
+                      <p className="text-white/80 text-sm transform transition-transform duration-300 group-hover:translate-y-[-2px]">Grades 6th–10th (SSC, ICSE & CBSE).</p>
                     </div>
                   </div>
                 </FadeInWhenVisible>
@@ -176,15 +176,12 @@ export function LandingPage() {
                   </div>
                 </FadeInWhenVisible>
 
-                <FadeInWhenVisible onClick={() => navigate('/courses?wing=science')} delay={0.2} className="group bg-surface-bright rounded-xl border border-outline-variant/30 p-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 cursor-pointer card-3d relative">
+                <FadeInWhenVisible onClick={() => navigate('/courses?wing=science')} delay={0.2} className="group bg-surface-bright rounded-xl border border-outline-variant/30 p-2 transition-all duration-500 hover:shadow-2xl hover:-translate-y-3 cursor-pointer card-3d">
                   <div className="overflow-hidden rounded-lg aspect-[4/5] relative img-zoom">
-                    <span className="absolute top-3 right-3 z-10 px-2.5 py-1 bg-cyan-400 text-slate-950 rounded-full text-[10px] font-extrabold uppercase tracking-wider shadow-md">
-                      ✨ New 2026
-                    </span>
                     <img className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="Science" src="/assets/wings/science.jpg" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-6 transition-opacity duration-300">
                       <h3 className="text-white font-h3 text-[24px] font-medium mb-2 group-hover:text-primary-fixed-dim transition-colors">Science</h3>
-                      <p className="text-white/80 text-sm transform transition-transform duration-300 group-hover:translate-y-[-2px]">Newly launched in 2026 for 11th & 12th PCM, PCB & PCMB.</p>
+                      <p className="text-white/80 text-sm transform transition-transform duration-300 group-hover:translate-y-[-2px]">Comprehensive coaching for 11th & 12th PCM, PCB & PCMB.</p>
                     </div>
                   </div>
                 </FadeInWhenVisible>

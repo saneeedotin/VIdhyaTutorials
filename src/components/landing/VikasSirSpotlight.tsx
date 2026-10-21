@@ -87,7 +87,7 @@ export function VikasSirSpotlight({ onScheduleCounseling, onBookDemo }: VikasSir
                 {/* Photo Frame - Clean, Elegant Executive Portrait */}
                 <div className="relative w-full aspect-[4/5] max-w-[280px] mx-auto rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 shadow-md border border-slate-200/80 dark:border-slate-700 group-hover:border-primary/40 dark:group-hover:border-blue-400/40 transition-colors">
                   <img
-                    src="/sir-real-photo.jpg"
+                    src="/vikas-sir-ai-portrait.jpg?v=5"
                     alt="Vikas Sir — Founder & Senior Faculty at Vidhya Tutorials"
                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                   />
@@ -104,29 +104,8 @@ export function VikasSirSpotlight({ onScheduleCounseling, onBookDemo }: VikasSir
                   <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                     Vikas Sir
                   </h3>
-                  <p className="text-xs font-bold text-primary dark:text-blue-400 uppercase tracking-wider">
-                    Founder & Head of Academics
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                    Mathematics & Science Pedagogy • Matunga Road
-                  </p>
                 </div>
 
-                {/* Credentials Strip */}
-                <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-700/60 grid grid-cols-3 gap-2.5 text-center">
-                  <div className="py-2.5 px-2 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/60 dark:border-slate-700/50">
-                    <span className="block font-extrabold text-primary dark:text-blue-400 text-base leading-tight">18+</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Yrs Legacy</span>
-                  </div>
-                  <div className="py-2.5 px-2 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/60 dark:border-slate-700/50">
-                    <span className="block font-extrabold text-emerald-600 dark:text-emerald-400 text-base leading-tight">10,000+</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Students</span>
-                  </div>
-                  <div className="py-2.5 px-2 rounded-xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200/60 dark:border-slate-700/50">
-                    <span className="block font-extrabold text-amber-500 text-base leading-tight">98.9%</span>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold tracking-wider">Top Score</span>
-                  </div>
-                </div>
 
                 {/* Direct Contact Button */}
                 <div className="mt-4 pt-1">

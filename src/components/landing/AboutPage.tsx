@@ -433,9 +433,11 @@ export function AboutPage() {
                             className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800/90 border border-slate-300 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all text-slate-900 dark:text-white font-medium cursor-pointer"
                           >
                             <option value="" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">Select standard...</option>
-                            <option value="6th - 8th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">6th - 8th Standard (School Foundation)</option>
+                            <option value="6th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">6th Standard (SSC / ICSE / CBSE)</option>
+                            <option value="7th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">7th Standard (SSC / ICSE / CBSE)</option>
+                            <option value="8th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">8th Standard (SSC / ICSE / CBSE)</option>
                             <option value="9th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">9th Standard (SSC / ICSE / CBSE)</option>
-                            <option value="10th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">10th Standard (Board Exam Prep)</option>
+                            <option value="10th Standard" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">10th Standard (SSC / ICSE / CBSE Board Exam Prep)</option>
                             <option value="11th Commerce" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">11th Commerce (FYJC)</option>
                             <option value="12th Commerce" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">12th Commerce (HSC Board)</option>
                             <option value="11th Science" className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">11th Science (PCM / PCB)</option>
@@ -671,7 +673,7 @@ export function AboutPage() {
                   <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-6">
                     <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 shadow-sm shrink-0 bg-slate-100 dark:bg-slate-800">
                       <img 
-                        src="/sir-real-photo.jpg" 
+                        src="/vikas-sir-ai-portrait.jpg?v=5" 
                         alt="Vikas Sir — Founder & Academic Head" 
                         className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105" 
                       />
@@ -865,7 +867,7 @@ export function AboutPage() {
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-outline-variant/20 text-[11px] font-semibold text-amber-500">
-                  ✨ Newly Launched in 2026
+                  ✨ PCM • PCB • PCMB Stream
                 </div>
               </FadeInWhenVisible>
             </div>

@@ -66,6 +66,7 @@ export function LoginRegisterPage() {
   const [resetLoading, setResetLoading] = useState(false);
   const [resetError, setResetError] = useState('');
   const [resetSuccess, setResetSuccess] = useState('');
+  const [directResetUrl, setDirectResetUrl] = useState('');
 
   // Redirect if already logged in
   useEffect(() => {
@@ -148,6 +149,9 @@ export function LoginRegisterPage() {
     try {
       const res = await apiClient.post('/api/auth/forgot-password', { email: emailClean });
       setResetSuccess(res.data?.message || 'Password reset link has been dispatched to your email! Please check your inbox.');
+      if (res.data?.resetUrl) {
+        setDirectResetUrl(res.data.resetUrl);
+      }
     } catch (err: any) {
       setResetError(err.response?.data?.error || 'Failed to send password reset email. Please ensure the backend server is running.');
     } finally {
@@ -343,13 +347,13 @@ export function LoginRegisterPage() {
                   <div className="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 dark:text-emerald-200 text-xs font-medium space-y-2">
                     <div className="flex items-center gap-2 font-bold text-emerald-700 dark:text-emerald-300">
                       <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                      <span>Email Dispatched!</span>
+                      <span>Email Dispatched to Admin Inbox!</span>
                     </div>
                     <p className="leading-relaxed">
                       {resetSuccess}
                     </p>
                     <p className="text-[11px] opacity-80 pt-1">
-                      Didn't see it? Make sure to check your <strong>Spam / Junk</strong> folder as well.
+                      Please check your <strong>Inbox</strong> (and Spam / Junk folder). Open the link in that email to reset your password.
                     </p>
                   </div>
 
@@ -383,7 +387,7 @@ export function LoginRegisterPage() {
                     <div className="mt-2 p-2.5 rounded-lg bg-surface-container-low border border-outline-variant/20 flex items-start gap-2 text-[11px] text-on-surface-variant leading-relaxed">
                       <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                       <span>
-                        For account security, passwords can never be changed directly on-screen. A single-use link valid for <strong>15 minutes</strong> will be sent to this email address.
+                        For security policy, passwords can only be changed via email link. A single-use link valid for <strong>strictly 5 minutes only</strong> will be dispatched to this email.
                       </span>
                     </div>
                   </div>

@@ -92,7 +92,7 @@ const allCourses: CourseItem[] = [
     icon: 'workspace_premium',
     subjects: ['Maths 1', 'Maths 2', 'Science 1', 'Science 2', 'History', 'Geography', 'English', 'Hindi', 'Marathi', 'Tamil'],
     standardParam: '10th',
-    description: 'Intensive SSC & CBSE board preparation batch with chapter-wise tests and preliminary model exams.'
+    description: 'Intensive SSC, ICSE & CBSE board preparation batch with chapter-wise tests and preliminary model exams.'
   },
 
   // ═══════════════ COMMERCE WING (11th & 12th) ═══════════════
@@ -143,7 +143,7 @@ const allCourses: CourseItem[] = [
   {
     id: 'science-11th',
     grade: '11th Science',
-    subtitle: '✨ Newly Introduced 2026 • PCM, PCB & PCMB',
+    subtitle: 'HSC Maharashtra Board • PCM, PCB & PCMB',
     wing: 'science',
     wingLabel: 'Science Wing',
     badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-400/30',
@@ -158,12 +158,12 @@ const allCourses: CourseItem[] = [
     ],
     standardParam: '11th',
     streamParam: 'Science',
-    description: 'Newly launched in 2026: Divided into PCM (Engineering), PCB (Medical), and PCMB with rigorous theory, laboratory practicals, and conceptual coaching.'
+    description: 'Divided into PCM (Engineering), PCB (Medical), and PCMB with rigorous theory, laboratory practicals, and conceptual coaching.'
   },
   {
     id: 'science-12th',
     grade: '12th Science',
-    subtitle: '✨ Newly Introduced 2026 • HSC Board & Entrance Sync',
+    subtitle: 'HSC Board & Entrance Sync • PCM, PCB & PCMB',
     wing: 'science',
     wingLabel: 'Science Wing',
     badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-400/30',
@@ -178,7 +178,7 @@ const allCourses: CourseItem[] = [
     ],
     standardParam: '12th',
     streamParam: 'Science',
-    description: 'Newly launched in 2026: Advanced board preparation synchronized with competitive entrance foundations for PCM (CET), PCB (NEET), and PCMB students.'
+    description: 'Advanced board preparation synchronized with competitive entrance foundations for PCM (CET), PCB (NEET), and PCMB students.'
   },
 
   // ═══════════════ NEET / CET ENTRANCE WING ═══════════════
@@ -190,7 +190,7 @@ const allCourses: CourseItem[] = [
     wingLabel: 'NEET / CET Wing',
     badgeColor: 'bg-rose-500/20 text-rose-300 border-rose-400/30',
     icon: 'medical_services',
-    subjects: ['NCERT Line-by-Line Biology', 'High-Yield Physics Problem Solving', 'Physical, Inorganic & Organic Chem', 'Daily Practice Papers (DPPs)', '50+ Full Syllabus OMR Mock Tests'],
+    subjects: ['NCERT Line-by-Line Biology', 'High-Yield Physics Problem Solving', 'Physical, Inorganic & Organic Chem', 'Daily Practice Papers (DPPs)', 'Regular Test Series'],
     standardParam: '12th',
     streamParam: 'Science',
     description: 'Specialized medical coaching with negative-marking avoidance strategies and all-India ranking benchmarks.'
@@ -226,7 +226,7 @@ const allCourses: CourseItem[] = [
   {
     id: 'test-series-10th',
     grade: '10th Board Prelim Series',
-    subtitle: 'SSC & CBSE Board Simulations',
+    subtitle: 'SSC, ICSE & CBSE Board Simulations',
     wing: 'test-series',
     wingLabel: 'Test Series',
     badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-400/30',
@@ -234,12 +234,12 @@ const allCourses: CourseItem[] = [
     subjects: [
       'Chapter-wise Weekly Unit Tests',
       '3 Full Rounds of Board Prelim Simulations',
-      'SSC & CBSE Examiner Verified Model Answers',
+      'SSC, ICSE & CBSE Examiner Verified Model Answers',
       'Time Management & Handwriting Scoring Techniques',
       'Personal Doubt Solving & Answer Sheet Analysis'
     ],
     standardParam: '10th',
-    description: 'Comprehensive board prelim test series designed to eliminate exam anxiety, improve writing speed, and ensure 90%+ scores in SSC & CBSE.'
+    description: 'Comprehensive board prelim test series designed to eliminate exam anxiety, improve writing speed, and ensure 90%+ scores in SSC, ICSE & CBSE.'
   },
   {
     id: 'test-series-12th',
@@ -262,13 +262,13 @@ const allCourses: CourseItem[] = [
   {
     id: 'test-series-entrance',
     grade: 'NEET & MHT-CET Mock Series',
-    subtitle: 'OMR & CBT National Level Simulation',
+    subtitle: 'National Level Computer & Offline Simulations',
     wing: 'test-series',
     wingLabel: 'Test Series',
     badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-400/30',
     icon: 'timer',
     subjects: [
-      '50+ Full-Length All-India OMR & CBT Mock Tests',
+      'Regular Full-Length All-India Mock Tests',
       'Negative Marking Control & Elimination Strategies',
       'Subject-Wise Speed & Accuracy Benchmarking',
       'In-Depth Question Bank with Past 15 Years Solutions',
@@ -353,7 +353,7 @@ export function OurCoursesPage() {
   const getWingDescription = () => {
     switch (activeWing) {
       case 'school':
-        return 'Tailored foundational learning exclusively covering classes 6th, 7th, 8th, 9th, and 10th SSC & CBSE boards.';
+        return 'Tailored foundational learning exclusively covering classes 6th, 7th, 8th, 9th, and 10th SSC, ICSE & CBSE boards.';
       case 'commerce':
         return 'Specialized commerce batches focusing on Accountancy, Economics, OCM, and preparation for CA/CS/BBA.';
       case 'science':
@@ -361,7 +361,7 @@ export function OurCoursesPage() {
       case 'neet':
         return 'Comprehensive entrance coaching for medical (NEET-UG) and engineering/pharmacy (MHT-CET) aspirants.';
       case 'test-series':
-        return 'Dedicated unit tests, 3 full rounds of board preliminary examinations, and all-India level OMR/CBT mock tests with detailed evaluation.';
+        return 'Dedicated unit tests, 3 full rounds of board preliminary examinations, and all-India level regular test series with detailed evaluation.';
       default:
         return 'Explore our comprehensive curriculum tailored to cultivate mastery from middle school to competitive boards.';
     }
@@ -514,7 +514,7 @@ export function OurCoursesPage() {
                     Rigorous Testing System
                   </p>
                   <p className="text-[12px] text-white/80 mt-1 leading-relaxed">
-                    <strong>Includes:</strong> 3 full rounds of board preliminary examinations, weekly chapter tests, OMR entrance drills & personal feedback.
+                    <strong>Includes:</strong> 3 full rounds of board preliminary examinations, weekly chapter tests, regular test series & personal feedback.
                   </p>
                 </div>
               )}

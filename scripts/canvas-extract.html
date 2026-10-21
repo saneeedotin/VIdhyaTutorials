@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body style="margin:0; background:transparent;">
+<canvas id="c"></canvas>
+<script>
+window.onload = () => {
+  const img = new Image();
+  img.src = '../public/logo.jpeg';
+  img.onload = () => {
+    // logo.jpeg is 600x400 approx
+    // We only want the emblem (top portion, before the text)
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = img.width;
+    tempCanvas.height = img.height;
+    const tCtx = tempCanvas.getContext('2d');
+    tCtx.drawImage(img, 0, 0);
+    
+    const imgData = tCtx.getImageData(0, 0, img.width, img.height);
+    const data = imgData.data;
+    
+    // Find bounding box of blue pixels in emblem (above text)
+    // Blue pixels have: B > 100 && B > R + 30 && B > G + 15
+    let minX = img.width, maxX = 0, minY = img.height, maxY = 0;
+    
+    // The text in logo.jpeg starts lower down, let's limit y to the emblem
+    // First scan top 70% of height for the emblem
+    const limitY = Math.floor(img.height * 0.72);
+    
+    for (let y = 0; y < limitY; y++) {
+      for (let x = 0; x < img.width; x++) {
+        const idx = (y * img.width + x) * 4;
+        const r = data[idx];
+        const g = data[idx+1];
+        const b = data[idx+2];
+        if (b > 110 && (b - r > 35) && (b - g > 15)) {
+          if (x < minX) minX = x;
+          if (x > maxX) maxX = x;
+          if (y < minY) minY = y;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+    
+    console.log('Detected emblem in logo.jpeg:', { minX, maxX, minY, maxY, w: maxX - minX, h: maxY - minY });
+    
+    // Create destination canvas with padding
+    const pad = 12;
+    const ew = (maxX - minX + 1);
+    const eh = (maxY - minY + 1);
+    const canvas = document.getElementById('c');
+    canvas.width = ew + pad * 2;
+    canvas.height = eh + pad * 2;
+    const ctx = canvas.getContext('2d');
+    
+    const outData = ctx.createImageData(canvas.width, canvas.height);
+    const out = outData.data;
+    
+    for (let y = minY; y <= maxY; y++) {
+      const dy = (y - minY) + pad;
+      for (let x = minX; x <= maxX; x++) {
+        const dx = (x - minX) + pad;
+        const srcIdx = (y * img.width + x) * 4;
+        const dstIdx = (dy * canvas.width + dx) * 4;
+        
+        const r = data[srcIdx];
+        const g = data[srcIdx+1];
+        const b = data[srcIdx+2];
+        
+        // If near white background
+        if (r > 235 && g > 235 && b > 235) {
+          out[dstIdx+3] = 0; // transparent
+        } else {
+          // Calculate blue intensity
+          // For blue pixels, keep their exact blue color and alpha
+          const isBlue = (b > r + 20);
+          if (isBlue) {
+            // Smooth edge transparency against white:
+            // brightness of (r+g)/2 tells us how close to white it is
+            const whiteness = Math.min(255, (r + g) / 2);
+            const alpha = Math.max(0, Math.min(255, 255 - whiteness * 1.05));
+            
+            // Standardize blue to vibrant brand royal blue (#2d62e6)
+            out[dstIdx] = 45;
+            out[dstIdx+1] = 98;
+            out[dstIdx+2] = 230;
+            out[dstIdx+3] = alpha > 20 ? 255 : 0;
+          } else {
+            out[dstIdx+3] = 0;
+          }
+        }
+      }
+    }
+    
+    ctx.putImageData(outData, 0, 0);
+    document.title = "DONE:" + canvas.toDataURL('image/png');
+  };
+};
+</script>
+</body>
+</html>

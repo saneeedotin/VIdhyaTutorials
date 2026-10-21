@@ -753,11 +753,11 @@ export function AdmissionFormPage() {
                       {...register('standard')}
                       className="w-full bg-surface-container-low border border-outline-variant/40 rounded-xl px-3.5 py-2.5 text-sm font-bold outline-none focus:border-primary text-on-surface"
                     >
-                      <option value="6th">Class 6th (School Section)</option>
-                      <option value="7th">Class 7th (School Section)</option>
-                      <option value="8th">Class 8th (School Section)</option>
-                      <option value="9th">Class 9th (SSC Board Prep)</option>
-                      <option value="10th">Class 10th (SSC Board Champions)</option>
+                      <option value="6th">Class 6th (SSC / ICSE / CBSE)</option>
+                      <option value="7th">Class 7th (SSC / ICSE / CBSE)</option>
+                      <option value="8th">Class 8th (SSC / ICSE / CBSE)</option>
+                      <option value="9th">Class 9th (SSC / ICSE / CBSE Board Prep)</option>
+                      <option value="10th">Class 10th (SSC / ICSE / CBSE Board Champions)</option>
                       <option value="11th">Class 11th (Junior College)</option>
                       <option value="12th">Class 12th (HSC Board & CET/NEET)</option>
                     </select>
